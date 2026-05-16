@@ -33,3 +33,6 @@ _site/
 Gemfile.lock
 vendor/
 .bundle/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
