@@ -11,10 +11,10 @@ been learning components — pandas, statistics, linear algebra. Here they
 assemble into a complete machine learning workflow: load data, clean it, explore
 it, encode it, split it, train a model, and evaluate the results. You'll see
 the full pipeline once as a worked example, repeat it on a dataset you choose,
-then finish with a theoretical notebook on the limits of what any classifier can
+then finish with a theoretical look at the limits of what any classifier can
 ever achieve.
 
-## Concepts
+## Concepts You'll Learn About
 
 - **Data cleaning** — dropping constant features, handling missing values
   (dropping rows vs. imputing with the column mode)
@@ -31,26 +31,26 @@ ever achieve.
 - **Bayes error** — the irreducible floor on classifier error when classes
   overlap; no model, however clever, can get below it
 
-## Notebooks
+## Topics
 
-- {% include nb.html local="Mushroom_Student.ipynb" %} — worked example of the
-  full pipeline on ~26,000 mushrooms (edible vs. poisonous). Mostly read-and-run;
-  the goal is to see every step before you have to do them yourself.
+- **Categorical classification pipeline** — a full end-to-end tour on ~26,000
+  mushrooms (edible vs. poisonous): cleaning, EDA, encoding, splitting, and
+  running seven classifiers back-to-back to see the sklearn API in action.
+  The notebook is mostly read-and-run — the goal is to see every step before
+  you do them yourself.
+  {% include nb.html local="Mushroom_Student.ipynb" %}
 
-- {% include nb.html local="Bayes-Error-Student.ipynb" %} — synthetic Gaussian
-  experiments showing why overlapping class distributions create a performance
-  floor no classifier can beat. You'll grid-search for the optimal split point
-  and derive the theoretical boundary.
+- **Self-selected categorical dataset** — reproduce the Mushroom workflow on a
+  dataset you find (UCI, Kaggle, data.gov). You choose the dataset and the
+  question, handle whatever messiness it has, and write a markdown paragraph
+  defending your conclusions.
+  *Assignment: upload your completed notebook by end of class.*
 
-- {% include nb.html local="Mushroom_Key.ipynb" label="Mushroom (key)" %} —
-  instructor reference.
-
-## Assignment
-
-Between the two notebooks there's a hands-on project: find your own categorical
-dataset (UCI, Kaggle, data.gov), reproduce the Mushroom workflow on it, and
-write a markdown paragraph defending your conclusions. This is the first
-deliverable where you choose both the dataset and the framing question.
+- **Bayes error** — why even the best classifier can't beat the noise when
+  class distributions overlap. You'll run experiments on synthetic Gaussian
+  data, grid-search for the optimal decision boundary, then derive it
+  analytically.
+  {% include nb.html local="Bayes-Error-Student.ipynb" %}
 
 ## What's next
 
