@@ -25,3 +25,6 @@ notebooks/data/**
 **/*.lof
 **/~*.docx
 **/*.pyc
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
