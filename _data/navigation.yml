@@ -1,0 +1,39 @@
+# Navigation for the Minimal Mistakes sidebar.
+# Pages using `sidebar: nav: "ml"` will render this menu.
+# Refine the structure and links as desired.
+
+ml:
+  - title: "Home"
+    url: /
+  - title: "Calendar"
+    url: /calendar/
+  - title: "Notes"
+    children:
+      - title: "Backprop"
+        url: /notes/backprop/
+      - title: "Multilinear Regression"
+        url: /notes/Multilinear_regression/
+      - title: "Linear Regression Derivation"
+        url: /notes/Linear_regression_derivation/
+      - title: "Correlation Coefficient"
+        url: /notes/Correlation_Coefficient/
+      - title: "SVD"
+        url: /notes/svd_notes_ml/
+      - title: "DIY Linear Regression+"
+        url: /notes/DIY-LinReg-Plus/
+      - title: "VAE Notes"
+        url: /notes/vae_notes/
+  - title: "Reference"
+    children:
+      - title: "Python Intro"
+        url: /python/
+      - title: "Statistics"
+        url: /statistics/
+      - title: "Weather Exercises"
+        url: /weather_exercises/
+      - title: "Bayes Practice"
+        url: /bayes-practice/
+      - title: "Research List"
+        url: /research-list/
+  - title: "Drafts"
+    url: /drafts/
