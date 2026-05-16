@@ -1,0 +1,168 @@
+---
+title: "ML Calendar"
+layout: archive
+sidebar:
+  nav: "ml"
+---
+
+## Daily Summary
+
+- 2/2 (Monday)
+    - 2 hr delay
+    - Review the updated [CiFar Notebook](./notebooks/CIFAR10_Training.ipynb)
+    - Find an image classification dataset on [tensorflow datasets](https://www.tensorflow.org/datasets/catalog/) and build a neural network to classify it. You should have the same sections as the CiFar notebook
+    - Sections: (load data, show sample images, build model, traing model, show training curve, data augmentation, improvements, more training curves)
+- 1/20 (Tuesday)
+    - Try this [CiFar](./notebooks/CIFAR10_Training.ipynb) Notebook
+    - Modify the network to improve accuracy as much as possible
+- 1/9 (Friday)
+    - Quarter project: Find a dataset [here](http://archive.ics.uci.edu/datasets/) or anywhere for classification, regression or anomaly detection and model it in a well documented Jupyter notebook
+    - Submit to Google Drive
+- 1/7 (Wednesday)
+    - Anomaly detection!
+    - Try this dataset [credit card](./notebooks/anomaly/CreditCard.ipynb)
+    - notebooks: [SMOTE](./notebooks/anomaly/SMOTE-credit.ipynb) and [GMM](./notebooks/anomaly/GMM-credit.ipynb)
+    - Submit your best Credit Card results to Google Drive
+- 1/5 (Monday)
+    - Log in to Google Colab
+    - Apply Ensemble methods to a previously analyzed dataset and submit to Google Drive
+- 12/18 (Thursday)
+    - AET Challenge Day
+- 12/16/2025 (Tuesday)
+    - **Ensemble Methods**
+    - Work through this [Ensemble Methods Notebook](./notebooks/Ensemble_Methods.ipynb)
+- 12/12/2025 (Friday)
+    - Finish notebooks on cross validation and grid search
+- 12/10/2025 (Wednesday)
+    - Finish fake news and twitter datasets
+    - Here's a [word embedding](./data/word2vec.md) you can try
+- 12/8/2025 (Monday)
+  - **Cross Validation and Grid Search** [notebook](./notebooks/CrossValidation.ipynb) and optional [dataset](./notebooks/mnist.pk.gz) to gunzip (if the notebook open_ml doesn't work)
+  - Lab: Use SVM and GridSearch and TfIDF to do the best you can classifying this [twitter data set](./data/twitter_training.csv)
+- 12/4/2025 (Thursday)
+  - Topic: **Support Vector Machines**
+  - [Notes Notebook](notebooks/Notes-SVM.ipynb) [(html)](notebooks/Notes-SVM.html)
+  - [SVM Lab](notebooks/SVM_Lab-Student.ipynb) [(html)](notebooks/SVM_Lab-Student.html)
+- 12/2/2025 (Tuesday)
+    - 2 hr delay
+    - **Arithmetic Codes**
+- Thanksgiving Break
+- 11/25/2025 (Tuesday)
+    - Independent Research Time
+- 11/21/2025 (Friday)
+    - Motivation of **Shannon entropy** measure (information gain)
+    - Encoding strings
+    - Ha
+- 11/19/2025 (Wednesday)
+    - Work on this [Decision Tree Lab](./notebooks/Decision_Tree_Student.ipynb) [(html)](./lessons/Decision_Tree_Student.html) using income data.
+- 11/17/2025 (Monday)
+    - Notes on **Decision Trees**
+    - Hand classifying the WillWait? Dataset
+    - Definition of Entropy and Information Gain
+- 11/13/2025 (Thursday)
+  - Continue k-NN. Finish notebook from last class (submit as KNN-1)
+  - Work on [Digits dataset](./notebooks/digits-student.ipynb) [(html)](./notebooks/digits-student.html) (submit as KNN-2)
+  - Here's a [nice writeup](https://towardsdatascience.com/comprehensive-guide-to-approximate-nearest-neighbors-algorithms-8b94f057d6b6) of the approximate nearest neighbor problem with an eye towards ML applications like Spotify and Netflix recommendations (may be a paywall I'm not sure)
+- November 11, 2025 (Tuesday)
+  - Topic: **k Nearest Neighbor**
+  - Devise algorithm in class
+  - [Implement in Jupyter](./notebooks/knn-Student.ipynb) [(html)](./notebooks/knn-Student.html)
+  - Also complete extension(s)
+- Nov 7, 2025 (Friday)
+    - Do the best LogReg you can with this [loan data](./data/loan_data.csv)
+- Nov 5, 2025 (Wednesday)
+    - Intro to **Logistic Regression**
+    - [Cancer Data](./notebooks/Cancer_Logistic_Student.ipynb)
+    - Finish notebook for classwork/HW
+- October 27, 2025 (Monday)
+    - Grade book updated; submit any missing work now!
+    - DIY Linear Regression ++ with PCA due Wednesday. [Requirements](./notes/DIY-LinReg-Plus.md) are available.
+    - New topic: Logistic Regression
+- October 23, 2025 (Thursday)
+    - This is a [test](/notebook-viewer.html?notebook=/white/2025/ML/Numpy-Intro.ipynb) ; [Download .ipynb](/white/2025/ML/Numpy-Intro.ipynb) ;[html](./Numpy-Intro.html)
+    - Submit draft of your "DIY Linear Regression (DRAFT with normalization, regularization, PCA)" by Friday night please. OK if it's incomplete.
+- October 21, 2025 (Tuesday)
+    - Turn in Image Compression
+    - Learn about [Principal Component Analysis](./notebooks/PCA.ipynb)
+    - HW project: new Linear Regression with normalization, regularization and PCA.
+- October 16, 2025 (thursday)
+    - More SVD!
+    - You'll need this [picture of Gauss](./notebooks/gauss.jpg)
+    - Work through this [Visualizing Transformation Matrices](./notebooks/Visualizing_Transformation_Matrices.ipynb)
+    - Next try [Low Rank Matrix Approximations](./notebooks/Low_Rank_Matrix_Approximations.ipynb)
+    - Finally do some [Image Compression](./notebooks/Image-Compression.ipynb)
+- October 14, 2025 (Thursday)
+    - Matrix multiply as coordinate transform
+    - Notes on the SVD (here's some OK-ish [ai-generated](./notes/svd_notes_ml.md) notes)
+- October 9, 2025 (Thursday)
+    - See [this](https://docs.google.com/document/d/1a1CSGW1cFs70oKzLhJgTniyYis3OFgonyfLOfb16CK4/edit?usp=sharing)
+    - Find 3 articles in groups, according to selected topic
+- October 3, 2025 (Friday)
+    - Linear regression: normalization and regularization
+    - Read and work through this [Life Part 2 Notebook](./notebooks/Life_Part_2_Student.ipynb)
+    - Optional AP Stats [surveys](../CS12/stats.md)
+    - Next Thursday: Library trip
+- September 30, 2025 (Tuesday)
+    - Start Linear Regression Unit. See the [lecture notes](./notes/Multilinear_regression.html)
+    - Look at [Test Score Data Set](./notebooks/Test_Scores.ipynb)
+    - Next look at [Life Expectancy Data Set](./notebooks/Life_Expectancy_Student.ipynb) and discuss in class
+    - HW: Complete exercises in Life Expectancy Data Set
+    - [Source for the Life Expectancy dataset](https://www.kaggle.com/datasets/kumarajarshi/life-expectancy-who/data)
+- September 26, 2026 (Friday)
+    - Look at [Baye's Notebook](./notebooks/Bayes-Error-Student.ipynb) and complete
+- September 24, 2025 (Wednesday)
+    - Finish self-selected data analysis: Pick a dataset from any online source, restrict it to *categorical* features only, and perform a similar analysis to the one I modeled with "Mushroom Exploration". Load the data, clean it (fill in any NaN or missing data), make some graphs, look for correlations between features and outcomes, then perform several ML algorithms. *Add an analysis* paragraph at the end where you discuss the dataset and the goodness of fit of the models. (Note: make sure your paragraph is a "Markdown" cell and not a "code" cell)
+    - Upload by end of class [here](https://forms.gle/RHYWxdPu4VhCq2js6)
+- September 22, 2025 (Monday)
+    - Go through [mushroom exploration](./notebooks/Mushroom_Student.ipynb)
+    - Do a similar analysis on your own and turn in next class (Wed)
+- September 18, 2025 (Thursday)
+    - Work on Linear Algebra notebooks and turn in!
+- September 16, 2025 (Tuesday)
+    - **Linear Algebra Week**
+    - Quick review of matrix and linear algebra
+    - Read carefully and work through [Linear Algebra and Python](./notebooks/Linear_Algebra_and_Python.ipynb) (this contains all the notes you need).
+    - Next try [Matrices Index Warmup](./notebooks/Matrices_Index_Warmup-Student.ipynb)
+    - Finally look at [Intro to Matrices in Numpy](./notebooks/Intro_to_Matrices_in_NumPy.ipynb)
+    - All of the above are due this week
+- September 12, 2025 (Friday)
+    - Quick notes on measures of spread and central tendency [AI generated notes (use at own risk)](./statistics.html)
+    - **Due today:** Linear Regression Notebook from last class
+    - **Due today:** Custom Regression Find a dataset on the internet somewhere and perform a single-variable linear regression. Make appropriate plots and discuss the quality of your fit.
+    - **Due today:** London weather -- add two trendlines (at least) to two features in this dataset. Also, most of you need to revisit what you turned in. Please
+        - Do several graphical analysis (different feature, different graph types)
+        - include at least one using "groupby" (for example to plot the average rain fall per year, or the coldest day per each month.)
+        - *ADD a regression line* using your new linear regression powers
+        - And end with a markdown cell, discussing your conclusion. Make sure any graphs that support your conclusion are clear and labeled.
+        - Add a title cell (markdown # Title) and subsection cells ( ## subtitle) where appropriate
+- September 10, 2025 (Wednesday)
+    - Finish [Linear Regression Notebook](./notebooks/Least-Squares.ipynb) due [here](https://forms.gle/RHYWxdPu4VhCq2js6)
+    - [Notes on Coefficient of Determination](./notes/Correlation_Coefficient.md) and goodness of fit for numerical models.
+    - Work on [Correlation Notebook](./notebooks/Correlation.ipynb)
+
+- September 8, 2025 (Monday)
+    - Announcement: [US AI Olympiad](../common/AI-olympiad.md)
+    - Linear Regression
+    - [Notes](./notes/Linear_regression_derivation.pdf) on derivation of linear regression formula
+    - Work on [Linear Regression Notebook](./notebooks/Least-Squares.ipynb) due at end of class [here](https://forms.gle/RHYWxdPu4VhCq2js6)
+    - Optional [Numpy Intro](./notebooks/Numpy-Intro.ipynb)
+- September 4, 2025 (Thursday)
+    - Turn in Leesburg Weather [here](https://forms.gle/RHYWxdPu4VhCq2js6)
+    - Turn in Bayes Theorem [same link](https://forms.gle/RHYWxdPu4VhCq2js6)
+    - Go over Bayes Theorem and Weather notebooks
+    - Work on London Weather project. Due at end of class!
+        - Consider the [London Weather dataset](./data/london_weather.csv). Investigate the question “Has the weather in London gotten worse in the last 50 years?” Analyse the data and make a claim that you can support. Demonstrate the validity of your claim with graphical analysis. Include trendlines or statistical analysis as appropriate. You can define what makes weather "worse" -- part of this is definitely subjective. Write your conclusions within your jupyter notebook using markdown syntax (see exiting notebooks for examples.)[Source](https://www.kaggle.com/datasets/emmanuelfwerr/london-weather-data) for dataset, which retrieved the data from [here](https://www.ecad.eu/dailydata/index.php)
+- September 2, 2025 (Tuesday)
+    - Bayes Theorem [Notes](./bayes-notes.pdf)
+    - Complete [Bayes Theorem Notebook](./notebooks/Bayes_Theorem_Student.ipynb)
+    - Quick intro to [python and loops](./python.md)
+    - HW: Due next class = Bayes Theorem notebook and Weather Exercises form last class. (Bring questions if you're stuck! You should do weather exercises 1-3 at least)
+- August 27, 2025 (Wednesday)
+    - More weather. Try some of [these exercises](./weather_exercises.md)
+- August 25, 2025 (Monday)
+    - Go over intro notebook
+    - Loading and processing data with `pandas`
+    - [weather notebook](notebooks/weather.ipynb) and [weather data](notebooks/weather-daylight.csv)
+- August 21, 2025 (Thursday)
+    - Intro to class. Installing software.
+    - Intro to Python [notebook](notebooks/Quick-Intro-To-Python.ipynb)

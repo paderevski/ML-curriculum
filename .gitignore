@@ -1,0 +1,8 @@
+data
+data/**
+hidden
+hidden/**
+.DS_Store
+.ipynb_checkpoints/
+.vscode/
+**/.DS_Store
