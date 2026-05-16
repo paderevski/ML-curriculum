@@ -1,0 +1,152 @@
+# Jekyll _config.yml — adapted from parent aet-cs.github.io site
+# for local-only preview of the ML curriculum.
+#
+# Key differences from parent config:
+#   - title/subtitle reflect this is the ML subset
+#   - url and baseurl are empty (local serving at http://localhost:4000/)
+#   - removed the CS11/hidden exclude (not relevant here)
+#
+# Restart `jekyll serve` after editing this file — it isn't auto-reloaded.
+
+# Theme
+theme: "minimal-mistakes-jekyll"
+minimal_mistakes_skin: "default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+
+# Site Settings
+locale: "en-US"
+title: "ML Curriculum (local preview)"
+title_separator: "-"
+subtitle: "Machine Learning at the Academies of Loudoun"
+name: "Patrick White"
+description: "Local preview of the ML curriculum subset"
+url: ""        # empty for local serving
+baseurl: ""    # empty for local serving
+repository: "paderevski/ML-curriculum"
+words_per_minute: 200
+breadcrumbs: false
+enable_copy_code_button: true
+search: false
+
+# Site Author
+author:
+  name: "Patrick White"
+  avatar:
+  bio: "Computer Science Teacher"
+  location: "AET"
+  email:
+  links:
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/paderevski"
+
+# Site Footer
+footer:
+  links:
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/paderevski/ML-curriculum"
+
+# Reading Files
+include:
+  - .htaccess
+  - _pages
+exclude:
+  - "*.sublime-project"
+  - "*.sublime-workspace"
+  - vendor
+  - .asset-cache
+  - .bundle
+  - .jekyll-assets-cache
+  - .sass-cache
+  - assets/js/plugins
+  - assets/js/_main.js
+  - assets/js/vendor
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE
+  - node_modules
+  - package.json
+  - package-lock.json
+  - README*.md
+  - vendor
+  - tmp
+  - /docs
+  - /test
+  - scripts/
+  - drafts/Unit4_Deep_Dive.md  # teacher notes, not for student view
+keep_files:
+  - .git
+encoding: "utf-8"
+markdown_ext: "markdown,mkdown,mkdn,mkd,md"
+
+# Conversion
+markdown: kramdown
+highlighter: rouge
+lsi: false
+excerpt_separator: "\n\n"
+incremental: false
+
+# Markdown Processing
+kramdown:
+  input: GFM
+  hard_wrap: false
+  auto_ids: true
+  footnote_nr: 1
+  entity_output: as_char
+  toc_levels: 1..6
+  smart_quotes: lsquo,rsquo,ldquo,rdquo
+  enable_coderay: false
+  math_engine: mathjax  # for math in backprop notes, etc.
+
+# Sass/SCSS
+sass:
+  sass_dir: _sass
+  style: compressed
+
+# Outputting
+permalink: /:categories/:title/
+timezone: America/New_York
+
+# Plugins
+plugins:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-feed
+  - jekyll-include-cache
+  - jekyll-redirect-from
+  - jekyll-relative-links
+
+whitelist:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-feed
+  - jekyll-include-cache
+
+# Archives
+category_archive:
+  type: liquid
+  path: /categories/
+tag_archive:
+  type: liquid
+  path: /tags/
+
+# HTML Compression
+compress_html:
+  clippings: all
+  ignore:
+    envs: development
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: single
+      author_profile: false
+      read_time: false
+      comments: false
+      share: false
+      related: true
