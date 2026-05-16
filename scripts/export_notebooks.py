@@ -3,10 +3,12 @@
 
 from __future__ import annotations
 
+import argparse
 import json
 import subprocess
 import sys
 import tempfile
+from collections.abc import Sequence
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -55,11 +57,9 @@ def needs_export(notebook_path: Path) -> bool:
     return notebook_path.stat().st_mtime > html_path.stat().st_mtime
 
 
-def export_notebook(notebook_path: Path) -> None:
-    html_path = output_html_path(notebook_path)
-    if not needs_export(notebook_path):
-        print(f"Skipping {notebook_path} (up to date: {html_path})")
-        return
+def export_notebook(notebook_path: Path, *, force: bool = False) -> bool:
+    if not force and not needs_export(notebook_path):
+        return False
 
     sanitized_path = sanitized_notebook_path(notebook_path)
     print("Converting " + str(sanitized_path) + "....")
@@ -83,16 +83,47 @@ def export_notebook(notebook_path: Path) -> None:
     finally:
         sanitized_path.unlink(missing_ok=True)
     print("Finished")
+    return True
+
+
+def parse_args(argv: Sequence[str]) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Export Jupyter notebooks to adjacent HTML files.",
+    )
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="rebuild HTML even when the existing output is up to date",
+    )
+    parser.add_argument(
+        "notebooks",
+        nargs="*",
+        help="optional notebook paths to export",
+    )
+    return parser.parse_args(argv)
+
+
+def print_summary(*, converted: int, skipped: int, forced: bool) -> None:
+    mode = "forced export" if forced else "incremental export"
+    print(f"Export summary ({mode}): {converted} converted, {skipped} skipped")
 
 
 def main() -> None:
-    notebook_args = [Path(arg).resolve() for arg in sys.argv[1:]]
+    args = parse_args(sys.argv[1:])
+    notebook_args = [Path(arg).resolve() for arg in args.notebooks]
     notebook_paths = notebook_args or iter_notebooks()
+    converted = 0
+    skipped = 0
 
     for notebook_path in notebook_paths:
         if notebook_path.suffix != ".ipynb":
             raise SystemExit(f"Expected a notebook path, got: {notebook_path}")
-        export_notebook(notebook_path)
+        if export_notebook(notebook_path, force=args.force):
+            converted += 1
+        else:
+            skipped += 1
+
+    print_summary(converted=converted, skipped=skipped, forced=args.force)
 
 
 if __name__ == "__main__":
