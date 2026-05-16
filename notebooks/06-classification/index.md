@@ -1,18 +1,52 @@
 ---
-title: "Unit 06: Classification"
+title: "Unit 06: Classification Classics"
 layout: single
 sidebar:
   nav: "ml"
 permalink: /notebooks/06-classification/
 ---
 
-This page collects the main notebooks for the classification unit. Because it
-shares a folder with the notebooks, links here can use folder-local notebook
-references instead of full site-wide paths.
+Three algorithms in three weeks, each introduced with a different dataset and a
+different motivating question. The consistent pattern throughout: devise or
+derive the algorithm in class first, then implement it, then reach for the
+library. You earn the library.
 
-## Core notebooks
+## Concepts You'll Learn About
 
-- {% include nb.html local="Cancer_Logistic_Student.ipynb" %}
-- {% include nb.html local="Decision_Tree_Student" label="Decision Tree Lab" %}
-- {% include nb.html local="digits-student" label="Digits dataset" %}
-- {% include nb.html local="knn-Student" label="k Nearest Neighbor" %}
+- **Logistic regression** — the sigmoid function; log-odds; maximum likelihood
+  vs. least squares; interpreting coefficients
+- **k-Nearest Neighbors** — distance metrics; the curse of dimensionality; why
+  k matters; approximate NN at scale
+- **Decision trees** — recursive partitioning; information gain; entropy as an
+  impurity measure
+- **Shannon entropy** — bits as a measure of uncertainty; encoding strings;
+  connection to Huffman coding
+
+## Topics
+
+- **Logistic Regression on cancer data** — binary classification on the
+  Wisconsin breast cancer dataset; reading the classification report carefully
+  because false negatives cost lives.
+  {% include nb.html local="Cancer_Logistic_Student.ipynb" %}
+
+- **Logistic Regression on loan data** — open-ended: do the best logistic
+  regression you can on a loan default dataset and defend your choices.
+  *Assignment: submit your notebook.*
+
+- **k-Nearest Neighbors** — devise the algorithm on the board first, then
+  implement it. Applied to handwritten digit recognition.
+  {% include nb.html local="knn-Student.ipynb" %}
+  {% include nb.html local="digits-student.ipynb" %}
+
+- **Decision Trees** — hand-classify the WillWait? restaurant dataset to
+  motivate entropy and information gain, then run the lab on income data.
+  {% include nb.html local="Decision_Tree_Student.ipynb" %}
+
+- **Shannon entropy** — information as surprise; encoding strings efficiently;
+  connection to the compression ideas coming in Unit 07.
+
+## What's next
+
+[Unit 07](/notebooks/07-svm-cv-ensembles/) closes out the classical-ML arc with
+SVMs, proper cross-validation, word embeddings, and ensemble methods — the
+professional-practice layer on top of the algorithms you now know.
