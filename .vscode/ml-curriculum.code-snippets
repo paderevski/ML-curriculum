@@ -1,0 +1,50 @@
+{
+  "Notebook include by file": {
+    "scope": "markdown",
+    "prefix": "nb",
+    "body": [
+      "{% include nb.html file=\"$1\" %}"
+    ],
+    "description": "Insert a notebook include that expands to read/source/Colab links"
+  },
+  "Notebook include by file with label": {
+    "scope": "markdown",
+    "prefix": "nbl",
+    "body": [
+      "{% include nb.html file=\"$1\" label=\"$2\" %}"
+    ],
+    "description": "Insert a notebook include with an explicit label"
+  },
+  "Notebook include by path": {
+    "scope": "markdown",
+    "prefix": "nbp",
+    "body": [
+      "{% include nb.html path=\"$1\" %}"
+    ],
+    "description": "Insert a notebook include using a full notebook path"
+  },
+  "Notebook include by path with label": {
+    "scope": "markdown",
+    "prefix": "nblp",
+    "body": [
+      "{% include nb.html path=\"$1\" label=\"$2\" %}"
+    ],
+    "description": "Insert a notebook include using a full path and explicit label"
+  },
+  "Notebook include by local file": {
+    "scope": "markdown",
+    "prefix": "nblocraw",
+    "body": [
+      "{% include nb.html local=\"$1\" %}"
+    ],
+    "description": "Insert a notebook include resolved relative to the current unit folder"
+  },
+  "Notebook include by local file with label": {
+    "scope": "markdown",
+    "prefix": "nbloclraw",
+    "body": [
+      "{% include nb.html local=\"$1\" label=\"$2\" %}"
+    ],
+    "description": "Insert a labeled notebook include resolved relative to the current unit folder"
+  }
+}
