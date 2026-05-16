@@ -102,6 +102,13 @@ kramdown:
 sass:
   sass_dir: _sass
   style: compressed
+  quiet_deps: true
+  silence_deprecations:
+    - import
+    - global-builtin
+    - if-function
+    - slash-div
+    - color-functions
 
 # Outputting
 permalink: /:categories/:title/

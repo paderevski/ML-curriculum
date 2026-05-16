@@ -7,19 +7,19 @@ sidebar:
 
 ## Unit Pages
 
-- [Unit 01: Foundations](./notebooks/01-foundations/)
-- [Unit 02: Regression and Correlation](./notebooks/02-regression-correlation/)
-- [Unit 03: Linear Algebra](./notebooks/03-linear-algebra/)
-- [Unit 04: First Pipeline](./notebooks/04-first-pipeline/)
-- [Unit 05: Regression Plus](./notebooks/05-regression-plus/)
-- [Unit 06: Classification](./notebooks/06-classification/)
-- [Unit 07: SVM, Cross Validation, and Ensembles](./notebooks/07-svm-cv-ensembles/)
-- [Unit 08: Anomaly Detection](./notebooks/08-anomaly/)
-- [Unit 09: Dense Neural Networks](./notebooks/09-dense-neural-networks/)
-- [Unit 10: CNNs](./notebooks/10-cnns/)
-- [Unit 11: Transfer and Time Series](./notebooks/11-transfer-and-time-series/)
-- [Unit 12: RNNs and Seq2Seq](./notebooks/12-rnns-seq2seq/)
-- [Unit 13: Transformers and Generative Models](./notebooks/13-transformers-generative/)
+- [Unit 01: Foundations](/notebooks/01-foundations/)
+- [Unit 02: Regression and Correlation](/notebooks/02-regression-correlation/)
+- [Unit 03: Linear Algebra](/notebooks/03-linear-algebra/)
+- [Unit 04: First Pipeline](/notebooks/04-first-pipeline/)
+- [Unit 05: Regression Plus](/notebooks/05-regression-plus/)
+- [Unit 06: Classification](/notebooks/06-classification/)
+- [Unit 07: SVM, Cross Validation, and Ensembles](/notebooks/07-svm-cv-ensembles/)
+- [Unit 08: Anomaly Detection](/notebooks/08-anomaly/)
+- [Unit 09: Dense Neural Networks](/notebooks/09-dense-neural-networks/)
+- [Unit 10: CNNs](/notebooks/10-cnns/)
+- [Unit 11: Transfer and Time Series](/notebooks/11-transfer-and-time-series/)
+- [Unit 12: RNNs and Seq2Seq](/notebooks/12-rnns-seq2seq/)
+- [Unit 13: Transformers and Generative Models](/notebooks/13-transformers-generative/)
 
 ## Daily Summary UPDATED
 
