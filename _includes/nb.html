@@ -17,7 +17,7 @@
   {%- if include.colab == false or include.colab == 'false' -%}
     {%- assign show_colab = false -%}
   {%- endif -%}
-  <span class="notebook-links notebook-links--inline"><span class="notebook-links__label">{{ notebook_label }}</span> (<a href="{{ '/' | append: notebook_entry.html_path | relative_url }}">Read notebook</a> | <a href="{{ '/' | append: notebook_entry.ipynb_path | relative_url }}">Download source</a>{% if show_colab and notebook_entry.colab_url %} | <a href="{{ notebook_entry.colab_url }}">Open in Colab</a>{% endif %})</span>
+  <span class="notebook-links notebook-links--inline"><span class="notebook-links__label">{{ notebook_label }}</span> <span class="notebook-links__actions">(<a href="{{ '/' | append: notebook_entry.html_path | relative_url }}">view</a> | <a href="{{ '/' | append: notebook_entry.ipynb_path | relative_url }}">download</a>{% if show_colab and notebook_entry.colab_url %} | <a href="{{ notebook_entry.colab_url }}">colab</a>{% endif %})</span></span>
 {%- else -%}
   <span class="notebook-links notebook-links--missing">Missing notebook metadata for {{ notebook_key }}</span>
 {%- endif -%}
