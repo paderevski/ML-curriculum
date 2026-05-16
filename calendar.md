@@ -1,5 +1,5 @@
 ---
-title: "ML Calendar"
+title: "ML Calendar Updated By Topics"
 layout: archive
 sidebar:
   nav: "ml"
@@ -181,7 +181,6 @@ sidebar:
     - DIY Linear Regression ++ with PCA due Wednesday. [Requirements](./notes/DIY-LinReg-Plus.md) are available.
     - New topic: Logistic Regression
 - October 23, 2025 (Thursday)
-    - This is a [test](/notebook-viewer.html?notebook=/white/2025/ML/Numpy-Intro.ipynb) ; [Download .ipynb](/white/2025/ML/Numpy-Intro.ipynb) ;[html](./Numpy-Intro.html)
     - Submit draft of your "DIY Linear Regression (DRAFT with normalization, regularization, PCA)" by Friday night please. OK if it's incomplete.
 - October 21, 2025 (Tuesday)
     - Turn in Image Compression
