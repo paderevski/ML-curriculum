@@ -36,3 +36,7 @@ _site/
 Gemfile.lock
 vendor/
 .bundle/
+
+# Generated notebook artifacts
+_data/notebooks.json
+notebooks/**/*.html

@@ -5,8 +5,27 @@ sidebar:
   nav: "ml"
 ---
 
+## Unit Pages
+
+- [Unit 01: Foundations](./notebooks/01-foundations/)
+- [Unit 02: Regression and Correlation](./notebooks/02-regression-correlation/)
+- [Unit 03: Linear Algebra](./notebooks/03-linear-algebra/)
+- [Unit 04: First Pipeline](./notebooks/04-first-pipeline/)
+- [Unit 05: Regression Plus](./notebooks/05-regression-plus/)
+- [Unit 06: Classification](./notebooks/06-classification/)
+- [Unit 07: SVM, Cross Validation, and Ensembles](./notebooks/07-svm-cv-ensembles/)
+- [Unit 08: Anomaly Detection](./notebooks/08-anomaly/)
+- [Unit 09: Dense Neural Networks](./notebooks/09-dense-neural-networks/)
+- [Unit 10: CNNs](./notebooks/10-cnns/)
+- [Unit 11: Transfer and Time Series](./notebooks/11-transfer-and-time-series/)
+- [Unit 12: RNNs and Seq2Seq](./notebooks/12-rnns-seq2seq/)
+- [Unit 13: Transformers and Generative Models](./notebooks/13-transformers-generative/)
+
 ## Daily Summary UPDATED
 
+- test
+
+- Work on {% include nb.html file="Decision_Tree_Student.ipynb" label="Decision Tree Lab" %} using income data.
 - 5/11 (Monday)
     - Variational Autoencoders
     - See [notes](./notes/vae_notes.pdf) and work through [notebook](./notebooks/13-transformers-generative/VAE_celeba_student.ipynb)
@@ -14,6 +33,7 @@ sidebar:
     - Continue work on previous notebooks and assignments
 - 5/5 (Tuesday)
     - Cinco de Mayo!
+    - {% include nb.html file="Intro_to_Matrices_in_NumPy" %}
     - Download [this notebook](./notebooks/13-transformers-generative/image_captioning_assignment.ipynb). Fill in the blanks, answer the Qs and run
 - 5/1 (Friday)
     - Class Discussion on Transformers questions!
