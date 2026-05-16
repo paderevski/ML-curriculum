@@ -5,7 +5,7 @@ sidebar:
   nav: "ml"
 ---
 
-## Daily Summary
+## Daily Summary UPDATED
 
 - 5/11 (Monday)
     - Variational Autoencoders
