@@ -25,10 +25,12 @@ is doing before you let it do it.
 
 - **Linear regression derivation** — the math behind least squares, then
   applied in NumPy without a library.
+  [Derivation notes](/notes/Linear_regression_derivation/)
   {% include nb.html local="Least-Squares.ipynb" %}
 
 - **Correlation and R²** — measuring how well a line fits and how strongly
   two variables are related.
+  [Correlation Coefficient notes](/notes/Correlation_Coefficient/)
   {% include nb.html local="Correlation.ipynb" %}
 
 - **NumPy reference** — a supplementary notebook covering the array operations

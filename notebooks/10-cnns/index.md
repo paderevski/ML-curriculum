@@ -31,21 +31,24 @@ an idea, refine it, and present progress.
 - **CIFAR-10 baseline** — load the dataset, build a baseline CNN, plot the
   training curve, modify the architecture to improve accuracy.
   {% include nb.html local="CIFAR10_Training.ipynb" %}
-  *Assignment: find a TensorFlow Datasets classification task and replicate the
-  full CIFAR pipeline (load → sample → build → train → curve → augment → improve).*
+  *Assignment: find a [TensorFlow Datasets](https://www.tensorflow.org/datasets/catalog/)
+  classification task and replicate the full CIFAR pipeline
+  (load → sample → build → train → curve → augment → improve).*
 
 - **Presentations** — first round of project progress presentations.
 
 - **Research topic brainstorm** — each student develops three plausible research
   ideas and pitches them in a two-minute, no-slides format: problem, solution,
-  who cares.
+  who cares. See the [research list](/research-list/) for inspiration and
+  framing guidance.
 
 - **What is a convolution?** — building spatial intuition for filters before
   applying them in a network.
   {% include nb.html local="ImageConvolutions.ipynb" %}
 
-- **LeNet** — the foundational CNN architecture applied to MNIST/FashionMNIST,
-  following the [d2l.ai chapter 7.6 treatment](https://d2l.ai). A great
+- **LeNet** — the foundational CNN architecture applied to MNIST/FashionMNIST.
+  Following [d2l.ai chapter 7.6](https://d2l.ai/chapter_convolutional-neural-networks/lenet.html)
+  ([local PDF](/notes/d2l.ai-LeNet/)). A great
   [3D interactive visualization](https://adamharley.com/nn_vis/cnn/3d.html)
   accompanies this session.
 

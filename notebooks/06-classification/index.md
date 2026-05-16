@@ -31,10 +31,13 @@ library. You earn the library.
 
 - **Logistic Regression on loan data** — open-ended: do the best logistic
   regression you can on a loan default dataset and defend your choices.
+  *(Dataset provided via course data folder.)*
   *Assignment: submit your notebook.*
 
 - **k-Nearest Neighbors** — devise the algorithm on the board first, then
   implement it. Applied to handwritten digit recognition.
+  A [survey of approximate NN algorithms](https://towardsdatascience.com/comprehensive-guide-to-approximate-nearest-neighbors-algorithms-8b94f057d6b6)
+  connects the classroom version to Spotify- and Netflix-scale systems.
   {% include nb.html local="knn-Student.ipynb" %}
   {% include nb.html local="digits-student.ipynb" %}
 

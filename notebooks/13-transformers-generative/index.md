@@ -36,11 +36,15 @@ tool for Transformer-scale work.
 
 - **PyTorch foundations** — tensors, autograd, and the training loop; switching
   from TF/Keras at exactly the right moment.
+  [Official PyTorch tutorial](https://docs.pytorch.org/tutorials/beginner/basics/intro.html) ·
+  [3Blue1Brown Ch5](https://www.3blue1brown.com/lessons/neural-networks)
   {% include nb.html local="PytorchTutorial.ipynb" %}
 
 - **Transformer NMT** — building a full Transformer for English-to-Spanish
-  translation; reading the original "Attention Is All You Need" paper; working
-  through comprehension questions that probe the places students usually gloss over.
+  translation.
+  [3Blue1Brown Ch6](https://www.3blue1brown.com/lessons/attention) ·
+  ["Attention Is All You Need" (Vaswani et al., 2017)](https://arxiv.org/pdf/1706.03762) ·
+  [Comprehension questions](/notebooks/13-transformers-generative/transformer_nmt_questions/)
   {% include nb.html local="transformer_nmt_with_spanish.ipynb" %}
 
 - **CharGPT** — a GPT-style Transformer generating Shakespeare character by

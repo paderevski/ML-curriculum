@@ -28,9 +28,9 @@ Each step reveals a limitation of the previous approach, motivating the next.
 
 ## Topics
 
-- **RNNs and character-level text generation** — Karpathy's "Unreasonable
-  Effectiveness of RNNs" as context, then generating Shakespeare one character
-  at a time.
+- **RNNs and character-level text generation** —
+  [Karpathy's "Unreasonable Effectiveness of RNNs"](https://karpathy.github.io/2015/05/21/rnn-effectiveness/)
+  as context, then generating Shakespeare one character at a time.
   {% include nb.html local="Shakespeare_Student.ipynb" %}
 
 - **Reading day** — working through assigned background reading on sequence models.
@@ -46,6 +46,7 @@ Each step reveals a limitation of the previous approach, motivating the next.
 - **Improve + round-trip translation** — extend the starter with round-trip
   evaluation (English → Spanish → English); add attention and beam search from
   the reference notebook.
+  [Translation test cases](/notes/translation_examples/)
   {% include nb.html local="seq2seq_nmt_reference.ipynb" %}
   {% include nb.html local="seq2seq_nmt_pytorch_hf_reference.ipynb" %}
   *Assignment: implement attention, run round-trip tests, submit with

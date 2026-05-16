@@ -28,8 +28,9 @@ structure you can exploit.
 
 ## Topics
 
-- **Multilinear regression** — introducing multiple features with a
-  toy dataset, then scaling up to real WHO life-expectancy data.
+- **Multilinear regression** — introducing multiple features with a toy dataset,
+  then scaling up to real [WHO life-expectancy data](https://www.kaggle.com/datasets/kumarajarshi/life-expectancy-who/data).
+  [Lecture notes](/notes/Multilinear_regression/)
   {% include nb.html local="Test_Scores.ipynb" %}
   {% include nb.html local="Life_Expectancy_Student.ipynb" %}
 
@@ -40,8 +41,9 @@ structure you can exploit.
 - **Article research** — groups each find three articles on a chosen ML topic.
   An early dry-run for the spring research pitches.
 
-- **SVD** — matrix multiplication as a geometric transformation; then
-  using SVD to compress an image of Gauss to a fraction of its original size.
+- **SVD** — matrix multiplication as a geometric transformation; then using SVD
+  to compress an image of Gauss to a fraction of its original size.
+  [SVD notes](/notes/svd_notes_ml/)
   {% include nb.html local="Visualizing_Transformation_Matrices.ipynb" %}
   {% include nb.html local="Low_Rank_Matrix_Approximations.ipynb" %}
   {% include nb.html local="Image-Compression.ipynb" %}

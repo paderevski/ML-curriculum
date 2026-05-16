@@ -30,14 +30,16 @@ what it shows.
   and answering questions about them. First contact with a real, imperfect dataset.
   {% include nb.html local="weather.ipynb" %}
 
-- **Weather exercises** — eleven exercises in three tiers (Beginner /
-  Intermediate / Advanced). The tiered structure reappears throughout the year.
-  Includes a chi-square investigation into whether weekend weather differs from
-  weekday weather.
+- **[Weather exercises](/weather_exercises/)** — eleven exercises in three tiers
+  (Beginner / Intermediate / Advanced). The tiered structure reappears throughout
+  the year. Includes a chi-square investigation into whether weekend weather
+  differs from weekday weather.
   *Assignment: complete and submit your chosen tier.*
 
-- **Bayes' theorem** — notes and a notebook working through the probability
-  mechanics that underlie every classifier you'll build this year.
+- **Bayes' theorem** — [notes (PDF)](/bayes-notes.pdf) and a notebook working
+  through the probability mechanics that underlie every classifier you'll build
+  this year. The choice to introduce Bayes *before* any model is deliberate —
+  it primes you to think probabilistically from the start.
   {% include nb.html local="Bayes_Theorem_Student.ipynb" %}
 
 - **London Weather project** — take a 50-year climate dataset and defend a
