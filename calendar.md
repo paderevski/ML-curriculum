@@ -7,11 +7,113 @@ sidebar:
 
 ## Daily Summary
 
+- 5/11 (Monday)
+    - Variational Autoencoders
+    - See [notes](./notes/vae_notes.pdf) and work through [notebook](./notebooks/VAE_celeba_student.ipynb)
+- 5/7 (Thursday)
+    - Continue work on previous notebooks and assignments
+- 5/5 (Tuesday)
+    - Cinco de Mayo!
+    - Download [this notebook](./notebooks/image_captioning_assignment.ipynb). Fill in the blanks, answer the Qs and run
+- 5/1 (Friday)
+    - Class Discussion on Transformers questions!
+        - Choose a discussion **leader** and a scribe
+        - Sit in a circle and go over **all** questions
+        - **Submit** a final, whole class document with best answers to all questions. (Scribe can share with me)
+    - Fine tuning
+        - Your task is to fine tune GPT2 or similar model on a text corpus
+        - This is like fine tuning ResNet on images
+        - There are many tutorials on line, most of them are buggy so you'll need to debug
+        - Find a tutorial, probably using 'huggingface' libraries. Download a Gpt2-style model, unfreeze the last layers, feed it a new corpus of text and ask it to generate new text.
+        - Training may take a while (mine took 40 minutes), but see what you can come up with!
+- 4/29 (Wednesday)
+    - Share and/or email your group responses from last class to me
+    - Discuss answers
+    - Try to complete [this notebook](./notebooks/charGPT_assignment.ipynb) that uses transformers for Shakespeare text
+    - You'll probably need [this hint](./notebooks/tokens.txt) when you start building your CharGPT block.
+- 4/27 (Monday)
+    - Watch [Chapter 6](https://www.3blue1brown.com/?topic=neural-networks) here, a video introduction to Transformers
+    - Run this [transformers notebook](./notebooks/transformer_nmt_with_spanish.ipynb)
+    - Read [this paper](https://arxiv.org/pdf/1706.03762)
+    - Answer [these questions](./notebooks/transformer_nmt_questions.md). You can work in groups of 1-4 people and collaborate on a google doc etc. Bring answers or questions to next class!
+- 4/23 (Thursday)
+    - Watch [Chapter 5](https://www.3blue1brown.com/?topic=neural-networks) here, a video introduction to Transformers
+    - Complete [this tutorial](https://docs.pytorch.org/tutorials/beginner/basics/intro.html)
+    - Submit tutorial code to javadrop before next class (make your own notebook based on the tutorials)
+- 4/17 (Friday)
+    - Turn in Spanish-Eng-Spanish roundtrip notebook by end of class (even if incomplete)
+    - Improve your model as much as you like, and implement the round-trip
+    - Try to implement **Beam Search** and experiment with different depths and widths
+    - Try to implement an **Attention* Layer**. You can see my example below if you like. An **Attention Layer** takes all the outputs from the encoder in addition to the hidden state, and connects every encoder output to every decoder input. This lets it learn much longer patterns, more intelligently. It is also a pain to get right in tensorflow.
+    - Submit to Javadrop by 3:30 please
+- 4/15 (Wednesday)
+    - Improve your model!
+    - Next goal: round trip (eng->span->eng)
+    - Here are some [test cases](./notes/translation_examples.md)
+    - Also here is a [sample working notebook](./notebooks/seq2seq_nmt_reference.ipynb) with Attention Layers and Beam Search
+- 4/13 (Monday)
+    - Start with [this Notebook](./notebooks/Neural-Machine-Translation-Starter.ipynb)
+    - Build an LSTM based S2s translator!
+- 4/8 (Wednesday)
+    - Classification / Seniment Analysis RNN
+    - Complete [this notebook](./notebooks/sentiment_analysis-student.ipynb) in class
+- 4/6 (monday)
+    - please read [this](https://bit.ly/4bVoiGP)
+- 3/24 (Tuesday)
+    - RNNs!
+    - Read [this](https://karpathy.github.io/2015/05/21/rnn-effectiveness/)
+    - Work on [Shakespeare](./notebooks/Shakespeare_Student.ipynb)
+- 3/18 (Wednesday)
+  - Time series data
+  - Predict [AAPL stock prices](./data/AAPL.csv)
+  - Here's my [Apple prediction](./data/apple-prediction.png) using a history of 64 and a 1 node NN
+- 3/16 (Monday)
+  - Guest speaker!
+- 3/12 (Thursday)
+  - Project: Image classification
+  - Task: collect images around the school, train a classifier on public data, see how well it works
+  - Submit to Javadrop
+- 3/10 (Tuesday)
+    - Fine Tuning
+    - Download a model like ResNet or MobileNet
+    - Freeze all but the last layers
+    - Train on an image classification dataset
+    - Report accuracy
+- 3/2 (Monday)
+    - It's snowing!
+    - Check out [Bird Calls](./notebooks/Birds.ipynb)
+- 2/26 (Thursday)
+    - Implement [AlexNet](./notebooks/alexnet.ipynb) and train on CiFAR 100
+    - resize patch [here](./patch.md)
+- 2/24 (Tuesday)
+    - Engineering Week
+    - Short class on "Why Activation Functions" [notebook](./notebooks/Activation-Functions.ipynb)
+- 2/20 (Friday)
+    - Presentations!
+- 2/18 (Wednesday)
+    - Implement your own CNN today
+    - Check out this isualization of [MNIST](https://adamharley.com/nn_vis/cnn/3d.html)
+  - Implement a LeNet Tensorflow
+    - Consult [Dive into Deep Learning](https://d2l.ai), chapters 7.6 [Or this pdf](./notes/d2l.ai-LeNet.pdf)
+    - Do *not* use the `dl` package -- modify the code provided
+    - Test your model on MNIST or FashionMNIST
+  - Next class: quick pitch of your top 3 research ideas from last week. Present to class. No slides. 2 minutes total. What's the problem? What's your solution? Who cares?
+- 2/11 (Thursday)
+    - CNNs
+    - Check out this [intro to convolutions](./notebooks/ImageConvolutions.ipynb)
+- 2/9 (Tuesday)
+    - Research topic [brainstorm](./research-list.md)
+    - Slide show due at end of class!
+- 2/6 (Friday)
+    - Watch Presentations
+- 2/4 (Wednesdy)
+    - Watch presentations
 - 2/2 (Monday)
     - 2 hr delay
     - Review the updated [CiFar Notebook](./notebooks/CIFAR10_Training.ipynb)
     - Find an image classification dataset on [tensorflow datasets](https://www.tensorflow.org/datasets/catalog/) and build a neural network to classify it. You should have the same sections as the CiFar notebook
     - Sections: (load data, show sample images, build model, traing model, show training curve, data augmentation, improvements, more training curves)
+    - **HW** Finish and upload to [web form](https://forms.gle/Vo9CzVyf4ohz8jddA) before next class!
 - 1/20 (Tuesday)
     - Try this [CiFar](./notebooks/CIFAR10_Training.ipynb) Notebook
     - Modify the network to improve accuracy as much as possible
