@@ -42,9 +42,11 @@ what it shows.
   it primes you to think probabilistically from the start.
   {% include nb.html local="Bayes_Theorem_Student.ipynb" %}
 
-- **London Weather project** — take a 50-year climate dataset and defend a
-  claim about how London weather has changed. You define "worse" — and you have
-  to justify that choice in writing.
+- **London Weather project** — take a 50-year climate dataset
+  ([london_weather.csv](/data/london_weather.csv),
+  [original source](https://www.kaggle.com/datasets/emmanuelfwerr/london-weather-data))
+  and defend a claim about how London weather has changed. You define "worse" —
+  and you have to justify that choice in writing.
   *Assignment: submit your analysis notebook.*
 
 ## What's next

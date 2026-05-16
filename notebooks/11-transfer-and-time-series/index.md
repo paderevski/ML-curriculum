@@ -42,8 +42,10 @@ matters*, setting up the sequence models that follow.
 - **Guest speaker.**
 
 - **AAPL stock price prediction** — a time-series regression: predict
-  tomorrow's close from a window of recent prices. A deliberate setup for
+  tomorrow's close from a window of recent prices
+  ([AAPL.csv](/data/AAPL.csv)). A deliberate setup for
   "what would an RNN do better?"
+  ([reference prediction](/data/apple-prediction.png))
   {% include nb.html local="AAPL.ipynb" %}
 
 ## What's next

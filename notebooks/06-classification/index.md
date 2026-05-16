@@ -30,8 +30,7 @@ library. You earn the library.
   {% include nb.html local="Cancer_Logistic_Student.ipynb" %}
 
 - **Logistic Regression on loan data** — open-ended: do the best logistic
-  regression you can on a loan default dataset and defend your choices.
-  *(Dataset provided via course data folder.)*
+  regression you can on [loan_data.csv](/data/loan_data.csv) and defend your choices.
   *Assignment: submit your notebook.*
 
 - **k-Nearest Neighbors** — devise the algorithm on the board first, then
