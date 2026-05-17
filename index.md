@@ -1,4 +1,8 @@
-# Junior Research: Machine Learning
+---
+layout: single
+title: "Junior Research: Machine Learning"
+permalink: /
+---
 
   * Instructor: Dr. White
   * Room: 2312
@@ -7,4 +11,4 @@
 
 ### Class Calendar
 
-- **[Assignments here](calendar.md)**
+- **[Assignments here]({{ '/calendar/' | relative_url }})**

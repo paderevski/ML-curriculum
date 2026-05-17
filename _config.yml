@@ -1,12 +1,5 @@
-# Jekyll _config.yml — adapted from parent aet-cs.github.io site
-# for local-only preview of the ML curriculum.
-#
-# Key differences from parent config:
-#   - title/subtitle reflect this is the ML subset
-#   - url and baseurl are empty (local serving at http://localhost:4000/)
-#   - removed the CS11/hidden exclude (not relevant here)
-#
-# Restart `jekyll serve` after editing this file — it isn't auto-reloaded.
+# Jekyll _config.yml for the published ML curriculum site.
+# Use _config.local.yml for localhost overrides during local preview.
 
 # Theme
 theme: "minimal-mistakes-jekyll"
@@ -14,13 +7,13 @@ minimal_mistakes_skin: "default" # "air", "aqua", "contrast", "dark", "dirt", "n
 
 # Site Settings
 locale: "en-US"
-title: "ML Curriculum (local preview)"
+title: "ML Curriculum"
 title_separator: "-"
 subtitle: "Machine Learning at the Academies of Loudoun"
 name: "Patrick White"
-description: "Local preview of the ML curriculum subset"
-url: ""        # empty for local serving
-baseurl: ""    # empty for local serving
+description: "Machine Learning at the Academies of Loudoun"
+url: "https://paderevski.github.io"
+baseurl: "/ML-curriculum"
 repository: "paderevski/ML-curriculum"
 words_per_minute: 200
 breadcrumbs: false
@@ -73,7 +66,7 @@ exclude:
   - /docs
   - /test
   - scripts/
-  - drafts/Unit4_Deep_Dive.md  # teacher notes, not for student view
+  - drafts/Unit4_Deep_Dive.md # teacher notes, not for student view
 keep_files:
   - .git
 encoding: "utf-8"
@@ -96,7 +89,7 @@ kramdown:
   toc_levels: 1..6
   smart_quotes: lsquo,rsquo,ldquo,rdquo
   enable_coderay: false
-  math_engine: mathjax  # for math in backprop notes, etc.
+  math_engine: mathjax # for math in backprop notes, etc.
 
 # Sass/SCSS
 sass:

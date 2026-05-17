@@ -3,6 +3,10 @@
 This branch adds the minimum needed to render the ML curriculum locally with
 Jekyll, matching the parent `aet-cs.github.io` site's theme and plugins.
 
+The published site uses the GitHub Pages project-site path `/ML-curriculum`.
+Local preview uses `_config.local.yml` to override that so you can still serve
+at the plain `http://localhost:4000/` root.
+
 ## One-time setup
 
 On macOS (e.g. M4 MacBook Pro), system Ruby is too old for current Jekyll.
@@ -46,7 +50,7 @@ This is the recommended local preview command now. It generates notebook `.html`
 If you only want to serve the site without regenerating notebook artifacts:
 
 ```bash
-bundle exec jekyll serve
+bundle exec jekyll serve --config _config.yml,_config.local.yml
 ```
 
 The site renders at <http://localhost:4000>. With `--livereload` the page
@@ -59,7 +63,7 @@ bundle exec jekyll serve --livereload
 To rebuild only (no server):
 
 ```bash
-bundle exec jekyll build
+bundle exec jekyll build --config _config.yml,_config.local.yml
 ```
 
 To regenerate notebook HTML companions and link metadata locally:
@@ -83,7 +87,8 @@ Output goes to `_site/` (gitignored).
 
 ## What's where
 
-- `_config.yml` — site configuration, adapted from the parent site
+- `_config.yml` — published-site configuration for GitHub Pages
+- `_config.local.yml` — local overrides for localhost preview
 - `_data/navigation.yml` — the "ml" sidebar referenced by `calendar.md`
   (`sidebar: nav: "ml"`). Edit this to control the left navigation
 - `Gemfile` — gem dependencies (Jekyll 4.3, Minimal Mistakes, plugins)
