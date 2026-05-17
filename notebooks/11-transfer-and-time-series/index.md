@@ -43,13 +43,13 @@ matters*, setting up the sequence models that follow.
 
 - **AAPL stock price prediction** — a time-series regression: predict
   tomorrow's close from a window of recent prices
-  ([AAPL.csv](/data/AAPL.csv)). A deliberate setup for
+  ([AAPL.csv](./data/AAPL.csv)). A deliberate setup for
   "what would an RNN do better?"
-  ([reference prediction](/data/apple-prediction.png))
+  ([reference prediction](./data/apple-prediction.png))
   {% include nb.html local="AAPL.ipynb" %}
 
 ## What's next
 
-[Unit 12](/notebooks/12-rnns-seq2seq/) answers the time-series question properly
+[Unit 12](./notebooks/12-rnns-seq2seq/) answers the time-series question properly
 with recurrent neural networks — and takes them all the way to neural machine
 translation with attention.

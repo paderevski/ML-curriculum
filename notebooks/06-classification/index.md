@@ -30,7 +30,7 @@ library. You earn the library.
   {% include nb.html local="Cancer_Logistic_Student.ipynb" %}
 
 - **Logistic Regression on loan data** — open-ended: do the best logistic
-  regression you can on [loan_data.csv](/data/loan_data.csv) and defend your choices.
+  regression you can on [loan_data.csv](./data/loan_data.csv) and defend your choices.
   *Assignment: submit your notebook.*
 
 - **k-Nearest Neighbors** — devise the algorithm on the board first, then
@@ -49,6 +49,6 @@ library. You earn the library.
 
 ## What's next
 
-[Unit 07](/notebooks/07-svm-cv-ensembles/) closes out the classical-ML arc with
+[Unit 07](./notebooks/07-svm-cv-ensembles/) closes out the classical-ML arc with
 SVMs, proper cross-validation, word embeddings, and ensemble methods — the
 professional-practice layer on top of the algorithms you now know.

@@ -39,13 +39,13 @@ coming later.
   {% include nb.html local="SVM_Lab-Student.ipynb" %}
 
 - **Cross-validation and grid search** — applied to Twitter airline sentiment
-  ([twitter_training.csv](/data/twitter_training.csv)) with SVM + TF-IDF;
+  ([twitter_training.csv](./data/twitter_training.csv)) with SVM + TF-IDF;
   includes the `mnist.pk.gz` dataset as a secondary target.
   {% include nb.html local="CrossValidation.ipynb" %}
 
 - **Word embeddings and fake news** — moving from bag-of-words to dense
   representations; applying them to a fake-news classification task.
-  [word2vec embeddings](/data/word2vec/)
+  [word2vec embeddings](./data/word2vec/)
   {% include nb.html local="Twitter.ipynb" %}
   {% include nb.html local="Twitter-Airline.ipynb" %}
 
@@ -58,5 +58,5 @@ coming later.
 
 ## What's next
 
-[Unit 08](/notebooks/08-anomaly/) is a short focused unit on anomaly detection —
+[Unit 08](./notebooks/08-anomaly/) is a short focused unit on anomaly detection —
 the second-quarter capstone, closing with an open-ended quarter project.

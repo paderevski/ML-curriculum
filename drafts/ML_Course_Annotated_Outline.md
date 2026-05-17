@@ -144,7 +144,7 @@ The "you don't have to train from scratch" insight, and a pivot toward sequences
 - **Mar 10 — Fine-tuning ResNet / MobileNet.** Freeze all but the last layers, retrain.
 - **Mar 12 — Collect-your-own-images project.** Students photograph things around the school and train a classifier. Real-world data collection plus transfer learning.
 - **Mar 16 — Guest speaker.**
-- **Mar 18 — Time series on [AAPL stock prices](https://aet-cs.github.io/white/2025/ML/data/AAPL.csv).** The [Apple prediction reference](/white/2025/ML/data/apple-prediction.png) shows what 64-step history + a single hidden node can do — a nice setup for "now let's see what an actual RNN buys us."
+- **Mar 18 — Time series on [AAPL stock prices](https://aet-cs.github.io/white/2025/ML/data/AAPL.csv).** The [Apple prediction reference](./data/apple-prediction.png) shows what 64-step history + a single hidden node can do — a nice setup for "now let's see what an actual RNN buys us."
 
 ---
 
