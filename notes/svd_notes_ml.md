@@ -1,3 +1,10 @@
+---
+title: "SVD Notes"
+layout: single
+sidebar:
+  nav: "ml"
+---
+
 # Singular Value Decomposition (SVD)
 
 ## The Big Idea

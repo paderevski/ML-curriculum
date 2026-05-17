@@ -1,4 +1,7 @@
 ---
+sidebar:
+  nav: "ml"
+
 title: Back Propagation Example and Theory
 ---
 

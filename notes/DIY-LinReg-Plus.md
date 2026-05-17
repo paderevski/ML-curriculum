@@ -1,3 +1,10 @@
+---
+title: "DIY Linear Regression+"
+layout: single
+sidebar:
+  nav: "ml"
+---
+
 Include
 
 1. Analysis of Features

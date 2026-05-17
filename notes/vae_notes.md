@@ -1,4 +1,8 @@
 ---
+title: "Variational Autoencoders"
+sidebar:
+  nav: "ml"
+
 header-includes:
   - |
     \usepackage{fullpage}
