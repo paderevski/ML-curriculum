@@ -1,18 +1,25 @@
-# Read the Docs configuration file
-# See https://docs.readthedocs.io/en/stable/config-file/v2.html for details
-
-# Required
 version: 2
 
-# Set the OS, Python version, and other tools you might need
 build:
   os: ubuntu-24.04
   tools:
+    python: "3.11"
     ruby: "3.3"
-
-  commands:
-    # Install dependencies
-    - gem install bundler
-    - bundle install
-    # Build the site and save generated files into Read the Docs directory
-    - bundle exec jekyll build --config _config.yml,_config_rtd.yml --destination $READTHEDOCS_OUTPUT/html
+  jobs:
+    install:
+      - python -m pip install --upgrade pip nbconvert nbformat
+      - gem install bundler
+      - bundle install
+    build:
+      html:
+        - mkdir -p "$READTHEDOCS_OUTPUT/html"
+        - |
+          cat > _config.rtd.generated.yml <<EOF
+          title: "ML Curriculum"
+          description: "Machine Learning at the Academies of Loudoun"
+          url: ""
+          baseurl: "/en/${READTHEDOCS_VERSION}"
+          EOF
+        - python scripts/export_notebooks.py
+        - python scripts/generate_notebook_metadata.py
+        - bundle exec jekyll build --config _config.yml,_config.rtd.generated.yml --destination "$READTHEDOCS_OUTPUT/html"
