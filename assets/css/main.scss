@@ -64,16 +64,11 @@ $global-font-family: "Source Sans 3", -apple-system, sans-serif;  // warmer, aca
   }
 }
 
-body {
-    margin: 0;
-    padding: 0;
-    color: $text-color;
-    font-family: $global-font-family;
-    line-height: 1.5;
-    font-size: 0.8em;
+// ─── Base font size ───────────────────────────────────────────────────────────
+// Overrides MM's body font size. Value is relative to the browser default
+// (usually 16px), so 0.8em ≈ 12.8px, 0.875em ≈ 14px, 0.9em ≈ 14.4px.
+// MM handles all other body properties; only font-size needs overriding here.
 
-    &.overflow--hidden {
-        /* when primary navigation is visible, the content in the background won't scroll */
-        overflow: hidden;
-    }
+body {
+  font-size: 0.8em;
 }
