@@ -45,7 +45,7 @@ jobs:
         run: python scripts/generate_notebook_metadata.py
 
       - name: Build Jekyll site
-        run: bundle exec jekyll build
+        run: bundle exec jekyll build --config _config.yml,_config.github.yml
 
       - name: Upload site preview
         if: github.event_name == 'pull_request'

@@ -1,5 +1,5 @@
-# Jekyll _config.yml for the published ML curriculum site.
-# Use _config.local.yml for localhost overrides during local preview.
+# Jekyll _config.yml for local development.
+# GitHub Pages production overrides live in _config.github.yml.
 
 # Theme
 theme: "minimal-mistakes-jekyll"
@@ -7,13 +7,13 @@ minimal_mistakes_skin: "default" # "air", "aqua", "contrast", "dark", "dirt", "n
 
 # Site Settings
 locale: "en-US"
-title: "ML Curriculum"
+title: "ML Curriculum (local preview)"
 title_separator: "-"
 subtitle: "Machine Learning at the Academies of Loudoun"
 name: "Patrick White"
-description: "Machine Learning at the Academies of Loudoun"
-url: "https://paderevski.github.io"
-baseurl: "/ML-curriculum"
+description: "Local preview of the ML curriculum subset"
+url: ""
+baseurl: ""
 repository: "paderevski/ML-curriculum"
 words_per_minute: 200
 breadcrumbs: false
