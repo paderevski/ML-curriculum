@@ -150,3 +150,8 @@ defaults:
       comments: false
       share: false
       related: true
+  - scope:
+      path: "notes"
+      type: pages
+    values:
+      math: true
