@@ -34,22 +34,20 @@ tool for Transformer-scale work.
 
 ## Topics
 
-- **PyTorch foundations** — tensors, autograd, and the training loop; switching
-  from TF/Keras at exactly the right moment.
-  [Official PyTorch tutorial](https://docs.pytorch.org/tutorials/beginner/basics/intro.html) ·
-  [3Blue1Brown Ch5](https://www.3blue1brown.com/lessons/neural-networks)
+- **PyTorch foundations** — tensors, autograd, and the training loop; switching to Pytorch for more complicated modern models.
+  [Official PyTorch tutorial](https://docs.pytorch.org/tutorials/beginner/basics/intro.html)
   {% include nb.html local="PytorchTutorial.ipynb" %}
 
-- **Transformer NMT** — building a full Transformer for English-to-Spanish
+- **Transformer Neural Machine Translation (NMT)** — building a full Transformer for English-to-Spanish
   translation.
-  [3Blue1Brown Ch6](https://www.3blue1brown.com/lessons/attention) ·
-  ["Attention Is All You Need" (Vaswani et al., 2017)](https://arxiv.org/pdf/1706.03762) ·
-  [Comprehension questions](../notebooks/13-transformers-generative/transformer_nmt_questions/)
-  {% include nb.html local="transformer_nmt_with_spanish.ipynb" %}
+    - [3Blue1Brown Ch6](https://www.3blue1brown.com/lessons/attention) ·
+    - ["Attention Is All You Need" (Vaswani et al., 2017)](https://arxiv.org/pdf/1706.03762) ·
+    - [Comprehension questions](../notebooks/13-transformers-generative/transformer_nmt_questions/)
+    - {% include nb.html local="transformer_nmt_with_spanish.ipynb" %}
 
 - **CharGPT** — a GPT-style Transformer generating Shakespeare character by
   character; tokenization and the autoregressive loop.
-  {% include nb.html local="charGPT_assignment.ipynb" %}
+  - {% include nb.html local="charGPT_assignment.ipynb" %}
 
 - **Class discussion + GPT-2 fine-tuning** — fishbowl discussion on the
   Transformer comprehension questions, then fine-tuning a GPT-2-style model on a
@@ -58,14 +56,15 @@ tool for Transformer-scale work.
 
 - **Image captioning** — a CNN encodes an image; a Transformer decoder generates
   a caption. Vision and language meeting in the middle.
-  {% include nb.html local="image_captioning_assignment.ipynb" %}
+  - {% include nb.html local="image_captioning_assignment.ipynb" %}
 
 - **Variational Autoencoders on CelebA** — learning a latent space of faces;
-  sampling new faces; interpolating between them. A fitting close to the year.
-  {% include nb.html local="VAE_celeba_student.ipynb" %}
+  sampling new faces; interpolating between them.
+  - [VAE notes](../../notes/vae_notes/) — theory behind the ELBO, the
+  reparameterization trick, and the reconstruction vs. KL tradeoff.
+  - {% include nb.html local="VAE_celeba_student.ipynb" %}
 
 ## Notes
-
 - [VAE notes](../../notes/vae_notes/) — theory behind the ELBO, the
   reparameterization trick, and the reconstruction vs. KL tradeoff.
 - [Transformer comprehension questions](../notebooks/13-transformers-generative/transformer_nmt_questions.md) —

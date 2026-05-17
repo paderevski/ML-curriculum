@@ -29,7 +29,7 @@ if [[ ${#staged_notebooks[@]} -gt 0 ]]; then
   python3 scripts/export_notebooks.py "${staged_notebooks[@]}"
 fi
 
-for notebook_path in "${deleted_notebooks[@]}"; do
+for notebook_path in "${#deleted_notebooks[@]}"; do
   html_path="${notebook_path%.ipynb}.html"
   rm -f "$html_path"
 done
