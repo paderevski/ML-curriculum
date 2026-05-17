@@ -1,4 +1,7 @@
 ---
+sidebar:
+  nav: "ml"
+
 title: "Linear Regression"
 ---
 

@@ -4,7 +4,6 @@ hidden
 hidden/**
 .DS_Store
 .ipynb_checkpoints/
-.vscode/
 **/.DS_Store
 notebooks/data/
 notebooks/data/**
@@ -25,3 +24,18 @@ notebooks/data/**
 **/*.lof
 **/~*.docx
 **/*.pyc
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Jekyll
+_site/
+.jekyll-cache/
+.jekyll-metadata
+Gemfile.lock
+vendor/
+.bundle/
+
+# Generated notebook artifacts
+_data/notebooks.json
+notebooks/**/*.html

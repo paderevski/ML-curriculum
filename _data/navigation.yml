@@ -1,0 +1,60 @@
+# Sidebar navigation for the ML curriculum.
+# Pages use `sidebar: nav: "ml"` to display this menu.
+#
+# Items without a `url` render as bold section headings (not links).
+# Items with `children` show as a nested list beneath their parent.
+
+ml:
+  - title: "Home"
+    url: /
+  - title: "Calendar"
+    url: /calendar/
+
+  - title: "Units"
+    children:
+      - title: "01 · Foundations"
+        url: /notebooks/01-foundations/
+      - title: "02 · Regression & Correlation"
+        url: /notebooks/02-regression-correlation/
+      - title: "03 · Linear Algebra"
+        url: /notebooks/03-linear-algebra/
+      - title: "04 · First Pipeline"
+        url: /notebooks/04-first-pipeline/
+      - title: "05 · Regression++"
+        url: /notebooks/05-regression-plus/
+      - title: "06 · Classification"
+        url: /notebooks/06-classification/
+      - title: "07 · SVM & Ensembles"
+        url: /notebooks/07-svm-cv-ensembles/
+      - title: "08 · Anomaly Detection"
+        url: /notebooks/08-anomaly/
+      - title: "09 · Dense Networks"
+        url: /notebooks/09-dense-neural-networks/
+      - title: "10 · CNNs"
+        url: /notebooks/10-cnns/
+      - title: "11 · Transfer Learning"
+        url: /notebooks/11-transfer-and-time-series/
+      - title: "12 · RNNs & Seq2Seq"
+        url: /notebooks/12-rnns-seq2seq/
+      - title: "13 · Transformers"
+        url: /notebooks/13-transformers-generative/
+
+  - title: "Notes"
+    children:
+      - title: "Backpropagation"
+        url: /notes/backprop/
+      - title: "SVD"
+        url: /notes/svd_notes_ml/
+      - title: "DIY LinReg+"
+        url: /notes/DIY-LinReg-Plus/
+      - title: "VAE"
+        url: /notes/vae_notes/
+
+  - title: "Reference"
+    children:
+      - title: "Weather Exercises"
+        url: /weather_exercises/
+      - title: "Bayes Practice"
+        url: /bayes-practice/
+      - title: "Research List"
+        url: /research-list/

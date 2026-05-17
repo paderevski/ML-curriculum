@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+repo_root="$(git rev-parse --show-toplevel)"
+cd "$repo_root"
+
+staged_notebooks=()
+deleted_notebooks=()
+
+while IFS=$'\t' read -r status path; do
+  [[ -z "$status" ]] && continue
+
+  case "$status" in
+    D)
+      deleted_notebooks+=("$path")
+      ;;
+    *)
+      staged_notebooks+=("$path")
+      ;;
+  esac
+done < <(git diff --cached --name-status --diff-filter=ACMRD -- '*.ipynb')
+
+if [[ ${#staged_notebooks[@]} -eq 0 && ${#deleted_notebooks[@]} -eq 0 ]]; then
+  exit 0
+fi
+
+if [[ ${#staged_notebooks[@]} -gt 0 ]]; then
+  python3 scripts/export_notebooks.py "${staged_notebooks[@]}"
+fi
+
+for notebook_path in "${deleted_notebooks[@]}"; do
+  html_path="${notebook_path%.ipynb}.html"
+  rm -f "$html_path"
+done
+
+python3 scripts/generate_notebook_metadata.py

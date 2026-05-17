@@ -1,7 +1,11 @@
 ---
+title: "Variational Autoencoders"
+sidebar:
+  nav: "ml"
+
 header-includes:
-	- |
-		\usepackage{fullpage}
+  - |
+    \usepackage{fullpage}
 ---
 
 # Variational Autoencoders: Pre-reading Notes

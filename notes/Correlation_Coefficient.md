@@ -1,4 +1,7 @@
 ---
+sidebar:
+  nav: "ml"
+
 title: "Coefficient of Determination"
 ---
 
