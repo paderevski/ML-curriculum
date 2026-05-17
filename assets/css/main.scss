@@ -4,9 +4,32 @@
 
 @charset "utf-8";
 
-// Must import MM skin and core before any custom rules
+// ─── Typography ───────────────────────────────────────────────────────────────
+// Defined BEFORE the MM imports so the !default flag picks up this value.
+// Also update _includes/head/custom.html to load the matching Google Font.
+//
+// Swap the active line to change the body font:
+$global-font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+// $global-font-family: "Source Sans 3", -apple-system, sans-serif;  // warmer, academic
+// $global-font-family: "Nunito", -apple-system, sans-serif;          // rounded, friendly
+// $global-font-family: "IBM Plex Sans", -apple-system, sans-serif;   // structured, technical
+// $global-font-family: -apple-system, BlinkMacSystemFont, sans-serif; // MM default (system font)
+
+// MM skin and core — must come AFTER custom variable definitions
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}";
 @import "minimal-mistakes";
+
+// ─── Page width ───────────────────────────────────────────────────────────────
+// MM reserves padding-right for a right sidebar (TOC, etc.) we don't use.
+// Zero it out so the article fills the available space.
+// Increase from 0 to e.g. "2em" if you want breathing room on the right.
+
+@media (min-width: 64em) {  // MM's $large breakpoint (~1024px)
+  .page { padding-right: 0; }
+}
+@media (min-width: 80em) {  // MM's $x-large breakpoint (~1280px)
+  .page { padding-right: 0; }
+}
 
 // ─── Notebook link label ──────────────────────────────────────────────────────
 // The notebook title that appears before (view | download | colab).
