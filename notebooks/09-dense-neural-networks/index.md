@@ -40,11 +40,11 @@ is woven into the CNNs unit that follows.
 
 ## Notes
 
-- [Backpropagation — worked example and theory](./notes/backprop/) — a
+- [Backpropagation — worked example and theory](../../notes/backprop/) — a
   fully worked 2-2-1 network with hand-traced forward and backward passes.
 
 ## What's next
 
-[Unit 10](./notebooks/10-cnns/) applies these ideas to images — convolutional
+[Unit 10](../notebooks/10-cnns/) applies these ideas to images — convolutional
 networks replace the dense layers with learned spatial filters that are far
 more efficient on image data.

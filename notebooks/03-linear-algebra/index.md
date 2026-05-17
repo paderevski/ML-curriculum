@@ -36,5 +36,5 @@ proof-writing.
 
 ## What's next
 
-[Unit 04](./notebooks/04-first-pipeline/) is the first end-to-end ML project —
+[Unit 04](../notebooks/04-first-pipeline/) is the first end-to-end ML project —
 you'll use everything from Units 1–3 to clean, explore, and model a real dataset.

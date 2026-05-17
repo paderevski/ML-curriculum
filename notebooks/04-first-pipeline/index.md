@@ -54,7 +54,7 @@ ever achieve.
 
 ## What's next
 
-[Unit 05](./notebooks/05-regression-plus/) moves to continuous data — multilinear
+[Unit 05](../notebooks/05-regression-plus/) moves to continuous data — multilinear
 regression, regularization, SVD, and PCA — and closes with the DIY Linear
 Regression project, a more open-ended version of the same "find your own dataset"
 pattern introduced here.

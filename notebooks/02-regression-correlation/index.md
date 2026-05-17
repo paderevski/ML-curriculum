@@ -25,12 +25,12 @@ is doing before you let it do it.
 
 - **Linear regression derivation** — the math behind least squares, then
   applied in NumPy without a library.
-  [Derivation notes](./notes/Linear_regression_derivation/)
+  [Derivation notes](../../notes/Linear_regression_derivation/)
   {% include nb.html local="Least-Squares.ipynb" %}
 
 - **Correlation and R²** — measuring how well a line fits and how strongly
   two variables are related.
-  [Correlation Coefficient notes](./notes/Correlation_Coefficient/)
+  [Correlation Coefficient notes](../../notes/Correlation_Coefficient/)
   {% include nb.html local="Correlation.ipynb" %}
 
 - **NumPy reference** — a supplementary notebook covering the array operations
@@ -44,10 +44,10 @@ is doing before you let it do it.
 
 ## Notes
 
-- [Linear regression derivation (notes)](./notes/Linear_regression_derivation/)
-- [Correlation Coefficient (notes)](./notes/Correlation_Coefficient/)
+- [Linear regression derivation (notes)](../../notes/Linear_regression_derivation/)
+- [Correlation Coefficient (notes)](../../notes/Correlation_Coefficient/)
 
 ## What's next
 
-[Unit 03](./notebooks/03-linear-algebra/) is a focused two-day pause to build
+[Unit 03](../notebooks/03-linear-algebra/) is a focused two-day pause to build
 the matrix vocabulary you'll need for SVD, PCA, and neural networks later in the year.

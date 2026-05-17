@@ -52,7 +52,7 @@ def rewrite_calendar(mapping):
     # Sort by basename length (longest first) so longer names match before shorter ones
     for basename in sorted(mapping.keys(), key=len, reverse=True):
         new_path = mapping[basename]
-        # Match (./notebooks/<basename>) or (notebooks/<basename>) in markdown link contexts.
+        # Match (../notebooks/<basename>) or (notebooks/<basename>) in markdown link contexts.
         # We're conservative: only inside parentheses (markdown link target).
         for old_form in [
             f"./notebooks/{basename}",
@@ -62,9 +62,7 @@ def rewrite_calendar(mapping):
             # to avoid matching inside a longer path.
             # Pattern: old_form followed by ) or whitespace at end of line
             pattern = re.escape(old_form) + r"(?=[)\s])"
-            new_form = (
-                f"./{new_path}" if old_form.startswith("./") else new_path
-            )
+            new_form = f"./{new_path}" if old_form.startswith("./") else new_path
             new_text, n = re.subn(pattern, new_form, text)
             text = new_text
             replacements += n

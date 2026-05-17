@@ -48,12 +48,12 @@ an idea, refine it, and present progress.
 
 - **LeNet** — the foundational CNN architecture applied to MNIST/FashionMNIST.
   Following [d2l.ai chapter 7.6](https://d2l.ai/chapter_convolutional-neural-networks/lenet.html)
-  ([local PDF](./notes/d2l.ai-LeNet/)). A great
+  ([local PDF](../../notes/d2l.ai-LeNet/)). A great
   [3D interactive visualization](https://adamharley.com/nn_vis/cnn/3d.html)
   accompanies this session.
 
 - **Activation functions** — covered during Engineering Week; see
-  [Unit 09](./notebooks/09-dense-neural-networks/) for the notebook.
+  [Unit 09](../notebooks/09-dense-neural-networks/) for the notebook.
 
 - **AlexNet on CIFAR-100** — scaling depth and applying dropout; training a
   historically significant architecture on a harder dataset.
@@ -63,6 +63,6 @@ an idea, refine it, and present progress.
 
 ## What's next
 
-[Unit 11](./notebooks/11-transfer-and-time-series/) introduces transfer learning —
+[Unit 11](../notebooks/11-transfer-and-time-series/) introduces transfer learning —
 the insight that you don't have to train from scratch — and ends with a pivot
 toward sequential data.

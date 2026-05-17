@@ -36,14 +36,14 @@ what it shows.
   differs from weekday weather.
   *Assignment: complete and submit your chosen tier.*
 
-- **Bayes' theorem** — [notes (PDF)](./notes/bayes-notes.pdf) and a notebook working
+- **Bayes' theorem** — [notes (PDF)](../../notes/bayes-notes.pdf) and a notebook working
   through the probability mechanics that underlie every classifier you'll build
   this year. The choice to introduce Bayes *before* any model is deliberate —
   it primes you to think probabilistically from the start.
   {% include nb.html local="Bayes_Theorem_Student.ipynb" %}
 
 - **London Weather project** — take a 50-year climate dataset
-  ([london_weather.csv](./data/london_weather.csv),
+  ([london_weather.csv](../../data/london_weather.csv),
   [original source](https://www.kaggle.com/datasets/emmanuelfwerr/london-weather-data))
   and defend a claim about how London weather has changed. You define "worse" —
   and you have to justify that choice in writing.
@@ -51,5 +51,5 @@ what it shows.
 
 ## What's next
 
-[Unit 02](./notebooks/02-regression-correlation/) introduces the first actual
+[Unit 02](../notebooks/02-regression-correlation/) introduces the first actual
 model: linear regression derived from scratch, before any library does it for you.

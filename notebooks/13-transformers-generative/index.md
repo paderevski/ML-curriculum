@@ -44,7 +44,7 @@ tool for Transformer-scale work.
   translation.
   [3Blue1Brown Ch6](https://www.3blue1brown.com/lessons/attention) ·
   ["Attention Is All You Need" (Vaswani et al., 2017)](https://arxiv.org/pdf/1706.03762) ·
-  [Comprehension questions](./notebooks/13-transformers-generative/transformer_nmt_questions/)
+  [Comprehension questions](../notebooks/13-transformers-generative/transformer_nmt_questions/)
   {% include nb.html local="transformer_nmt_with_spanish.ipynb" %}
 
 - **CharGPT** — a GPT-style Transformer generating Shakespeare character by
@@ -66,7 +66,7 @@ tool for Transformer-scale work.
 
 ## Notes
 
-- [VAE notes](./notes/vae_notes/) — theory behind the ELBO, the
+- [VAE notes](../../notes/vae_notes/) — theory behind the ELBO, the
   reparameterization trick, and the reconstruction vs. KL tradeoff.
-- [Transformer comprehension questions](./notebooks/13-transformers-generative/transformer_nmt_questions.md) —
+- [Transformer comprehension questions](../notebooks/13-transformers-generative/transformer_nmt_questions.md) —
   detailed questions to work through alongside the NMT notebook.

@@ -46,7 +46,7 @@ Each step reveals a limitation of the previous approach, motivating the next.
 - **Improve + round-trip translation** — extend the starter with round-trip
   evaluation (English → Spanish → English); add attention and beam search from
   the reference notebook.
-  [Translation test cases](./notes/translation_examples/)
+  [Translation test cases](../../notes/translation_examples/)
   {% include nb.html local="seq2seq_nmt_reference.ipynb" %}
   {% include nb.html local="seq2seq_nmt_pytorch_hf_reference.ipynb" %}
   *Assignment: implement attention, run round-trip tests, submit with
@@ -54,11 +54,11 @@ Each step reveals a limitation of the previous approach, motivating the next.
 
 ## Notes
 
-- [Translation examples](./notes/translation_examples/) — reference input/output
+- [Translation examples](../../notes/translation_examples/) — reference input/output
   pairs for testing your translation model.
 
 ## What's next
 
-[Unit 13](./notebooks/13-transformers-generative/) replaces the recurrence entirely
+[Unit 13](../notebooks/13-transformers-generative/) replaces the recurrence entirely
 with self-attention — the Transformer — then uses it for translation, text
 generation, image captioning, and generative modeling.

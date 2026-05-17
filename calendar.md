@@ -7,19 +7,19 @@ sidebar:
 
 ## Unit Pages
 
-- [Unit 01: Foundations](./notebooks/01-foundations/)
-- [Unit 02: Regression and Correlation](./notebooks/02-regression-correlation/)
-- [Unit 03: Linear Algebra](./notebooks/03-linear-algebra/)
-- [Unit 04: First Pipeline](./notebooks/04-first-pipeline/)
-- [Unit 05: Regression Plus](./notebooks/05-regression-plus/)
-- [Unit 06: Classification](./notebooks/06-classification/)
-- [Unit 07: SVM, Cross Validation, and Ensembles](./notebooks/07-svm-cv-ensembles/)
-- [Unit 08: Anomaly Detection](./notebooks/08-anomaly/)
-- [Unit 09: Dense Neural Networks](./notebooks/09-dense-neural-networks/)
-- [Unit 10: CNNs](./notebooks/10-cnns/)
-- [Unit 11: Transfer and Time Series](./notebooks/11-transfer-and-time-series/)
-- [Unit 12: RNNs and Seq2Seq](./notebooks/12-rnns-seq2seq/)
-- [Unit 13: Transformers and Generative Models](./notebooks/13-transformers-generative/)
+- [Unit 01: Foundations](../notebooks/01-foundations/)
+- [Unit 02: Regression and Correlation](../notebooks/02-regression-correlation/)
+- [Unit 03: Linear Algebra](../notebooks/03-linear-algebra/)
+- [Unit 04: First Pipeline](../notebooks/04-first-pipeline/)
+- [Unit 05: Regression Plus](../notebooks/05-regression-plus/)
+- [Unit 06: Classification](../notebooks/06-classification/)
+- [Unit 07: SVM, Cross Validation, and Ensembles](../notebooks/07-svm-cv-ensembles/)
+- [Unit 08: Anomaly Detection](../notebooks/08-anomaly/)
+- [Unit 09: Dense Neural Networks](../notebooks/09-dense-neural-networks/)
+- [Unit 10: CNNs](../notebooks/10-cnns/)
+- [Unit 11: Transfer and Time Series](../notebooks/11-transfer-and-time-series/)
+- [Unit 12: RNNs and Seq2Seq](../notebooks/12-rnns-seq2seq/)
+- [Unit 13: Transformers and Generative Models](../notebooks/13-transformers-generative/)
 
 ## Daily Summary UPDATED
 
@@ -28,13 +28,13 @@ sidebar:
 - Work on {% include nb.html file="Decision_Tree_Student.ipynb" label="Decision Tree Lab" %} using income data.
 - 5/11 (Monday)
     - Variational Autoencoders
-    - See [notes](./notes/vae_notes.pdf) and work through [notebook](./notebooks/13-transformers-generative/VAE_celeba_student.ipynb)
+    - See [notes](../../notes/vae_notes.pdf) and work through [notebook](../notebooks/13-transformers-generative/VAE_celeba_student.ipynb)
 - 5/7 (Thursday)
     - Continue work on previous notebooks and assignments
 - 5/5 (Tuesday)
     - Cinco de Mayo!
     - {% include nb.html file="Intro_to_Matrices_in_NumPy" %}
-    - Download [this notebook](./notebooks/13-transformers-generative/image_captioning_assignment.ipynb). Fill in the blanks, answer the Qs and run
+    - Download [this notebook](../notebooks/13-transformers-generative/image_captioning_assignment.ipynb). Fill in the blanks, answer the Qs and run
 - 5/1 (Friday)
     - Class Discussion on Transformers questions!
         - Choose a discussion **leader** and a scribe
@@ -49,13 +49,13 @@ sidebar:
 - 4/29 (Wednesday)
     - Share and/or email your group responses from last class to me
     - Discuss answers
-    - Try to complete [this notebook](./notebooks/13-transformers-generative/charGPT_assignment.ipynb) that uses transformers for Shakespeare text
-    - You'll probably need [this hint](./notebooks/13-transformers-generative/tokens.txt) when you start building your CharGPT block.
+    - Try to complete [this notebook](../notebooks/13-transformers-generative/charGPT_assignment.ipynb) that uses transformers for Shakespeare text
+    - You'll probably need [this hint](../notebooks/13-transformers-generative/tokens.txt) when you start building your CharGPT block.
 - 4/27 (Monday)
     - Watch [Chapter 6](https://www.3blue1brown.com/?topic=neural-networks) here, a video introduction to Transformers
-    - Run this [transformers notebook](./notebooks/13-transformers-generative/transformer_nmt_with_spanish.ipynb)
+    - Run this [transformers notebook](../notebooks/13-transformers-generative/transformer_nmt_with_spanish.ipynb)
     - Read [this paper](https://arxiv.org/pdf/1706.03762)
-    - Answer [these questions](./notebooks/13-transformers-generative/transformer_nmt_questions.md). You can work in groups of 1-4 people and collaborate on a google doc etc. Bring answers or questions to next class!
+    - Answer [these questions](../notebooks/13-transformers-generative/transformer_nmt_questions.md). You can work in groups of 1-4 people and collaborate on a google doc etc. Bring answers or questions to next class!
 - 4/23 (Thursday)
     - Watch [Chapter 5](https://www.3blue1brown.com/?topic=neural-networks) here, a video introduction to Transformers
     - Complete [this tutorial](https://docs.pytorch.org/tutorials/beginner/basics/intro.html)
@@ -69,24 +69,24 @@ sidebar:
 - 4/15 (Wednesday)
     - Improve your model!
     - Next goal: round trip (eng->span->eng)
-    - Here are some [test cases](./notes/translation_examples.md)
-    - Also here is a [sample working notebook](./notebooks/12-rnns-seq2seq/seq2seq_nmt_reference.ipynb) with Attention Layers and Beam Search
+    - Here are some [test cases](../../notes/translation_examples.md)
+    - Also here is a [sample working notebook](../notebooks/12-rnns-seq2seq/seq2seq_nmt_reference.ipynb) with Attention Layers and Beam Search
 - 4/13 (Monday)
-    - Start with [this Notebook](./notebooks/12-rnns-seq2seq/Neural-Machine-Translation-Starter.ipynb)
+    - Start with [this Notebook](../notebooks/12-rnns-seq2seq/Neural-Machine-Translation-Starter.ipynb)
     - Build an LSTM based S2s translator!
 - 4/8 (Wednesday)
     - Classification / Seniment Analysis RNN
-    - Complete [this notebook](./notebooks/12-rnns-seq2seq/sentiment_analysis-student.ipynb) in class
+    - Complete [this notebook](../notebooks/12-rnns-seq2seq/sentiment_analysis-student.ipynb) in class
 - 4/6 (monday)
     - please read [this](https://bit.ly/4bVoiGP)
 - 3/24 (Tuesday)
     - RNNs!
     - Read [this](https://karpathy.github.io/2015/05/21/rnn-effectiveness/)
-    - Work on [Shakespeare](./notebooks/12-rnns-seq2seq/Shakespeare_Student.ipynb)
+    - Work on [Shakespeare](../notebooks/12-rnns-seq2seq/Shakespeare_Student.ipynb)
 - 3/18 (Wednesday)
   - Time series data
-  - Predict [AAPL stock prices](./data/AAPL.csv)
-  - Here's my [Apple prediction](./data/apple-prediction.png) using a history of 64 and a 1 node NN
+  - Predict [AAPL stock prices](../data/AAPL.csv)
+  - Here's my [Apple prediction](../data/apple-prediction.png) using a history of 64 and a 1 node NN
 - 3/16 (Monday)
   - Guest speaker!
 - 3/12 (Thursday)
@@ -101,26 +101,26 @@ sidebar:
     - Report accuracy
 - 3/2 (Monday)
     - It's snowing!
-    - Check out [Bird Calls](./notebooks/11-transfer-and-time-series/Birds.ipynb)
+    - Check out [Bird Calls](../notebooks/11-transfer-and-time-series/Birds.ipynb)
 - 2/26 (Thursday)
-    - Implement [AlexNet](./notebooks/10-cnns/alexnet.ipynb) and train on CiFAR 100
+    - Implement [AlexNet](../notebooks/10-cnns/alexnet.ipynb) and train on CiFAR 100
     - resize patch [here](./patch.md)
 - 2/24 (Tuesday)
     - Engineering Week
-    - Short class on "Why Activation Functions" [notebook](./notebooks/09-dense-neural-networks/Activation-Functions.ipynb)
+    - Short class on "Why Activation Functions" [notebook](../notebooks/09-dense-neural-networks/Activation-Functions.ipynb)
 - 2/20 (Friday)
     - Presentations!
 - 2/18 (Wednesday)
     - Implement your own CNN today
     - Check out this isualization of [MNIST](https://adamharley.com/nn_vis/cnn/3d.html)
   - Implement a LeNet Tensorflow
-    - Consult [Dive into Deep Learning](https://d2l.ai), chapters 7.6 [Or this pdf](./notes/d2l.ai-LeNet.pdf)
+    - Consult [Dive into Deep Learning](https://d2l.ai), chapters 7.6 [Or this pdf](../../notes/d2l.ai-LeNet.pdf)
     - Do *not* use the `dl` package -- modify the code provided
     - Test your model on MNIST or FashionMNIST
   - Next class: quick pitch of your top 3 research ideas from last week. Present to class. No slides. 2 minutes total. What's the problem? What's your solution? Who cares?
 - 2/11 (Thursday)
     - CNNs
-    - Check out this [intro to convolutions](./notebooks/10-cnns/ImageConvolutions.ipynb)
+    - Check out this [intro to convolutions](../notebooks/10-cnns/ImageConvolutions.ipynb)
 - 2/9 (Tuesday)
     - Research topic [brainstorm](./research-list.md)
     - Slide show due at end of class!
@@ -130,20 +130,20 @@ sidebar:
     - Watch presentations
 - 2/2 (Monday)
     - 2 hr delay
-    - Review the updated [CiFar Notebook](./notebooks/10-cnns/CIFAR10_Training.ipynb)
+    - Review the updated [CiFar Notebook](../notebooks/10-cnns/CIFAR10_Training.ipynb)
     - Find an image classification dataset on [tensorflow datasets](https://www.tensorflow.org/datasets/catalog/) and build a neural network to classify it. You should have the same sections as the CiFar notebook
     - Sections: (load data, show sample images, build model, traing model, show training curve, data augmentation, improvements, more training curves)
     - **HW** Finish and upload to [web form](https://forms.gle/Vo9CzVyf4ohz8jddA) before next class!
 - 1/20 (Tuesday)
-    - Try this [CiFar](./notebooks/10-cnns/CIFAR10_Training.ipynb) Notebook
+    - Try this [CiFar](../notebooks/10-cnns/CIFAR10_Training.ipynb) Notebook
     - Modify the network to improve accuracy as much as possible
 - 1/9 (Friday)
     - Quarter project: Find a dataset [here](http://archive.ics.uci.edu/datasets/) or anywhere for classification, regression or anomaly detection and model it in a well documented Jupyter notebook
     - Submit to Google Drive
 - 1/7 (Wednesday)
     - Anomaly detection!
-    - Try this dataset [credit card](./notebooks/08-anomaly/CreditCard.ipynb)
-    - notebooks: [SMOTE](./notebooks/08-anomaly/SMOTE-credit.ipynb) and [GMM](./notebooks/08-anomaly/GMM-credit.ipynb)
+    - Try this dataset [credit card](../notebooks/08-anomaly/CreditCard.ipynb)
+    - notebooks: [SMOTE](../notebooks/08-anomaly/SMOTE-credit.ipynb) and [GMM](../notebooks/08-anomaly/GMM-credit.ipynb)
     - Submit your best Credit Card results to Google Drive
 - 1/5 (Monday)
     - Log in to Google Colab
@@ -152,15 +152,15 @@ sidebar:
     - AET Challenge Day
 - 12/16/2025 (Tuesday)
     - **Ensemble Methods**
-    - Work through this [Ensemble Methods Notebook](./notebooks/07-svm-cv-ensembles/Ensemble_Methods.ipynb)
+    - Work through this [Ensemble Methods Notebook](../notebooks/07-svm-cv-ensembles/Ensemble_Methods.ipynb)
 - 12/12/2025 (Friday)
     - Finish notebooks on cross validation and grid search
 - 12/10/2025 (Wednesday)
     - Finish fake news and twitter datasets
-    - Here's a [word embedding](./data/word2vec.md) you can try
+    - Here's a [word embedding](../data/word2vec.md) you can try
 - 12/8/2025 (Monday)
-  - **Cross Validation and Grid Search** [notebook](./notebooks/07-svm-cv-ensembles/CrossValidation.ipynb) and optional [dataset](./notebooks/07-svm-cv-ensembles/mnist.pk.gz) to gunzip (if the notebook open_ml doesn't work)
-  - Lab: Use SVM and GridSearch and TfIDF to do the best you can classifying this [twitter data set](./data/twitter_training.csv)
+  - **Cross Validation and Grid Search** [notebook](../notebooks/07-svm-cv-ensembles/CrossValidation.ipynb) and optional [dataset](../notebooks/07-svm-cv-ensembles/mnist.pk.gz) to gunzip (if the notebook open_ml doesn't work)
+  - Lab: Use SVM and GridSearch and TfIDF to do the best you can classifying this [twitter data set](../data/twitter_training.csv)
 - 12/4/2025 (Thursday)
   - Topic: **Support Vector Machines**
   - [Notes Notebook](notebooks/07-svm-cv-ensembles/Notes-SVM.ipynb) [(html)](notebooks/07-svm-cv-ensembles/Notes-SVM.html)
@@ -176,75 +176,75 @@ sidebar:
     - Encoding strings
     - Ha
 - 11/19/2025 (Wednesday)
-    - Work on this [Decision Tree Lab](./notebooks/06-classification/Decision_Tree_Student.ipynb) [(html)](./notebooks/06-classification/Decision_Tree_Student.html) using income data.
+    - Work on this [Decision Tree Lab](../notebooks/06-classification/Decision_Tree_Student.ipynb) [(html)](../notebooks/06-classification/Decision_Tree_Student.html) using income data.
 - 11/17/2025 (Monday)
     - Notes on **Decision Trees**
     - Hand classifying the WillWait? Dataset
     - Definition of Entropy and Information Gain
 - 11/13/2025 (Thursday)
   - Continue k-NN. Finish notebook from last class (submit as KNN-1)
-  - Work on [Digits dataset](./notebooks/06-classification/digits-student.ipynb) [(html)](./notebooks/06-classification/digits-student.html) (submit as KNN-2)
+  - Work on [Digits dataset](../notebooks/06-classification/digits-student.ipynb) [(html)](../notebooks/06-classification/digits-student.html) (submit as KNN-2)
   - Here's a [nice writeup](https://towardsdatascience.com/comprehensive-guide-to-approximate-nearest-neighbors-algorithms-8b94f057d6b6) of the approximate nearest neighbor problem with an eye towards ML applications like Spotify and Netflix recommendations (may be a paywall I'm not sure)
 - November 11, 2025 (Tuesday)
   - Topic: **k Nearest Neighbor**
   - Devise algorithm in class
-  - [Implement in Jupyter](./notebooks/06-classification/knn-Student.ipynb) [(html)](./notebooks/06-classification/knn-Student.html)
+  - [Implement in Jupyter](../notebooks/06-classification/knn-Student.ipynb) [(html)](../notebooks/06-classification/knn-Student.html)
   - Also complete extension(s)
 - Nov 7, 2025 (Friday)
-    - Do the best LogReg you can with this [loan data](./data/loan_data.csv)
+    - Do the best LogReg you can with this [loan data](../data/loan_data.csv)
 - Nov 5, 2025 (Wednesday)
     - Intro to **Logistic Regression**
-    - [Cancer Data](./notebooks/06-classification/Cancer_Logistic_Student.ipynb)
+    - [Cancer Data](../notebooks/06-classification/Cancer_Logistic_Student.ipynb)
     - Finish notebook for classwork/HW
 - October 27, 2025 (Monday)
     - Grade book updated; submit any missing work now!
-    - DIY Linear Regression ++ with PCA due Wednesday. [Requirements](./notes/DIY-LinReg-Plus.md) are available.
+    - DIY Linear Regression ++ with PCA due Wednesday. [Requirements](../../notes/DIY-LinReg-Plus.md) are available.
     - New topic: Logistic Regression
 - October 23, 2025 (Thursday)
     - Submit draft of your "DIY Linear Regression (DRAFT with normalization, regularization, PCA)" by Friday night please. OK if it's incomplete.
 - October 21, 2025 (Tuesday)
     - Turn in Image Compression
-    - Learn about [Principal Component Analysis](./notebooks/05-regression-plus/PCA.ipynb)
+    - Learn about [Principal Component Analysis](../notebooks/05-regression-plus/PCA.ipynb)
     - HW project: new Linear Regression with normalization, regularization and PCA.
 - October 16, 2025 (thursday)
     - More SVD!
-    - You'll need this [picture of Gauss](./notebooks/05-regression-plus/gauss.jpg)
-    - Work through this [Visualizing Transformation Matrices](./notebooks/05-regression-plus/Visualizing_Transformation_Matrices.ipynb)
-    - Next try [Low Rank Matrix Approximations](./notebooks/05-regression-plus/Low_Rank_Matrix_Approximations.ipynb)
-    - Finally do some [Image Compression](./notebooks/05-regression-plus/Image-Compression.ipynb)
+    - You'll need this [picture of Gauss](../notebooks/05-regression-plus/gauss.jpg)
+    - Work through this [Visualizing Transformation Matrices](../notebooks/05-regression-plus/Visualizing_Transformation_Matrices.ipynb)
+    - Next try [Low Rank Matrix Approximations](../notebooks/05-regression-plus/Low_Rank_Matrix_Approximations.ipynb)
+    - Finally do some [Image Compression](../notebooks/05-regression-plus/Image-Compression.ipynb)
 - October 14, 2025 (Thursday)
     - Matrix multiply as coordinate transform
-    - Notes on the SVD (here's some OK-ish [ai-generated](./notes/svd_notes_ml.md) notes)
+    - Notes on the SVD (here's some OK-ish [ai-generated](../../notes/svd_notes_ml.md) notes)
 - October 9, 2025 (Thursday)
     - See [this](https://docs.google.com/document/d/1a1CSGW1cFs70oKzLhJgTniyYis3OFgonyfLOfb16CK4/edit?usp=sharing)
     - Find 3 articles in groups, according to selected topic
 - October 3, 2025 (Friday)
     - Linear regression: normalization and regularization
-    - Read and work through this [Life Part 2 Notebook](./notebooks/05-regression-plus/Life_Part_2_Student.ipynb)
+    - Read and work through this [Life Part 2 Notebook](../notebooks/05-regression-plus/Life_Part_2_Student.ipynb)
     - Optional AP Stats [surveys](../CS12/stats.md)
     - Next Thursday: Library trip
 - September 30, 2025 (Tuesday)
-    - Start Linear Regression Unit. See the [lecture notes](./notes/Multilinear_regression.html)
-    - Look at [Test Score Data Set](./notebooks/05-regression-plus/Test_Scores.ipynb)
-    - Next look at [Life Expectancy Data Set](./notebooks/05-regression-plus/Life_Expectancy_Student.ipynb) and discuss in class
+    - Start Linear Regression Unit. See the [lecture notes](../../notes/Multilinear_regression.html)
+    - Look at [Test Score Data Set](../notebooks/05-regression-plus/Test_Scores.ipynb)
+    - Next look at [Life Expectancy Data Set](../notebooks/05-regression-plus/Life_Expectancy_Student.ipynb) and discuss in class
     - HW: Complete exercises in Life Expectancy Data Set
     - [Source for the Life Expectancy dataset](https://www.kaggle.com/datasets/kumarajarshi/life-expectancy-who/data)
 - September 26, 2026 (Friday)
-    - Look at [Baye's Notebook](./notebooks/04-first-pipeline/Bayes-Error-Student.ipynb) and complete
+    - Look at [Baye's Notebook](../notebooks/04-first-pipeline/Bayes-Error-Student.ipynb) and complete
 - September 24, 2025 (Wednesday)
     - Finish self-selected data analysis: Pick a dataset from any online source, restrict it to *categorical* features only, and perform a similar analysis to the one I modeled with "Mushroom Exploration". Load the data, clean it (fill in any NaN or missing data), make some graphs, look for correlations between features and outcomes, then perform several ML algorithms. *Add an analysis* paragraph at the end where you discuss the dataset and the goodness of fit of the models. (Note: make sure your paragraph is a "Markdown" cell and not a "code" cell)
     - Upload by end of class [here](https://forms.gle/RHYWxdPu4VhCq2js6)
 - September 22, 2025 (Monday)
-    - Go through [mushroom exploration](./notebooks/04-first-pipeline/Mushroom_Student.ipynb)
+    - Go through [mushroom exploration](../notebooks/04-first-pipeline/Mushroom_Student.ipynb)
     - Do a similar analysis on your own and turn in next class (Wed)
 - September 18, 2025 (Thursday)
     - Work on Linear Algebra notebooks and turn in!
 - September 16, 2025 (Tuesday)
     - **Linear Algebra Week**
     - Quick review of matrix and linear algebra
-    - Read carefully and work through [Linear Algebra and Python](./notebooks/03-linear-algebra/Linear_Algebra_and_Python.ipynb) (this contains all the notes you need).
-    - Next try [Matrices Index Warmup](./notebooks/03-linear-algebra/Matrices_Index_Warmup-Student.ipynb)
-    - Finally look at [Intro to Matrices in Numpy](./notebooks/03-linear-algebra/Intro_to_Matrices_in_NumPy.ipynb)
+    - Read carefully and work through [Linear Algebra and Python](../notebooks/03-linear-algebra/Linear_Algebra_and_Python.ipynb) (this contains all the notes you need).
+    - Next try [Matrices Index Warmup](../notebooks/03-linear-algebra/Matrices_Index_Warmup-Student.ipynb)
+    - Finally look at [Intro to Matrices in Numpy](../notebooks/03-linear-algebra/Intro_to_Matrices_in_NumPy.ipynb)
     - All of the above are due this week
 - September 12, 2025 (Friday)
     - Quick notes on measures of spread and central tendency [AI generated notes (use at own risk)](./statistics.html)
@@ -257,25 +257,25 @@ sidebar:
         - And end with a markdown cell, discussing your conclusion. Make sure any graphs that support your conclusion are clear and labeled.
         - Add a title cell (markdown # Title) and subsection cells ( ## subtitle) where appropriate
 - September 10, 2025 (Wednesday)
-    - Finish [Linear Regression Notebook](./notebooks/02-regression-correlation/Least-Squares.ipynb) due [here](https://forms.gle/RHYWxdPu4VhCq2js6)
-    - [Notes on Coefficient of Determination](./notes/Correlation_Coefficient.md) and goodness of fit for numerical models.
-    - Work on [Correlation Notebook](./notebooks/02-regression-correlation/Correlation.ipynb)
+    - Finish [Linear Regression Notebook](../notebooks/02-regression-correlation/Least-Squares.ipynb) due [here](https://forms.gle/RHYWxdPu4VhCq2js6)
+    - [Notes on Coefficient of Determination](../../notes/Correlation_Coefficient.md) and goodness of fit for numerical models.
+    - Work on [Correlation Notebook](../notebooks/02-regression-correlation/Correlation.ipynb)
 
 - September 8, 2025 (Monday)
     - Announcement: [US AI Olympiad](../common/AI-olympiad.md)
     - Linear Regression
-    - [Notes](./notes/Linear_regression_derivation.pdf) on derivation of linear regression formula
-    - Work on [Linear Regression Notebook](./notebooks/02-regression-correlation/Least-Squares.ipynb) due at end of class [here](https://forms.gle/RHYWxdPu4VhCq2js6)
-    - Optional [Numpy Intro](./notebooks/02-regression-correlation/Numpy-Intro.ipynb)
+    - [Notes](../../notes/Linear_regression_derivation.pdf) on derivation of linear regression formula
+    - Work on [Linear Regression Notebook](../notebooks/02-regression-correlation/Least-Squares.ipynb) due at end of class [here](https://forms.gle/RHYWxdPu4VhCq2js6)
+    - Optional [Numpy Intro](../notebooks/02-regression-correlation/Numpy-Intro.ipynb)
 - September 4, 2025 (Thursday)
     - Turn in Leesburg Weather [here](https://forms.gle/RHYWxdPu4VhCq2js6)
     - Turn in Bayes Theorem [same link](https://forms.gle/RHYWxdPu4VhCq2js6)
     - Go over Bayes Theorem and Weather notebooks
     - Work on London Weather project. Due at end of class!
-        - Consider the [London Weather dataset](./data/london_weather.csv). Investigate the question “Has the weather in London gotten worse in the last 50 years?” Analyse the data and make a claim that you can support. Demonstrate the validity of your claim with graphical analysis. Include trendlines or statistical analysis as appropriate. You can define what makes weather "worse" -- part of this is definitely subjective. Write your conclusions within your jupyter notebook using markdown syntax (see exiting notebooks for examples.)[Source](https://www.kaggle.com/datasets/emmanuelfwerr/london-weather-data) for dataset, which retrieved the data from [here](https://www.ecad.eu/dailydata/index.php)
+        - Consider the [London Weather dataset](../data/london_weather.csv). Investigate the question “Has the weather in London gotten worse in the last 50 years?” Analyse the data and make a claim that you can support. Demonstrate the validity of your claim with graphical analysis. Include trendlines or statistical analysis as appropriate. You can define what makes weather "worse" -- part of this is definitely subjective. Write your conclusions within your jupyter notebook using markdown syntax (see exiting notebooks for examples.)[Source](https://www.kaggle.com/datasets/emmanuelfwerr/london-weather-data) for dataset, which retrieved the data from [here](https://www.ecad.eu/dailydata/index.php)
 - September 2, 2025 (Tuesday)
     - Bayes Theorem [Notes](./bayes-notes.pdf)
-    - Complete [Bayes Theorem Notebook](./notebooks/01-foundations/Bayes_Theorem_Student.ipynb)
+    - Complete [Bayes Theorem Notebook](../notebooks/01-foundations/Bayes_Theorem_Student.ipynb)
     - Quick intro to [python and loops](./python.md)
     - HW: Due next class = Bayes Theorem notebook and Weather Exercises form last class. (Bring questions if you're stuck! You should do weather exercises 1-3 at least)
 - August 27, 2025 (Wednesday)

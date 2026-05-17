@@ -30,7 +30,7 @@ structure you can exploit.
 
 - **Multilinear regression** — introducing multiple features with a toy dataset,
   then scaling up to real [WHO life-expectancy data](https://www.kaggle.com/datasets/kumarajarshi/life-expectancy-who/data).
-  [Lecture notes](./notes/Multilinear_regression/)
+  [Lecture notes](../../notes/Multilinear_regression/)
   {% include nb.html local="Test_Scores.ipynb" %}
   {% include nb.html local="Life_Expectancy_Student.ipynb" %}
 
@@ -43,7 +43,7 @@ structure you can exploit.
 
 - **SVD** — matrix multiplication as a geometric transformation; then using SVD
   to compress an image of Gauss to a fraction of its original size.
-  [SVD notes](./notes/svd_notes_ml/)
+  [SVD notes](../../notes/svd_notes_ml/)
   {% include nb.html local="Visualizing_Transformation_Matrices.ipynb" %}
   {% include nb.html local="Low_Rank_Matrix_Approximations.ipynb" %}
   {% include nb.html local="Image-Compression.ipynb" %}
@@ -63,11 +63,11 @@ Finish with a written defense of your "best model" choice.
 
 ## Notes
 
-- [Multilinear regression notes](./notes/Multilinear_regression/)
-- [SVD notes](./notes/svd_notes_ml/)
-- [DIY LinReg++ requirements](./notes/DIY-LinReg-Plus/)
+- [Multilinear regression notes](../../notes/Multilinear_regression/)
+- [SVD notes](../../notes/svd_notes_ml/)
+- [DIY LinReg++ requirements](../../notes/DIY-LinReg-Plus/)
 
 ## What's next
 
-[Unit 06](./notebooks/06-classification/) introduces the classification algorithms
+[Unit 06](../notebooks/06-classification/) introduces the classification algorithms
 the course previewed in Unit 04 — this time with full explanations of how each one works.

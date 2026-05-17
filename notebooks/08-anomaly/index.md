@@ -43,6 +43,6 @@ question, a defensible modeling approach, and a written interpretation of result
 
 ## What's next
 
-[Unit 09](./notebooks/09-dense-neural-networks/) introduces dense neural networks —
+[Unit 09](../notebooks/09-dense-neural-networks/) introduces dense neural networks —
 perceptrons, backpropagation, and the foundational ideas that make everything in
 Units 10–13 possible.
