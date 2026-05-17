@@ -9,8 +9,8 @@
 // Also update _includes/head/custom.html to load the matching Google Font.
 //
 // Swap the active line to change the body font:
-$global-font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-// $global-font-family: "Source Sans 3", -apple-system, sans-serif;  // warmer, academic
+// $global-font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+$global-font-family: "Source Sans 3", -apple-system, sans-serif;  // warmer, academic
 // $global-font-family: "Nunito", -apple-system, sans-serif;          // rounded, friendly
 // $global-font-family: "IBM Plex Sans", -apple-system, sans-serif;   // structured, technical
 // $global-font-family: -apple-system, BlinkMacSystemFont, sans-serif; // MM default (system font)
@@ -62,4 +62,18 @@ $global-font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
       text-decoration: underline;
     }
   }
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    color: $text-color;
+    font-family: $global-font-family;
+    line-height: 1.5;
+    font-size: 0.8em;
+
+    &.overflow--hidden {
+        /* when primary navigation is visible, the content in the background won't scroll */
+        overflow: hidden;
+    }
 }
