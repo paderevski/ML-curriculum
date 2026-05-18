@@ -28,20 +28,11 @@ an idea, refine it, and present progress.
 
 ## Topics
 
-Convolutional neural networks are specifically designed to operate on 2D data. Before introducing this new model, let's first walk through a complete example of an image-processing workflow using the dense neural network layers you already know. The [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar.html) contains thousands of color images labeled with one of 10 categories. Work through this notebook to see how to load, train and improve the model using dense layers. {% include nb.html local="CIFAR10_Training.ipynb" %}
+Convolutional neural networks are specifically designed to operate on 2D data. Before introducing this new model, let's first walk through a complete example of an image-processing workflow using the dense neural network layers you already know. The [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar.html) contains thousands of color images labeled with one of 10 categories. Work through {% include nb.html local="CIFAR10_Training.ipynb" %} to see how to load, train and improve the model using dense layers.
 
 As a follow-up assignment, find a [TensorFlow Datasets](https://www.tensorflow.org/datasets/catalog) classification task and replicate the full pipeline in the example CIFAR notebook.
 
-- **Presentations** — first round of project progress presentations.
-
-- **Research topic brainstorm** — each student develops three plausible research
-  ideas and pitches them in a two-minute, no-slides format: problem, solution,
-  who cares. See the [research list](/research-list/) for inspiration and
-  framing guidance.
-
-- **What is a convolution?** — building spatial intuition for filters before
-  applying them in a network.
-  {% include nb.html local="ImageConvolutions.ipynb" %}
+Next explore what an image convolution is  {% include nb.html local="ImageConvolutions.ipynb" %}
 
 - **LeNet** — the foundational CNN architecture applied to MNIST/FashionMNIST.
   Following [d2l.ai chapter 7.6](https://d2l.ai/chapter_convolutional-neural-networks/lenet.html)
