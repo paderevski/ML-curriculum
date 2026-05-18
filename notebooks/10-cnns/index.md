@@ -28,12 +28,9 @@ an idea, refine it, and present progress.
 
 ## Topics
 
-- **CIFAR-10 baseline** — load the dataset, build a baseline CNN, plot the
-  training curve, modify the architecture to improve accuracy.
-  {% include nb.html local="CIFAR10_Training.ipynb" %}
-  *Assignment: find a [TensorFlow Datasets](https://www.tensorflow.org/datasets/catalog/)
-  classification task and replicate the full CIFAR pipeline
-  (load → sample → build → train → curve → augment → improve).*
+Convolutional neural networks are specifically designed to operate on 2D data. Before introducing this new model, let's first walk through a complete example of an image-processing workflow using the dense neural network layers you already know. The [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar.html) contains thousands of color images labeled with one of 10 categories. Work through this notebook to see how to load, train and improve the model using dense layers. {% include nb.html local="CIFAR10_Training.ipynb" %}
+
+As a follow-up assignment, find a [TensorFlow Datasets](https://www.tensorflow.org/datasets/catalog) classification task and replicate the full pipeline in the example CIFAR notebook.
 
 - **Presentations** — first round of project progress presentations.
 
