@@ -32,11 +32,25 @@ $global-font-family: "Source Sans 3", -apple-system, sans-serif;  // warmer, aca
 }
 
 // ─── Notebook link label ──────────────────────────────────────────────────────
-// The notebook title that appears before (view | download | colab).
-// Each property is individually toggleable — uncomment to activate.
+// The notebook title that opens the notebook action popover.
+
+.notebook-links {
+  position: relative;
+  display: inline-block;
+}
 
 .notebook-links__label {
+  appearance: none;
+  border: 0;
+  background: rgb(65 38 188 / 9%);
   font-weight: 600;          // semibold title — set to 400 for normal weight
+  font: inherit;
+  line-height: inherit;
+  color: inherit;
+  cursor: pointer;
+  border: 0pt;
+  border-radius: 10pt;
+  // border-bottom: 1px dotted currentColor;
 
   // font-size: 0.92em;      // slightly smaller than body text
 
@@ -47,21 +61,55 @@ $global-font-family: "Source Sans 3", -apple-system, sans-serif;  // warmer, aca
   // color: #555;            // neutral dark gray
 }
 
+.notebook-links__label:hover,
+.notebook-links__label:focus-visible {
+  color: #1a6bb0;
+}
+
+.notebook-links__label:focus-visible {
+  outline: 2px solid rgba(26, 107, 176, 0.25);
+  outline-offset: 0.18rem;
+  border-bottom-color: transparent;
+}
+
 // ─── Notebook link actions ────────────────────────────────────────────────────
-// The (view | download | colab) block that follows a notebook title.
-// Rendered smaller and slightly muted so it doesn't compete with surrounding text.
+// Small JS-enhanced popover opened from the notebook title.
 
 .notebook-links__actions {
-  font-size: 0.78em;
-  opacity: 0.7;
+    position: absolute;
+    top: calc(100% + .35rem);
+    z-index: 20;
+    display: flex;
+    gap: .15rem;
+    align-items: center;
+    padding: .35rem;
+    border: 1px solid rgba(0,0,0,.12);
+    border-radius: .55rem;
+    background: #fff;
+    box-shadow: 0 .45rem 1.25rem rgba(0,0,0,.12);
+    white-space: nowrap;
+    opacity: 0.94;
+    line-height: 0.5em;
 
   a {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.5rem;
+    border-radius: 999px;
+    background: rgba(26, 107, 176, 0.08);
+    color: inherit;
+    font-size: 0.88em;
     text-decoration: none;
 
     &:hover {
-      text-decoration: underline;
+      background: rgba(26, 107, 176, 0.16);
+      text-decoration: none;
     }
   }
+}
+
+.notebook-links__actions[hidden] {
+  display: none;
 }
 
 // ─── Base font size ───────────────────────────────────────────────────────────
