@@ -120,3 +120,28 @@ $global-font-family: "Source Sans 3", -apple-system, sans-serif;  // warmer, aca
 body {
   font-size: 0.8em;
 }
+
+// ─── Read the Docs Addons reset ────────────────────────────────────────────────
+// RTD injects custom web-component elements (flyout menu, ad, notifications)
+// via JS after page load. Their internals use Shadow DOM (style-isolated from
+// us), but the outer host element is normal DOM and can inherit ambient CSS
+// from wherever it lands — background, width, flex sizing, etc. RTD's own
+// addons maintainers warn this is a common conflict source since our theme
+// has no native RTD integration (unlike Sphinx).
+//
+// This is a defensive reset in case one of these elements lands inside our
+// content and picks up unwanted styling. Safe to keep even if unused.
+// If a specific element is still misbehaving, inspect it in devtools and
+// add a more targeted rule below using its actual tag name.
+
+[class^="readthedocs-"],
+[class*=" readthedocs-"],
+readthedocs-flyout,
+readthedocs-search,
+readthedocs-notification {
+  background: transparent !important;
+  width: auto !important;
+  height: auto !important;
+  max-width: none !important;
+  flex: none !important;
+}
