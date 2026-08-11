@@ -7,6 +7,62 @@ The published site uses the GitHub Pages project-site path `/ML-curriculum`.
 Local preview uses `_config.local.yml` to override that so you can still serve
 at the plain `http://localhost:4000/` root.
 
+## Quick start
+
+From the repository root, install dependencies once, then start the complete
+local preview:
+
+```bash
+bundle install
+./scripts/serve_with_notebooks.sh
+```
+
+Open <http://localhost:4000>. Stop the preview with <kbd>Ctrl</kbd>+<kbd>C</kbd>.
+The script exports the notebooks and regenerates their metadata before it
+starts Jekyll, so it is the preferred command for checking site changes.
+
+## Local testing checklist
+
+Before opening a pull request or pushing a site change:
+
+1. Run `./scripts/serve_with_notebooks.sh` and check the changed pages at
+  <http://localhost:4000>.
+2. For a non-interactive build check, run:
+
+  ```bash
+  bundle exec jekyll build --config _config.yml,_config.local.yml
+  ```
+
+3. If notebooks or notebook links changed, confirm the generated page and its
+  notebook actions work in the local preview. The preview script performs the
+  needed `export_notebooks.py` and `generate_notebook_metadata.py` steps.
+4. Install the repository hook once with `./scripts/install_git_hooks.sh` so
+  staged notebook edits are checked for matching generated artifacts.
+
+## Publishing the site
+
+The production site is published with **GitHub Pages**, not manually uploaded
+to Read the Docs. Its configured address is
+<https://paderevski.github.io/ML-curriculum/>.
+
+The GitHub Actions workflow in `.github/workflows/notebooks.yml` runs on every
+pull request and on pushes to `main`. It installs the Python and Ruby
+dependencies, exports notebooks, generates notebook metadata, and builds the
+site. Pull requests upload a `site-preview` build artifact; a push to `main`
+then deploys the built `_site/` directory to GitHub Pages. In normal use,
+publishing is therefore:
+
+1. Commit the source changes after completing the local checks.
+2. Open and review a pull request.
+3. Merge it into `main`.
+4. Confirm the **Build curriculum site** workflow succeeds in GitHub Actions,
+  then check the published URL above.
+
+No local deployment command or manual `_site/` upload is required. The
+repository also includes `.readthedocs.yaml`, which can build the same Jekyll
+site if a Read the Docs project is connected, but the GitHub Pages workflow is
+the configured production deployment.
+
 ## One-time setup
 
 On macOS (e.g. M4 MacBook Pro), system Ruby is too old for current Jekyll.
@@ -127,14 +183,19 @@ Output goes to `_site/` (gitignored).
 
 ## Production differences
 
-The parent site sets:
+GitHub Pages builds with `_config.yml,_config.github.yml`, which sets:
 
 ```yaml
-url: https://aet-cs.github.io/
-baseurl: /white/2025/ML/   # or similar
+url: https://paderevski.github.io
+baseurl: /ML-curriculum
 ```
 
-This local-preview config uses empty `url`/`baseurl` so everything serves at
-the root. If you ever want to test the production path locally, copy your
-parent site's `_config.yml` values into a `_config.production.yml` and run
-with `--config _config.yml,_config.production.yml`.
+The local-preview config sets empty `url` and `baseurl`, so everything serves
+at the localhost root. To check production-path links before pushing, run:
+
+```bash
+bundle exec jekyll serve --config _config.yml,_config.github.yml
+```
+
+That preview is available at
+<http://localhost:4000/ML-curriculum/>.
