@@ -4,10 +4,14 @@
      causing the whole main content div to get shaded gray on unit
      pages). Giving RTD an explicit target makes it use this instead.
 
-     Reference: https://docs.readthedocs.com/platform/stable/advertising/ad-customization.html
+     data-ea-type="text" requests the compact text-only ad format
+     instead of the default "image" format (logo + headline + subtext +
+     button, much larger). Reference:
+     https://ethical-ad-client.readthedocs.io/ (see "Ad placement type")
+     https://docs.readthedocs.com/platform/stable/advertising/ad-customization.html
 
      Only relevant when actually built/served by Read the Docs — on
      local or GitHub Pages builds this div just renders empty and inert. -->
 <div class="rtd-ad-placement-wrap">
-  <div id="ethical-ad-placement"></div>
+  <div id="ethical-ad-placement" data-ea-type="text"></div>
 </div>
