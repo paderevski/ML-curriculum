@@ -130,13 +130,51 @@ body {
 // The wrapper gets our own light styling so the ad reads as an intentional,
 // separate footer element rather than a raw unstyled box.
 
+// Layout: put the ad on the right half of the footer, sharing space
+// with the FOLLOW links and copyright line rather than sitting in its
+// own separate section above them. Uses CSS Grid on the <footer>
+// element itself -- .page__footer-follow and .page__footer-copyright
+// are Minimal Mistakes' own elements, left untouched; we just place
+// them into a two-column grid alongside our ad wrapper.
+
+.page__footer footer {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  column-gap: 2em;
+}
+
+.page__footer-follow {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.page__footer-copyright {
+  grid-column: 1;
+  grid-row: 2;
+}
+
 .rtd-ad-placement-wrap {
-  margin-top: 3em;
-  padding-top: 1.5em;
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  justify-self: end;
+  align-self: center;
   font-size: 0.85em;
 }
 
+// Tighten EthicalAds' own internal spacing. .ea-content ships with
+// margin: 14px and padding: 14px around a ~36px content box by
+// default -- that's the bloat making the "text" ad render much larger
+// than the actual text inside it. These are plain (non-shadow-DOM)
+// elements so normal CSS reaches them; !important guards against
+// their own stylesheet's specificity.
+
 #ethical-ad-placement {
-  max-width: 42em;
+  max-width: 26em;
+
+  .ea-placement.ea-type-text .ea-content {
+    margin: 0 !important;
+    padding: 4px 0 !important;
+  }
 }
