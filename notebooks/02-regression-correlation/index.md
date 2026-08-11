@@ -49,5 +49,5 @@ is doing before you let it do it.
 
 ## What's next
 
-[Unit 03](../notebooks/03-linear-algebra/) is a focused two-day pause to build
+[Unit 03](../03-linear-algebra/) is a focused two-day pause to build
 the matrix vocabulary you'll need for SVD, PCA, and neural networks later in the year.

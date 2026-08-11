@@ -69,5 +69,5 @@ Finish with a written defense of your "best model" choice.
 
 ## What's next
 
-[Unit 06](../notebooks/06-classification/) introduces the classification algorithms
+[Unit 06](../06-classification/) introduces the classification algorithms
 the course previewed in Unit 04 — this time with full explanations of how each one works.

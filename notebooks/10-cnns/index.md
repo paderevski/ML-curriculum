@@ -41,7 +41,7 @@ Next explore what an image convolution is  {% include nb.html local="ImageConvol
   accompanies this session.
 
 - **Activation functions** — covered during Engineering Week; see
-  [Unit 09](../notebooks/09-dense-neural-networks/) for the notebook.
+  [Unit 09](../09-dense-neural-networks/) for the notebook.
 
 - **AlexNet on CIFAR-100** — scaling depth and applying dropout; training a
   historically significant architecture on a harder dataset.
@@ -51,6 +51,6 @@ Next explore what an image convolution is  {% include nb.html local="ImageConvol
 
 ## What's next
 
-[Unit 11](../notebooks/11-transfer-and-time-series/) introduces transfer learning —
+[Unit 11](../11-transfer-and-time-series/) introduces transfer learning —
 the insight that you don't have to train from scratch — and ends with a pivot
 toward sequential data.

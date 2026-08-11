@@ -51,5 +51,5 @@ what it shows.
 
 ## What's next
 
-[Unit 02](../notebooks/02-regression-correlation/) introduces the first actual
+[Unit 02](../02-regression-correlation/) introduces the first actual
 model: linear regression derived from scratch, before any library does it for you.

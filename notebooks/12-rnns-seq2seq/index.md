@@ -59,6 +59,6 @@ Each step reveals a limitation of the previous approach, motivating the next.
 
 ## What's next
 
-[Unit 13](../notebooks/13-transformers-generative/) replaces the recurrence entirely
+[Unit 13](../13-transformers-generative/) replaces the recurrence entirely
 with self-attention — the Transformer — then uses it for translation, text
 generation, image captioning, and generative modeling.

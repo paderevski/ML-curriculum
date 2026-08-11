@@ -45,6 +45,6 @@ is woven into the CNNs unit that follows.
 
 ## What's next
 
-[Unit 10](../notebooks/10-cnns/) applies these ideas to images — convolutional
+[Unit 10](../10-cnns/) applies these ideas to images — convolutional
 networks replace the dense layers with learned spatial filters that are far
 more efficient on image data.

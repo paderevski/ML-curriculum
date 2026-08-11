@@ -50,6 +50,6 @@ matters*, setting up the sequence models that follow.
 
 ## What's next
 
-[Unit 12](../notebooks/12-rnns-seq2seq/) answers the time-series question properly
+[Unit 12](../12-rnns-seq2seq/) answers the time-series question properly
 with recurrent neural networks — and takes them all the way to neural machine
 translation with attention.

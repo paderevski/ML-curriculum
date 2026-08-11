@@ -49,6 +49,6 @@ library. You earn the library.
 
 ## What's next
 
-[Unit 07](../notebooks/07-svm-cv-ensembles/) closes out the classical-ML arc with
+[Unit 07](../07-svm-cv-ensembles/) closes out the classical-ML arc with
 SVMs, proper cross-validation, word embeddings, and ensemble methods — the
 professional-practice layer on top of the algorithms you now know.

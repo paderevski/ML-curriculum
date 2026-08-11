@@ -58,5 +58,5 @@ coming later.
 
 ## What's next
 
-[Unit 08](../notebooks/08-anomaly/) is a short focused unit on anomaly detection —
+[Unit 08](../08-anomaly/) is a short focused unit on anomaly detection —
 the second-quarter capstone, closing with an open-ended quarter project.
