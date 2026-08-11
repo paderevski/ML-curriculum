@@ -148,6 +148,19 @@ body {
     "copyright ad";
   align-items: center;
   column-gap: 2em;
+  // Overriding Minimal Mistakes' own _footer.scss:21, which sets
+  // margin-top: 2em and padding: 0 1em 2em by default.
+  margin-top: 0.75em !important;
+  padding: 0 1em 0.75em !important;
+}
+
+// Minimal Mistakes also applies its own margin-top: 3em (plus a
+// staggered "intro" reveal animation) to .page__footer itself -- the
+// outer wrapper, separate from the <footer> tag above. Tightening
+// that down too so the whole footer area doesn't have two stacked
+// large top margins.
+.page__footer {
+  margin-top: 1em !important;
 }
 
 .page__footer-follow {
