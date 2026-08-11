@@ -1,0 +1,13 @@
+<!-- Explicit placement for Read the Docs' automatically-injected ad.
+     Without this, RTD's Addons script falls back to a blind-insertion
+     heuristic that can wrap unrelated page content (this is what was
+     causing the whole main content div to get shaded gray on unit
+     pages). Giving RTD an explicit target makes it use this instead.
+
+     Reference: https://docs.readthedocs.com/platform/stable/advertising/ad-customization.html
+
+     Only relevant when actually built/served by Read the Docs — on
+     local or GitHub Pages builds this div just renders empty and inert. -->
+<div class="rtd-ad-placement-wrap">
+  <div id="ethical-ad-placement"></div>
+</div>
