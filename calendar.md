@@ -28,7 +28,7 @@ sidebar:
 - Work on {% include nb.html file="Decision_Tree_Student.ipynb" label="Decision Tree Lab" %} using income data.
 - 5/11 (Monday)
     - Variational Autoencoders
-    - See [notes](../../notes/vae_notes.pdf) and work through [notebook](../notebooks/13-transformers-generative/VAE_celeba_student.ipynb)
+    - See [notes](../notes/vae_notes.pdf) and work through [notebook](../notebooks/13-transformers-generative/VAE_celeba_student.ipynb)
 - 5/7 (Thursday)
     - Continue work on previous notebooks and assignments
 - 5/5 (Tuesday)
@@ -69,7 +69,7 @@ sidebar:
 - 4/15 (Wednesday)
     - Improve your model!
     - Next goal: round trip (eng->span->eng)
-    - Here are some [test cases](../../notes/translation_examples.md)
+    - Here are some [test cases](../notes/translation_examples.md)
     - Also here is a [sample working notebook](../notebooks/12-rnns-seq2seq/seq2seq_nmt_reference.ipynb) with Attention Layers and Beam Search
 - 4/13 (Monday)
     - Start with [this Notebook](../notebooks/12-rnns-seq2seq/Neural-Machine-Translation-Starter.ipynb)
@@ -114,7 +114,7 @@ sidebar:
     - Implement your own CNN today
     - Check out this isualization of [MNIST](https://adamharley.com/nn_vis/cnn/3d.html)
   - Implement a LeNet Tensorflow
-    - Consult [Dive into Deep Learning](https://d2l.ai), chapters 7.6 [Or this pdf](../../notes/d2l.ai-LeNet.pdf)
+    - Consult [Dive into Deep Learning](https://d2l.ai), chapters 7.6 [Or this pdf](../notes/d2l.ai-LeNet.pdf)
     - Do *not* use the `dl` package -- modify the code provided
     - Test your model on MNIST or FashionMNIST
   - Next class: quick pitch of your top 3 research ideas from last week. Present to class. No slides. 2 minutes total. What's the problem? What's your solution? Who cares?
@@ -198,7 +198,7 @@ sidebar:
     - Finish notebook for classwork/HW
 - October 27, 2025 (Monday)
     - Grade book updated; submit any missing work now!
-    - DIY Linear Regression ++ with PCA due Wednesday. [Requirements](../../notes/DIY-LinReg-Plus.md) are available.
+    - DIY Linear Regression ++ with PCA due Wednesday. [Requirements](../notes/DIY-LinReg-Plus.md) are available.
     - New topic: Logistic Regression
 - October 23, 2025 (Thursday)
     - Submit draft of your "DIY Linear Regression (DRAFT with normalization, regularization, PCA)" by Friday night please. OK if it's incomplete.
@@ -214,7 +214,7 @@ sidebar:
     - Finally do some [Image Compression](../notebooks/05-regression-plus/Image-Compression.ipynb)
 - October 14, 2025 (Thursday)
     - Matrix multiply as coordinate transform
-    - Notes on the SVD (here's some OK-ish [ai-generated](../../notes/svd_notes_ml.md) notes)
+    - Notes on the SVD (here's some OK-ish [ai-generated](../notes/svd_notes_ml.md) notes)
 - October 9, 2025 (Thursday)
     - See [this](https://docs.google.com/document/d/1a1CSGW1cFs70oKzLhJgTniyYis3OFgonyfLOfb16CK4/edit?usp=sharing)
     - Find 3 articles in groups, according to selected topic
@@ -224,7 +224,7 @@ sidebar:
     - Optional AP Stats [surveys](../CS12/stats.md)
     - Next Thursday: Library trip
 - September 30, 2025 (Tuesday)
-    - Start Linear Regression Unit. See the [lecture notes](../../notes/Multilinear_regression.html)
+    - Start Linear Regression Unit. See the [lecture notes](../notes/Multilinear_regression.html)
     - Look at [Test Score Data Set](../notebooks/05-regression-plus/Test_Scores.ipynb)
     - Next look at [Life Expectancy Data Set](../notebooks/05-regression-plus/Life_Expectancy_Student.ipynb) and discuss in class
     - HW: Complete exercises in Life Expectancy Data Set
@@ -258,13 +258,13 @@ sidebar:
         - Add a title cell (markdown # Title) and subsection cells ( ## subtitle) where appropriate
 - September 10, 2025 (Wednesday)
     - Finish [Linear Regression Notebook](../notebooks/02-regression-correlation/Least-Squares.ipynb) due [here](https://forms.gle/RHYWxdPu4VhCq2js6)
-    - [Notes on Coefficient of Determination](../../notes/Correlation_Coefficient.md) and goodness of fit for numerical models.
+    - [Notes on Coefficient of Determination](../notes/Correlation_Coefficient.md) and goodness of fit for numerical models.
     - Work on [Correlation Notebook](../notebooks/02-regression-correlation/Correlation.ipynb)
 
 - September 8, 2025 (Monday)
     - Announcement: [US AI Olympiad](../common/AI-olympiad.md)
     - Linear Regression
-    - [Notes](../../notes/Linear_regression_derivation.pdf) on derivation of linear regression formula
+    - [Notes](../notes/Linear_regression_derivation.pdf) on derivation of linear regression formula
     - Work on [Linear Regression Notebook](../notebooks/02-regression-correlation/Least-Squares.ipynb) due at end of class [here](https://forms.gle/RHYWxdPu4VhCq2js6)
     - Optional [Numpy Intro](../notebooks/02-regression-correlation/Numpy-Intro.ipynb)
 - September 4, 2025 (Thursday)
@@ -274,12 +274,12 @@ sidebar:
     - Work on London Weather project. Due at end of class!
         - Consider the [London Weather dataset](../data/london_weather.csv). Investigate the question “Has the weather in London gotten worse in the last 50 years?” Analyse the data and make a claim that you can support. Demonstrate the validity of your claim with graphical analysis. Include trendlines or statistical analysis as appropriate. You can define what makes weather "worse" -- part of this is definitely subjective. Write your conclusions within your jupyter notebook using markdown syntax (see exiting notebooks for examples.)[Source](https://www.kaggle.com/datasets/emmanuelfwerr/london-weather-data) for dataset, which retrieved the data from [here](https://www.ecad.eu/dailydata/index.php)
 - September 2, 2025 (Tuesday)
-    - Bayes Theorem [Notes](./bayes-notes.pdf)
+    - Bayes Theorem [Notes](../notes/bayes-notes.pdf)
     - Complete [Bayes Theorem Notebook](../notebooks/01-foundations/Bayes_Theorem_Student.ipynb)
     - Quick intro to [python and loops](./python.md)
     - HW: Due next class = Bayes Theorem notebook and Weather Exercises form last class. (Bring questions if you're stuck! You should do weather exercises 1-3 at least)
 - August 27, 2025 (Wednesday)
-    - More weather. Try some of [these exercises](./weather_exercises.md)
+    - More weather. Try some of [these exercises](../notebooks/01-foundations/weather_exercises.md)
 - August 25, 2025 (Monday)
     - Go over intro notebook
     - Loading and processing data with `pandas`
