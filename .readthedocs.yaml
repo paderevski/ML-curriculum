@@ -18,7 +18,7 @@ build:
           title: "ML Curriculum"
           description: "Machine Learning at the Academies of Loudoun"
           url: ""
-          baseurl: "/en/${READTHEDOCS_VERSION}"
+          baseurl: "/${READTHEDOCS_LANGUAGE}/${READTHEDOCS_VERSION}"
           EOF
         - python scripts/export_notebooks.py
         - python scripts/generate_notebook_metadata.py
