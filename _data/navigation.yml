@@ -7,6 +7,8 @@
 ml:
   - title: "Home"
     url: /
+  - title: "Getting Started"
+    url: /setup/
   - title: "Calendar"
     url: /calendar/
 
