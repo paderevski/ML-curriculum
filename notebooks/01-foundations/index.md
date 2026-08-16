@@ -17,8 +17,7 @@ what it shows.
   filtering rows and columns
 - **Data exploration** — reading CSVs, handling missing values, summary statistics
 - **Visualization** — matplotlib plots, interpreting distributions and trends
-- **Bayes' theorem** — prior and posterior probability, updating beliefs with
-  evidence; the probabilistic lens you'll use all year
+- **Bayes' theorem** — prior and posterior probability, updating beliefs with evidence; the probabilistic lens you'll use all year
 
 ## Topics
 
