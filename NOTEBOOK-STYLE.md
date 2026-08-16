@@ -1,9 +1,11 @@
 # Notebook Style Guide
 
 House style for restyling notebooks in this repo — headers, structure, and the
-constraints that keep a restyle from destroying real content. Developed against
-`notebooks/01-foundations/Quick-Intro-To-Python.ipynb` as the first worked
-example; refer back to that notebook (and this doc) when doing the next one.
+constraints that keep a restyle from destroying real content. Worked examples
+to refer back to when doing the next one:
+`notebooks/01-foundations/Quick-Intro-To-Python.ipynb` (numbered topic tour)
+and `notebooks/01-foundations/weather.ipynb` (unnumbered step-by-step
+walkthrough).
 
 This is a living document — update it as new edge cases turn up. It will.
 
@@ -63,13 +65,21 @@ behavior, not documented — worth re-testing if a renderer's behavior ever
 seems to have changed.)
 
 **Numbering style can vary by notebook shape — don't force uniformity.**
-Some notebooks (e.g. `CIFAR10_Training.ipynb`) are already well-structured
-using `## Step 1: Create your input pipeline` — a procedural/pipeline
-notebook, where "Step" signals sequence in a way a bare number doesn't. A
-topic-tour notebook (like Quick-Intro) uses bare `## 1: Title` instead. Both
-are fine. The requirement is *some* real header hierarchy exists and is
-internally consistent within that notebook — not that every notebook in the
-repo uses identical numbering text.
+Three patterns are established in this repo, each suited to a different kind
+of notebook:
+
+| Notebook shape | Pattern | Worked example |
+|---|---|---|
+| Topic tour — a set of distinct conceptual topics | `## N: Title` | `01-foundations/Quick-Intro-To-Python.ipynb` |
+| Procedural pipeline — ordered stages of one workflow | `## Step N: Title` | `10-cnns/CIFAR10_Training.ipynb` |
+| Step-by-step walkthrough — many short sequential actions | plain `## Title` (no number) | `01-foundations/weather.ipynb` |
+
+Pick whichever fits the notebook. `Step N:` signals sequence in a way a bare
+number doesn't; plain descriptive headers avoid absurdity when a notebook has
+20+ short steps and numbering to `## 23:` would be pure noise. The
+requirement is that *some* real header hierarchy exists and is internally
+consistent within that notebook — not that every notebook in the repo uses
+identical numbering text.
 
 **Blurbs:** one short sentence under each top-level `##` header, same voice as
 the site's "Topics" bullets on the unit index pages. Optional under `###`
