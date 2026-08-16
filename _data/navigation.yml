@@ -55,7 +55,7 @@ ml:
   - title: "Reference"
     children:
       - title: "Weather Exercises"
-        url: /weather_exercises/
+        url: /notebooks/01-foundations/weather_exercises/
       - title: "Bayes Practice"
         url: /bayes-practice/
       - title: "Research List"
