@@ -10,7 +10,7 @@ ml:
   - title: "Getting Started"
     url: /setup/
   - title: "Calendar"
-    url: /calendar/
+    url: /#daily-assignments
 
   - title: "Units"
     children:
