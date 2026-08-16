@@ -72,25 +72,35 @@ something like `first-notebook.ipynb`. Colab saves automatically as you work.
 
 ---
 
-## 3. Make a folder for this class
+## 3. Where your notebooks live
 
-Your notebook already saved itself to Google Drive, in a folder Colab makes
+Your notebook already saved itself to Google Drive, in a folder Colab creates
 automatically called **Colab Notebooks**.
 
-Open **[drive.google.com](https://drive.google.com)** and you'll see it in
-**My Drive**. Inside is the notebook you just made.
+Open **[drive.google.com](https://drive.google.com)**, go to **My Drive**, and
+you'll see it. Your notebook is inside.
 
-Make a folder for this course:
+**That's where everything you make in Colab goes.** Colab always saves there and
+doesn't give you a choice of folder, so don't fight it — just know where to
+look. You'll be back in Drive regularly to rename things (Step 5).
 
-1. In Drive, open **My Drive**
-2. Click **New → New folder**
-3. Name it **ML** (or `Machine Learning`, whatever you'll recognize)
-4. Drag `first-notebook.ipynb` from **Colab Notebooks** into it
+### Name things so you can find them later
 
-> **Heads up:** Colab always saves new notebooks into **Colab Notebooks**,
-> not into your `ML` folder. You can move a notebook afterward — either drag it
-> in Drive, or from inside Colab use **File → Move**. Do a cleanup sweep every
-> week or two so things don't pile up.
+By May you'll have forty-odd notebooks in that one folder. The fix isn't
+subfolders — it's names that sort themselves.
+
+Start each notebook's name with its unit number:
+
+```
+u01-python-intro.ipynb
+u01-weather.ipynb
+u04-mushroom.ipynb
+u10-cifar-cnn.ipynb
+```
+
+Drive sorts alphabetically, so this groups everything by unit for free. And
+when you can't remember where something is, just search Drive for a word from
+the name — that's faster than clicking through folders anyway.
 
 ---
 
@@ -120,11 +130,26 @@ So the very first thing you do, every time:
 **File → Save a copy in Drive**
 
 A new tab opens with your own copy, named `Copy of <whatever>.ipynb`. *That's*
-the one you work in. Rename it (drop the "Copy of") and move it to your `ML`
-folder.
+the one you work in — the original tab is still the unsaved read-only version,
+so close it so you don't mix them up.
 
 Quick way to tell which one you're in: your saved copy has a normal Drive title
 at the top-left and autosaves as you type. The read-only original doesn't.
+
+### Then go rename it
+
+Colab drops the copy into **Colab Notebooks** with that clumsy `Copy of` name
+and no way to change either at save time. Fixing it takes ten seconds:
+
+1. Open **[drive.google.com](https://drive.google.com)** → **My Drive** →
+   **Colab Notebooks**
+2. Find the file (it'll be at the top if you sort by *Last modified*)
+3. Right-click → **Rename**
+4. Give it a name like `u04-mushroom.ipynb` — unit number first, per Step 3
+
+Do this right after you save the copy, while you still remember what the
+notebook was. A folder full of `Copy of Copy of Untitled3.ipynb` in April is a
+self-inflicted problem.
 
 ---
 
@@ -136,8 +161,8 @@ copy. Unfortunately it's gone. Save the copy *first* from now on.
 
 **"I can't find the file I saved."**
 Check that you were on your `@lcps.org` account (Step 1). Then look in
-**My Drive → Colab Notebooks** — that's where new notebooks land by default,
-even if you meant to put them elsewhere.
+**My Drive → Colab Notebooks** — everything Colab saves goes there. Sort by
+*Last modified* and it'll be at the top.
 
 **"It says I need to sign in."**
 Your browser isn't signed into a Google account. Sign in with your LCPS account
@@ -165,4 +190,5 @@ Once you've done this a few times, the whole routine is:
 2. Click **colab** on the course site
 3. **File → Save a copy in Drive** — before anything else
 4. Work in your copy
-5. Move it into your `ML` folder when you're done
+5. Rename it in Drive when you're done — unit number first,
+   like `u04-mushroom.ipynb`
