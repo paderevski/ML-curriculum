@@ -20,15 +20,25 @@ $global-font-family: "Source Sans 3", -apple-system, sans-serif;  // warmer, aca
 @import "minimal-mistakes";
 
 // ─── Page width ───────────────────────────────────────────────────────────────
-// MM reserves padding-right for a right sidebar (TOC, etc.) we don't use.
-// Zero it out so the article fills the available space.
-// Increase from 0 to e.g. "2em" if you want breathing room on the right.
+// MM reserves padding-right on .page for a right sidebar (the TOC). On pages
+// that don't have one, that's just dead space, so we reclaim it.
+//
+// The :not(:has(...)) guard matters: unit pages DO have a TOC (enabled via
+// toc: true in _config.yml defaults), and zeroing their padding would run the
+// content under the TOC. This rule only applies where no .sidebar__right
+// exists.
+//
+// Failure mode is safe: if #main isn't the shared ancestor of .page and
+// .sidebar__right in some layout, the selector simply doesn't match and MM's
+// default padding applies -- slightly narrower content, nothing broken.
+//
+// Set to e.g. 2em instead of 0 if the full-width pages feel too wide.
 
 @media (min-width: 64em) {  // MM's $large breakpoint (~1024px)
-  .page { padding-right: 0; }
+  #main:not(:has(.sidebar__right)) .page { padding-right: 0; }
 }
 @media (min-width: 80em) {  // MM's $x-large breakpoint (~1280px)
-  .page { padding-right: 0; }
+  #main:not(:has(.sidebar__right)) .page { padding-right: 0; }
 }
 
 // ─── Notebook link label ──────────────────────────────────────────────────────

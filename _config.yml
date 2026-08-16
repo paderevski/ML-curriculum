@@ -155,3 +155,13 @@ defaults:
       type: pages
     values:
       math: true
+  # Unit pages read as book chapters -- auto-generate a table of contents
+  # from their headers in the right sidebar. Updates itself as sections are
+  # added, so there's no second copy to maintain in _data/navigation.yml.
+  - scope:
+      path: "notebooks"
+      type: pages
+    values:
+      toc: true
+      toc_sticky: true
+      toc_label: "In this unit"
