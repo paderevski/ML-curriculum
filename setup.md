@@ -84,18 +84,6 @@ you'll see it. Your notebook is inside.
 doesn't give you a choice of folder, so don't fight it — just know where to
 look. You'll be back in Drive regularly to rename things (Step 5).
 
-### Name things so you can find them later
-
-By May you'll have forty-odd notebooks in that one folder. The fix isn't
-subfolders — it's names that sort themselves.
-
-Start each notebook's name with its unit number:
-
-```
-u01-python-intro.ipynb
-u01-weather.ipynb
-u04-mushroom.ipynb
-u10-cifar-cnn.ipynb
 ```
 
 Drive sorts alphabetically, so this groups everything by unit for free. And
@@ -179,16 +167,3 @@ hangs for more than a minute, **Runtime → Restart session** usually fixes it.
 **"I get a warning that the notebook wasn't authored by Google."**
 Expected for any notebook from outside Google, including all of ours. Click
 **Run anyway**.
-
----
-
-## The short version
-
-Once you've done this a few times, the whole routine is:
-
-1. Check the avatar is your school account
-2. Click **colab** on the course site
-3. **File → Save a copy in Drive** — before anything else
-4. Work in your copy
-5. Rename it in Drive when you're done — unit number first,
-   like `u04-mushroom.ipynb`
