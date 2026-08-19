@@ -38,7 +38,7 @@ from pathlib import Path
 # is anywhere near that.
 #
 # Changing this one string re-points every notebook in the course.
-BASE_URL = "https://raw.githubusercontent.com/paderevski/ML-data/main/"
+BASE_URL = "https://raw.githubusercontent.com/AET-CS/ML-datasets/main/"
 
 # Where downloaded files are kept for the rest of the session.
 CACHE_DIR = Path(os.environ.get("ML_DATA_CACHE", "./ml-data"))
@@ -50,27 +50,43 @@ CACHE_DIR = Path(os.environ.get("ML_DATA_CACHE", "./ml-data"))
 # Add an entry here when a notebook needs a new dataset. Notebooks reference
 # the short name only, so a file can move or be renamed without touching them.
 DATASETS = {
-    # Unit 01
+    # Unit 01 — Foundations
     "weather":          "weather-daylight.csv",
     "london_weather":   "london_weather.csv",
-    # Unit 05
+    # Unit 04 — First Pipeline
+    "mushroom":         "mushroom.csv",
+    # Unit 05 — Regression++
+    "life_expectancy":  "Life_Expectancy_Data.csv",
+    "test_scores":      "test-scores.csv",
     "gauss":            "gauss.jpg",
-    # Unit 06
+    # Unit 06 — Classification
     "cancer":           "Cancer_Data.csv",
     "cancer_clean":     "Cancer_Data_Cleaned.csv",
     "loans":            "loan_data.csv",
-    # Unit 07
-    "mnist":            "mnist.pk.gz",
+    # Unit 07 — SVM / CV / Ensembles
+    "fake_news":        "Fake_News.csv",
     "twitter":          "twitter_training.csv",
     "airline_tweets":   "airline_tweets.csv",
-    # Unit 11
+    "mnist":            "mnist.pk.gz",
+    # Unit 08 — Anomaly Detection
+    "creditcard":       "creditcard.csv",
+    # Unit 11 — Transfer & Time Series
     "aapl":             "AAPL.csv",
     "bird_songs":       "bird_songs_metadata.csv",
-    # Unit 12
-    "shakespeare":      "shakespeare.txt",
-    # Unit 13
-    "spanish":          "spa-eng/spa.txt",
 }
+
+# Deliberately NOT in the registry — these already load from canonical
+# upstream sources and should stay that way. Re-hosting them would add a
+# maintenance burden and break the link to the original dataset:
+#
+#   adult.data        UCI ML repository        (06/Decision_Tree_Student)
+#   tinyshakespeare   karpathy/char-rnn        (12/Shakespeare_Student)
+#   spa-eng.zip       storage.googleapis.com   (12 & 13, NMT notebooks)
+#   shakespeare.txt   storage.googleapis.com   (13/charGPT)
+#
+# Also excluded: the CelebA and image-captioning notebooks read from a
+# mounted Google Drive (/content/drive/...). That's intentional — those are
+# large files and training checkpoints that shouldn't live in a git repo.
 
 
 def data_path(name):
