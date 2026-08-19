@@ -25,29 +25,20 @@ from pathlib import Path
 # ---------------------------------------------------------------------------
 # Hosting
 # ---------------------------------------------------------------------------
-# DECISION NEEDED: set this to whichever host is reachable from school
-# machines. Everything else in this file is host-agnostic — changing this one
-# string re-points every notebook in the course.
+# Notebooks run on Colab, which means downloads happen on Google's VM rather
+# than on a school machine — so the district's web filter isn't a factor. The
+# only things that must clear the school network are the browser loading the
+# course site and Colab itself.
 #
-# Candidates, with the tradeoffs:
+# That leaves ordinary criteria, and a separate public data repo wins: free,
+# versioned, pandas reads raw URLs directly, keeps the curriculum repo small,
+# and doesn't bloat the Jekyll/RTD build the way committing data here would.
 #
-#   1. The course site itself (readthedocs).
-#      "https://ml-curriculum.readthedocs.io/en/latest/data/"
-#      Guaranteed reachable — students already load the site to get here.
-#      Costs: data must be committed and included in the Jekyll build, which
-#      bloats build time and counts against RTD size limits.
+# Per-file ceiling is 100MB (GitHub warns above 50MB). Only mnist.pk.gz (22MB)
+# is anywhere near that.
 #
-#   2. A separate public GitHub data repo.
-#      "https://raw.githubusercontent.com/paderevski/ML-data/main/"
-#      Keeps the curriculum repo small, versioned, free, and pandas reads
-#      these URLs directly. 100MB per-file ceiling. Risk: some schools block
-#      github.com and/or raw.githubusercontent.com.
-#
-#   3. Google Drive shared folder.
-#      Near-certainly unblocked (LCPS is a Google shop), but direct-download
-#      URLs are awkward and large files hit an interstitial confirm page.
-#
-BASE_URL = "https://ml-curriculum.readthedocs.io/en/latest/data/"
+# Changing this one string re-points every notebook in the course.
+BASE_URL = "https://raw.githubusercontent.com/paderevski/ML-data/main/"
 
 # Where downloaded files are kept for the rest of the session.
 CACHE_DIR = Path(os.environ.get("ML_DATA_CACHE", "./ml-data"))
@@ -119,7 +110,7 @@ def data_path(name):
         raise RuntimeError(
             f"Could not download {filename} from {url}\n"
             f"({type(e).__name__}: {e})\n"
-            "If you're on a school network this host may be blocked — "
+            "Check that the file exists in the ML-data repo — "
             "let Dr. White know which dataset failed."
         ) from e
     print("done.")
