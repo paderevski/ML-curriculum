@@ -1,3 +1,11 @@
+---
+title: "Weather Data: Column Descriptions"
+layout: single
+sidebar:
+  nav: "ml"
+toc: false
+---
+
 As received, this weather data doesn't describe the columns. I fed the list of column names into ChatGPT and asked it for some descriptions, in case it was a known data format.
 
 ---

@@ -1,3 +1,10 @@
+---
+title: "Anomaly Detection Notes"
+layout: single
+sidebar:
+  nav: "ml"
+---
+
 ## 📚 Anomaly Detection
 **Course:** Machine‑Learning – Anomaly Detection & Imbalanced Data
 

@@ -1,3 +1,10 @@
+---
+title: "TensorFlow on Apple Silicon"
+layout: single
+sidebar:
+  nav: "ml"
+---
+
 # TensorFlow + Metal on Apple Silicon (Mac, M4)
 
 This documents the working setup as of 2026-01-22 on macOS for running TensorFlow with Metal GPU acceleration.

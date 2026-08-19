@@ -1,3 +1,10 @@
+---
+title: "Bayes Practice Problems"
+layout: single
+sidebar:
+  nav: "ml"
+---
+
 # Bayes Practice
 
 ## Part 1: COVID-19 Rapid Antigen Test
