@@ -49,8 +49,8 @@ are the columns? How many days were clear? Does it rain more on weekends?
 - `df.describe()` and `df.info()` before anything else — always look at your
   data before you analyze it
 - Missing data is normal and you have to decide what to do about it
-
-{% include nb.html local="weather.ipynb" %}
+- The data format is described [here](./weather-columns.md)
+- Notebook: {% include nb.html local="weather.ipynb" %}
 
 ---
 
