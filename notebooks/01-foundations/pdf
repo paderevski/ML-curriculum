@@ -1,0 +1,307 @@
+<h1
+id="probability-warm-up-intersection-union-and-conditional">Probability
+Warm-Up: Intersection, Union, and Conditional</h1>
+<p><em>Companion handout — complete before the Bayes’ Theorem
+lecture</em></p>
+<p>Name: ______________________ Date: ______________</p>
+<hr />
+<h2 id="the-vocabulary">0. The vocabulary</h2>
+<p>An <strong>experiment</strong> is anything with an uncertain outcome:
+rolling a die, testing a patient, drawing a card.</p>
+<p>The <strong>sample space</strong> <span
+class="math inline"><em>S</em></span> is the set of all possible
+outcomes. For one die roll, <span
+class="math inline"><em>S</em> = {1, 2, 3, 4, 5, 6}</span>.</p>
+<p>An <strong>event</strong> is a subset of the sample space — something
+that either happens or doesn’t. “The roll is even” is the event <span
+class="math inline"><em>A</em> = {2, 4, 6}</span>.</p>
+<p>When every outcome is equally likely:</p>
+<p><span class="math display">$$P(A) = \frac{\text{number of outcomes in
+} A}{\text{number of outcomes in } S}$$</span></p>
+<p>So <span class="math inline"><em>P</em>(even) = 3/6 = 0.5</span>.</p>
+<p>Two facts we will lean on constantly:</p>
+<ul>
+<li><span class="math inline">0 ≤ <em>P</em>(<em>A</em>) ≤ 1</span>
+always.</li>
+<li><span
+class="math inline"><em>P</em>(<em>Ā</em>) = 1 − <em>P</em>(<em>A</em>)</span>,
+where <span class="math inline"><em>Ā</em></span> (“not <span
+class="math inline"><em>A</em></span>”) is the
+<strong>complement</strong> of <span
+class="math inline"><em>A</em></span>.</li>
+</ul>
+<blockquote>
+<p><strong>Quick check.</strong> A single die is rolled. Write out the
+event <span class="math inline"><em>B</em></span> = “the roll is greater
+than 4” and compute <span
+class="math inline"><em>P</em>(<em>B</em>)</span> and <span
+class="math inline"><em>P</em>(<em>B̄</em>)</span>.</p>
+<p><span class="math inline">$B = \{\rule{2.5cm}{0.15pt}\}$</span> <span
+class="math inline">$P(B) = \rule{1.5cm}{0.15pt}$</span> <span
+class="math inline">$P(\bar{B}) = \rule{1.5cm}{0.15pt}$</span></p>
+</blockquote>
+<hr />
+<h2 id="intersection-and">1. Intersection — “<strong>and</strong>”</h2>
+<p><span class="math inline"><em>A</em> ∩ <em>B</em></span> is the event
+that <strong>both</strong> <span class="math inline"><em>A</em></span>
+and <span class="math inline"><em>B</em></span> happen. Read the symbol
+as “and.”</p>
+<p><strong>Example.</strong> Draw one card from a standard 52-card deck.
+Let</p>
+<ul>
+<li><span class="math inline"><em>A</em></span> = the card is a heart
+(<span class="math inline">13</span> cards)</li>
+<li><span class="math inline"><em>B</em></span> = the card is a face
+card — J, Q, K (<span class="math inline">12</span> cards)</li>
+</ul>
+<p><span class="math inline"><em>A</em> ∩ <em>B</em></span> = the card
+is a <em>heart face card</em>. There are exactly 3 of those (J♥, Q♥,
+K♥), so</p>
+<p><span class="math display">$$P(A \cap B) = \frac{3}{52} \approx
+0.058$$</span></p>
+<p>Notice that <span
+class="math inline"><em>P</em>(<em>A</em> ∩ <em>B</em>)</span> is
+smaller than both <span
+class="math inline"><em>P</em>(<em>A</em>) = 13/52</span> and <span
+class="math inline"><em>P</em>(<em>B</em>) = 12/52</span>. Adding a
+requirement can only shrink an event — it never grows it. This is worth
+saying out loud, because it is the sanity check that catches most
+arithmetic errors later.</p>
+<p>If <span class="math inline"><em>A</em> ∩ <em>B</em></span> is empty
+— the two events cannot co-occur — we call them <strong>mutually
+exclusive</strong> and <span
+class="math inline"><em>P</em>(<em>A</em> ∩ <em>B</em>) = 0</span>. “The
+card is a heart” and “the card is a spade” are mutually exclusive.</p>
+<blockquote>
+<p><strong>Exercise 1.</strong> One card is drawn. Let <span
+class="math inline"><em>A</em></span> = “the card is red” and <span
+class="math inline"><em>B</em></span> = “the card is an ace.”</p>
+<ol type="a">
+<li>How many cards are in <span
+class="math inline"><em>A</em> ∩ <em>B</em></span>? _______</li>
+<li>$P(A B) = $ _______</li>
+<li>Name two events in this deck that are mutually exclusive.</li>
+</ol>
+</blockquote>
+<hr />
+<h2 id="union-or">2. Union — “<strong>or</strong>”</h2>
+<p><span class="math inline"><em>A</em> ∪ <em>B</em></span> is the event
+that <span class="math inline"><em>A</em></span> happens, or <span
+class="math inline"><em>B</em></span> happens, or both. Read the symbol
+as “or.”</p>
+<p>The tempting move is to write <span
+class="math inline"><em>P</em>(<em>A</em> ∪ <em>B</em>) = <em>P</em>(<em>A</em>) + <em>P</em>(<em>B</em>)</span>.
+That is wrong whenever the events overlap, because everything in the
+overlap gets counted twice — once in <span
+class="math inline"><em>P</em>(<em>A</em>)</span> and again in <span
+class="math inline"><em>P</em>(<em>B</em>)</span>. The fix is to
+subtract the double-count:</p>
+<p><span
+class="math display"><em>P</em>(<em>A</em> ∪ <em>B</em>) = <em>P</em>(<em>A</em>) + <em>P</em>(<em>B</em>) − <em>P</em>(<em>A</em> ∩ <em>B</em>)</span></p>
+<p><strong>Example.</strong> Same deck, <span
+class="math inline"><em>A</em></span> = heart, <span
+class="math inline"><em>B</em></span> = face card.</p>
+<p><span class="math display">$$P(A \cup B) = \frac{13}{52} +
+\frac{12}{52} - \frac{3}{52} = \frac{22}{52} \approx 0.423$$</span></p>
+<p>Sanity check by counting directly: 13 hearts, plus the 9 face cards
+that aren’t hearts, is 22 cards. ✓</p>
+<p>When the events <em>are</em> mutually exclusive, <span
+class="math inline"><em>P</em>(<em>A</em> ∩ <em>B</em>) = 0</span> and
+the formula collapses back to plain addition. That’s the special case,
+not the general rule.</p>
+<blockquote>
+<p><strong>Exercise 2.</strong> In a class of 40 students, 22 have
+written Python before, 15 have taken a statistics course, and 9 have
+done both.</p>
+<ol type="a">
+<li>How many have done Python <em>or</em> statistics (or both)?
+_______</li>
+<li>$P( ) = $ _______</li>
+<li>How many have done <em>neither</em>? _______</li>
+<li>Sketch a Venn diagram and label all four regions with counts.</li>
+</ol>
+</blockquote>
+<hr />
+<h2 id="conditional-probability-given">3. Conditional probability —
+“<strong>given</strong>”</h2>
+<p><span class="math inline"><em>P</em>(<em>A</em> ∣ <em>B</em>)</span>
+is the probability that <span class="math inline"><em>A</em></span>
+happens <strong>given that we already know <span
+class="math inline"><em>B</em></span> happened</strong>. Read the bar as
+“given.”</p>
+<p>Conditioning on <span class="math inline"><em>B</em></span> means
+throwing away every outcome where <span
+class="math inline"><em>B</em></span> didn’t happen. <span
+class="math inline"><em>B</em></span> becomes the new sample space. So
+we count the outcomes where both happened, and divide by the outcomes
+where <span class="math inline"><em>B</em></span> happened:</p>
+<p><span class="math display">$$P(A \mid B) = \frac{P(A \cap
+B)}{P(B)}$$</span></p>
+<p><strong>Example.</strong> Draw a card. What is <span
+class="math inline"><em>P</em>(face card ∣ heart)</span>?</p>
+<p><span class="math display">$$P(B \mid A) = \frac{P(A \cap B)}{P(A)} =
+\frac{3/52}{13/52} = \frac{3}{13} \approx 0.231$$</span></p>
+<p>Or just reason it out: we know it’s a heart, so there are 13
+possibilities, and 3 of them are face cards. Same answer, and the
+formula is only bookkeeping for that intuition.</p>
+<h3 id="two-things-to-notice">Two things to notice</h3>
+<p><strong>Order matters.</strong> <span
+class="math inline"><em>P</em>(<em>A</em> ∣ <em>B</em>)</span> and <span
+class="math inline"><em>P</em>(<em>B</em> ∣ <em>A</em>)</span> are
+different questions with different denominators. Above, <span
+class="math inline"><em>P</em>(face ∣ heart) = 3/13</span>, but <span
+class="math inline">$P(\text{heart} \mid \text{face}) =
+\frac{3/52}{12/52} = 3/12 = 1/4$</span>. Same numerator, different
+denominator, different answer. <strong>Confusing these two is the single
+most common mistake in all of probability</strong>, and the entire point
+of Bayes’ Theorem is to convert one into the other correctly.</p>
+<p><strong>Sometimes knowing <span class="math inline"><em>B</em></span>
+tells you nothing.</strong> If <span
+class="math inline"><em>P</em>(<em>A</em> ∣ <em>B</em>) = <em>P</em>(<em>A</em>)</span>,
+the events are <strong>independent</strong> and the definition
+rearranges into <span
+class="math inline"><em>P</em>(<em>A</em> ∩ <em>B</em>) = <em>P</em>(<em>A</em>)<em>P</em>(<em>B</em>)</span>.
+Two coin flips are independent. A card being a heart and being a face
+card are also independent — check it: <span
+class="math inline">3/13 = <em>P</em>(face ∣ heart)</span> and <span
+class="math inline">12/52 = 3/13 = <em>P</em>(face)</span>. Equal, so
+independent. But an infection and a test result had better <em>not</em>
+be independent, or the test is useless.</p>
+<blockquote>
+<p><strong>Exercise 3.</strong> Roll two fair dice. Let <span
+class="math inline"><em>A</em></span> = “the sum is 8” and <span
+class="math inline"><em>B</em></span> = “the first die shows 5.”</p>
+<ol type="a">
+<li>$P(A) = $ _______ (there are 36 equally likely outcomes)</li>
+<li>$P(A B) = $ _______</li>
+<li>$P(A B) = $ _______</li>
+<li>Is <span
+class="math inline"><em>P</em>(<em>A</em> ∣ <em>B</em>)</span> bigger or
+smaller than <span class="math inline"><em>P</em>(<em>A</em>)</span>?
+What does that tell you?</li>
+<li>Compute <span
+class="math inline"><em>P</em>(<em>B</em> ∣ <em>A</em>)</span> and
+confirm it differs from <span
+class="math inline"><em>P</em>(<em>A</em> ∣ <em>B</em>)</span>.</li>
+</ol>
+</blockquote>
+<hr />
+<h2 id="putting-it-together-the-two-way-table">4. Putting it together:
+the two-way table</h2>
+<p>Most real problems arrive as counts in a table, and every quantity
+above can be read straight off it.</p>
+<p>Out of <strong>1,000 people</strong>, 1% carry an infection. A test
+is applied to all of them; among the infected it comes back positive 97%
+of the time, and among the healthy it also comes back positive 3% of the
+time.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align: right;">Test <strong>+</strong></th>
+<th style="text-align: right;">Test <strong>−</strong></th>
+<th style="text-align: right;"><strong>Total</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Infected</strong></td>
+<td style="text-align: right;">9.7</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr>
+<td><strong>Not infected</strong></td>
+<td style="text-align: right;">29.7</td>
+<td style="text-align: right;">960.3</td>
+<td style="text-align: right;">990</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td style="text-align: right;">39.4</td>
+<td style="text-align: right;">960.6</td>
+<td style="text-align: right;">1,000</td>
+</tr>
+</tbody>
+</table>
+<p>(Decimal people are fine — these are expected counts, not a
+headcount.)</p>
+<p>Reading the table:</p>
+<ul>
+<li><strong>Intersection:</strong> <span
+class="math inline"><em>P</em>(<em>I</em> ∩ +) = 9.7/1000 = 0.0097</span>
+— one cell, over the grand total.</li>
+<li><strong>Marginal:</strong> <span
+class="math inline"><em>P</em>(+) = 39.4/1000 = 0.0394</span> — a row or
+column total, over the grand total.</li>
+<li><strong>Conditional:</strong> <span
+class="math inline"><em>P</em>(+ ∣ <em>I</em>) = 9.7/10 = 0.97</span> —
+one cell, over its <em>row</em> total. Conditioning on <span
+class="math inline"><em>I</em></span> means the “Infected” row is now
+the whole world.</li>
+<li><strong>The other conditional:</strong> <span
+class="math inline"><em>P</em>(<em>I</em> ∣ +) = 9.7/39.4 ≈ 0.246</span>
+— the same cell, over its <em>column</em> total.</li>
+</ul>
+<blockquote>
+<p><strong>Exercise 4.</strong> Using the table above:</p>
+<ol type="a">
+<li>$P({I} +) = $ _______</li>
+<li>$P(- {I}) = $ _______</li>
+<li>$P(I +) = $ _______ <em>(use the union formula, then verify by
+counting cells)</em></li>
+<li>Are <span class="math inline"><em>I</em></span> and <span
+class="math inline">+</span> independent? Justify with numbers.</li>
+</ol>
+</blockquote>
+<blockquote>
+<p><strong>Exercise 5 — the punchline.</strong> Compare your answers for
+<span class="math inline"><em>P</em>(+ ∣ <em>I</em>) = 0.97</span> and
+<span class="math inline"><em>P</em>(<em>I</em> ∣ +) ≈ 0.246</span>.</p>
+<p>Both describe “the test and the infection agreeing.” In one sentence,
+explain to a classmate why they are so far apart. Which of the two would
+a patient actually want to know?</p>
+</blockquote>
+<hr />
+<h2 id="answer-key">Answer Key</h2>
+<p><strong>Quick check.</strong> <span
+class="math inline"><em>B</em> = {5, 6}</span>, <span
+class="math inline"><em>P</em>(<em>B</em>) = 2/6 = 1/3</span>, <span
+class="math inline"><em>P</em>(<em>B̄</em>) = 2/3</span>.</p>
+<p><strong>Exercise 1.</strong> (a) 2 (A♥, A♦). (b) <span
+class="math inline">2/52 = 1/26 ≈ 0.038</span>. (c) e.g. “heart” and
+“spade,” or “ace” and “king” — any two that can’t hold at once.</p>
+<p><strong>Exercise 2.</strong> (a) <span
+class="math inline">22 + 15 − 9 = 28</span>. (b) <span
+class="math inline">28/40 = 0.70</span>. (c) <span
+class="math inline">40 − 28 = 12</span>. (d) Python only 13, both 9,
+Stats only 6, neither 12 — the four must sum to 40.</p>
+<p><strong>Exercise 3.</strong> (a) <span
+class="math inline">5/36</span> — the sum-8 outcomes are
+(2,6),(3,5),(4,4),(5,3),(6,2). (b) <span class="math inline">1/36</span>
+— only (5,3). (c) <span class="math inline">$\frac{1/36}{6/36} =
+1/6$</span>. (d) <span class="math inline">1/6 &gt; 5/36</span>, so
+learning the first die is a 5 makes a sum of 8 <em>more</em> likely; the
+events are not independent. (e) <span class="math inline">$P(B \mid A) =
+\frac{1/36}{5/36} = 1/5$</span>, which is not <span
+class="math inline">1/6</span>.</p>
+<p><strong>Exercise 4.</strong> (a) <span
+class="math inline">29.7/1000 = 0.0297</span>. (b) <span
+class="math inline">960.3/990 ≈ 0.970</span>. (c) <span
+class="math inline"><em>P</em>(<em>I</em>) + <em>P</em>(+) − <em>P</em>(<em>I</em> ∩ +) = 0.01 + 0.0394 − 0.0097 = 0.0397</span>;
+by cells, <span
+class="math inline">(9.7 + 0.3 + 29.7)/1000 = 0.0397</span>. ✓ (d)
+No. <span class="math inline"><em>P</em>(+ ∣ <em>I</em>) = 0.97</span>
+but <span class="math inline"><em>P</em>(+) = 0.0394</span> — wildly
+different, so the test result depends heavily on infection status.
+(Good! An independent test would be worthless.)</p>
+<p><strong>Exercise 5.</strong> The infection is rare, so the 990
+healthy people vastly outnumber the 10 infected ones — and 3% of a large
+group (29.7 false positives) beats 97% of a tiny group (9.7 true
+positives). A positive result is therefore most often a false alarm. The
+patient wants <span
+class="math inline"><em>P</em>(<em>I</em> ∣ +)</span>, but the test’s
+advertised “97% accuracy” reports <span
+class="math inline"><em>P</em>(+ ∣ <em>I</em>)</span>. <strong>Bayes’
+Theorem is the tool that converts the number we are given into the
+number we want.</strong></p>

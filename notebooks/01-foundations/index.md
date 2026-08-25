@@ -75,15 +75,8 @@ week two.
 
 ## 4: Bayes' Theorem
 
-The probabilistic lens you'll use all year. There are fundamental ways to
-measure success and failure, and knowledge and belief. We discuss them here.
-
-### Why it matters here
-
-The classic medical-test problem: a test that's 97% accurate, for a disease that
-affects 1 in 1000 people. Most people's intuition about what a positive result
-means is badly wrong, and the gap between intuition and arithmetic is the whole
-lesson.
+Introducing basic probability and one of its most fundamental theorems. We'll talk about
+'reversing probability', which matters a lot more than you might think!
 
 **[Notes (PDF)](../../notes/bayes-notes.pdf)**
 
@@ -93,20 +86,20 @@ lesson.
 
 ## 5: London Weather Project
 
-The unit's capstone. A 50-year climate dataset and one question: has London's
-weather gotten worse?
+A short capstone project for this unit. Determine if you think London's weather has
+gotten worse over the last 50 years.
 
 ### The task
 
-You define "worse." That's the hard part and the point — part of the work is
+You define "worse." That's the fun part and the point — part of the work is
 deciding what to measure, then defending that choice in writing. Temperature?
-Rainfall? Consecutive gray days? There's no answer key.
+Rainfall? Consecutive gray days? You pick and back it up.
 
 ### What good work looks like
 
 - A clearly stated claim
 - Evidence from the data that actually supports it
-- Honest acknowledgment of what the data can't tell you
+- Addressing what the data can't tell you
 
 **Data:** [london_weather.csv](../../data/london_weather.csv)
 ([original source](https://www.kaggle.com/datasets/emmanuelfwerr/london-weather-data))
@@ -118,4 +111,4 @@ Rainfall? Consecutive gray days? There's no answer key.
 ## What's Next
 
 [Unit 02](../02-regression-correlation/) introduces the first actual model:
-linear regression derived from scratch, before any library does it for you.
+linear regression derived from scratch, before we use built-in tools to do it for us.

@@ -1,0 +1,23 @@
+% Automatic Unicode font fallback for LuaLaTeX (macOS).
+% Body text stays Latin Modern serif; any glyph Latin Modern lacks is
+% pulled automatically from the fallback chain below. No need to
+% enumerate individual characters.
+%
+% Usage:
+%   pandoc input.md -o output.pdf --pdf-engine=lualatex -H fallback.tex
+%
+% WARNING: every font named below must actually be installed. A name
+% that does not resolve causes a fatal error with no useful message.
+% Both fonts here ship with macOS.
+
+\directlua{
+  luaotfload.add_fallback("mainfallback", {
+    "STIX Two Text:mode=node",   % serif, very broad symbol coverage
+    "STIXGeneral:mode=node",     % older STIX, also broad
+    "Apple Symbols:mode=node",   % macOS catch-all for symbols
+  })
+}
+
+\setmainfont{Latin Modern Roman}[
+  RawFeature={mode=node;fallback=mainfallback}
+]
