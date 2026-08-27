@@ -26,6 +26,11 @@ day-by-day schedule below is what sets the pace.
 
 Most recent first.
 
+- August 27, 2026 (Thursday)
+    - Worksheet on Confusion Matrices (Contingency Tables)
+    - *HW*: Complete Unit 1.5 London Weather Notebook
+    - Submission link to be posted here soon!
+    - Block 2 Bayes' quiz next class
 - August 25, 2026 (Tuesday)
     - Unit 1.4 -- Bayes Theorem and Intro to Probability Worksheet
 - August 21, 2026 (Friday)

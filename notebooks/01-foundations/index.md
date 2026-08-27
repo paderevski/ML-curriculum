@@ -98,9 +98,9 @@ Rainfall? Consecutive gray days? You pick and back it up.
 
 ### What good work looks like
 
-- A clearly stated claim
+- A clearly stated claim with definitions
 - Evidence from the data that actually supports it
-- Addressing what the data can't tell you
+- Some graph(s) or chart(s) to substantiate your claim
 
 **Data:** [london_weather.csv](../../data/london_weather.csv)
 ([original source](https://www.kaggle.com/datasets/emmanuelfwerr/london-weather-data))
