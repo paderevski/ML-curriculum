@@ -26,6 +26,10 @@ day-by-day schedule below is what sets the pace.
 
 Most recent first.
 
+- August 25, 2026 (Tuesday)
+    - Unit 1.4 -- Bayes Theorem and Intro to Probability Worksheet
+- August 21, 2026 (Friday)
+    - Work on Unit 1.3 Weather Activities
 - August 19, 2026 (Wednesday)
     - Weather: Define a good weather day and a bad weather day using the data fields described [here](notebooks/01-foundations/weather-columns.md)
     - In class we looked at the "Cloudy Days in Leesburg" notebook. Please complete it for next class (Unit 1)
