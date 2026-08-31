@@ -26,6 +26,10 @@ day-by-day schedule below is what sets the pace.
 
 Most recent first.
 
+- August 31, 2026 (Monday)
+    - Bayes and London are due now
+    - Start Unit 2 -- Linear Regression
+    - Next class be ready to do a quick presentation of your London analysis (like 1 minute)
 - August 27, 2026 (Thursday)
     - Worksheet on Confusion Matrices (Contingency Tables)
     - *HW*: Complete Unit 1.5 London Weather Notebook
