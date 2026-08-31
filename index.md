@@ -29,7 +29,7 @@ Most recent first.
 - August 27, 2026 (Thursday)
     - Worksheet on Confusion Matrices (Contingency Tables)
     - *HW*: Complete Unit 1.5 London Weather Notebook
-    - Submission link to be posted here soon!
+    - Submit London Weather *and* Bayes Notebooks [here](https://forms.gle/ZM2ByLhh1JR7ySev8), each as .ipynb files please
     - Block 2 Bayes' quiz next class
 - August 25, 2026 (Tuesday)
     - Unit 1.4 -- Bayes Theorem and Intro to Probability Worksheet
