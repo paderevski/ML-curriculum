@@ -1,9 +1,9 @@
 ---
-title: "Unit 09: Dense Neural Networks"
+title: "Unit 08: Dense Neural Networks"
 layout: single
 sidebar:
   nav: "ml"
-permalink: /notebooks/09-dense-neural-networks/
+permalink: /notebooks/08-dense-neural-networks/
 ---
 
 The bridge between classical ML and deep learning. Before tackling convolutional
@@ -45,6 +45,6 @@ is woven into the CNNs unit that follows.
 
 ## What's next
 
-[Unit 10](../10-cnns/) applies these ideas to images — convolutional
+[Unit 09](../09-cnns/) applies these ideas to images — convolutional
 networks replace the dense layers with learned spatial filters that are far
 more efficient on image data.

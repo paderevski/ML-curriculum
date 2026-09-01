@@ -53,24 +53,24 @@ DATASETS = {
     # Unit 01 — Foundations
     "weather":          "weather-daylight.csv",
     "london_weather":   "london_weather.csv",
-    # Unit 04 — First Pipeline
+    # Unit 03 — First Pipeline
     "mushroom":         "mushroom.csv",
-    # Unit 05 — Regression++
+    # Unit 04 — Regression++
     "life_expectancy":  "Life_Expectancy_Data.csv",
     "test_scores":      "test-scores.csv",
     "gauss":            "gauss.jpg",
-    # Unit 06 — Classification
+    # Unit 05 — Classification
     "cancer":           "Cancer_Data.csv",
     "cancer_clean":     "Cancer_Data_Cleaned.csv",
     "loans":            "loan_data.csv",
-    # Unit 07 — SVM / CV / Ensembles
+    # Unit 06 — SVM / CV / Ensembles
     "fake_news":        "Fake_News.csv",
     "twitter":          "twitter_training.csv",
     "airline_tweets":   "airline_tweets.csv",
     "mnist":            "mnist.pk.gz",
-    # Unit 08 — Anomaly Detection
+    # Unit 07 — Anomaly Detection
     "creditcard":       "creditcard.csv",
-    # Unit 11 — Transfer & Time Series
+    # Unit 10 — Transfer & Time Series
     "aapl":             "AAPL.csv",
     "bird_songs":       "bird_songs_metadata.csv",
 }
@@ -79,10 +79,10 @@ DATASETS = {
 # upstream sources and should stay that way. Re-hosting them would add a
 # maintenance burden and break the link to the original dataset:
 #
-#   adult.data        UCI ML repository        (06/Decision_Tree_Student)
-#   tinyshakespeare   karpathy/char-rnn        (12/Shakespeare_Student)
-#   spa-eng.zip       storage.googleapis.com   (12 & 13, NMT notebooks)
-#   shakespeare.txt   storage.googleapis.com   (13/charGPT)
+#   adult.data        UCI ML repository        (05/Decision_Tree_Student)
+#   tinyshakespeare   karpathy/char-rnn        (11/Shakespeare_Student)
+#   spa-eng.zip       storage.googleapis.com   (11 & 12, NMT notebooks)
+#   shakespeare.txt   storage.googleapis.com   (12/charGPT)
 #
 # Also excluded: the CelebA and image-captioning notebooks read from a
 # mounted Google Drive (/content/drive/...). That's intentional — those are

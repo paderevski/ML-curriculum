@@ -1,9 +1,9 @@
 ---
-title: "Unit 11: Transfer Learning and Time Series"
+title: "Unit 10: Transfer Learning and Time Series"
 layout: single
 sidebar:
   nav: "ml"
-permalink: /notebooks/11-transfer-and-time-series/
+permalink: /notebooks/10-transfer-and-time-series/
 ---
 
 Two connected ideas. Transfer learning is the practical insight that a network
@@ -22,7 +22,7 @@ matters*, setting up the sequence models that follow.
 - **Time series** — sequences where the past predicts the future;
   sliding windows; stationarity
 - **Recurrent processing (preview)** — why feed-forward networks struggle
-  with sequences; motivating the RNNs of Unit 12
+  with sequences; motivating the RNNs of Unit 11
 
 ## Topics
 
@@ -50,6 +50,6 @@ matters*, setting up the sequence models that follow.
 
 ## What's next
 
-[Unit 12](../12-rnns-seq2seq/) answers the time-series question properly
+[Unit 11](../11-rnns-seq2seq/) answers the time-series question properly
 with recurrent neural networks — and takes them all the way to neural machine
 translation with attention.

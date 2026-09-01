@@ -71,7 +71,7 @@ of notebook:
 | Notebook shape | Pattern | Worked example |
 |---|---|---|
 | Topic tour — a set of distinct conceptual topics | `## N: Title` | `01-foundations/Quick-Intro-To-Python.ipynb` |
-| Procedural pipeline — ordered stages of one workflow | `## Step N: Title` | `10-cnns/CIFAR10_Training.ipynb` |
+| Procedural pipeline — ordered stages of one workflow | `## Step N: Title` | `09-cnns/CIFAR10_Training.ipynb` |
 | Step-by-step walkthrough — many short sequential actions | plain `## Title` (no number) | `01-foundations/weather.ipynb` |
 
 Pick whichever fits the notebook. `Step N:` signals sequence in a way a bare

@@ -1,13 +1,13 @@
 ---
-title: "Unit 05: Regression++"
+title: "Unit 04: Regression++"
 layout: single
 sidebar:
   nav: "ml"
-permalink: /notebooks/05-regression-plus/
+permalink: /notebooks/04-regression-plus/
 ---
 
 The longest unit — where regression grows into a real professional toolkit and
-where the linear algebra from Unit 3 finally pays off. You'll move from
+where the linear algebra from Unit 2 finally pays off. You'll move from
 single-variable models to multi-feature ones, learn why unregularized models
 overfit, and discover that high-dimensional data often has hidden low-dimensional
 structure you can exploit.
@@ -69,5 +69,5 @@ Finish with a written defense of your "best model" choice.
 
 ## What's next
 
-[Unit 06](../06-classification/) introduces the classification algorithms
-the course previewed in Unit 04 — this time with full explanations of how each one works.
+[Unit 05](../05-classification/) introduces the classification algorithms
+the course previewed in Unit 03 — this time with full explanations of how each one works.

@@ -16,30 +16,28 @@ ml:
     children:
       - title: "01 · Foundations"
         url: /notebooks/01-foundations/
-      - title: "02 · Regression & Correlation"
+      - title: "02 · Regression, Correlation & Linear Algebra"
         url: /notebooks/02-regression-correlation/
-      - title: "03 · Linear Algebra"
-        url: /notebooks/03-linear-algebra/
-      - title: "04 · First Pipeline"
-        url: /notebooks/04-first-pipeline/
-      - title: "05 · Regression++"
-        url: /notebooks/05-regression-plus/
-      - title: "06 · Classification"
-        url: /notebooks/06-classification/
-      - title: "07 · SVM & Ensembles"
-        url: /notebooks/07-svm-cv-ensembles/
-      - title: "08 · Anomaly Detection"
-        url: /notebooks/08-anomaly/
-      - title: "09 · Dense Networks"
-        url: /notebooks/09-dense-neural-networks/
-      - title: "10 · CNNs"
-        url: /notebooks/10-cnns/
-      - title: "11 · Transfer Learning"
-        url: /notebooks/11-transfer-and-time-series/
-      - title: "12 · RNNs & Seq2Seq"
-        url: /notebooks/12-rnns-seq2seq/
-      - title: "13 · Transformers"
-        url: /notebooks/13-transformers-generative/
+      - title: "03 · First Pipeline"
+        url: /notebooks/03-first-pipeline/
+      - title: "04 · Regression++"
+        url: /notebooks/04-regression-plus/
+      - title: "05 · Classification"
+        url: /notebooks/05-classification/
+      - title: "06 · SVM & Ensembles"
+        url: /notebooks/06-svm-cv-ensembles/
+      - title: "07 · Anomaly Detection"
+        url: /notebooks/07-anomaly/
+      - title: "08 · Dense Networks"
+        url: /notebooks/08-dense-neural-networks/
+      - title: "09 · CNNs"
+        url: /notebooks/09-cnns/
+      - title: "10 · Transfer Learning"
+        url: /notebooks/10-transfer-and-time-series/
+      - title: "11 · RNNs & Seq2Seq"
+        url: /notebooks/11-rnns-seq2seq/
+      - title: "12 · Transformers"
+        url: /notebooks/12-transformers-generative/
 
   - title: "Notes"
     children:

@@ -1,9 +1,9 @@
 ---
-title: "Unit 08: Anomaly Detection"
+title: "Unit 07: Anomaly Detection"
 layout: single
 sidebar:
   nav: "ml"
-permalink: /notebooks/08-anomaly/
+permalink: /notebooks/07-anomaly/
 ---
 
 A short, focused unit that doubles as the second-quarter capstone. The central
@@ -37,12 +37,12 @@ detect anomalies without a clean supervised signal.
 ## Quarter Project
 
 Find any dataset from the [UCI Repository](http://archive.ics.uci.edu/datasets/)
-and model it using techniques from Units 1–8. Classification, regression, or
+and model it using techniques from Units 1–7. Classification, regression, or
 anomaly detection — your choice. The deliverable is a notebook with a clear
 question, a defensible modeling approach, and a written interpretation of results.
 
 ## What's next
 
-[Unit 09](../09-dense-neural-networks/) introduces dense neural networks —
+[Unit 08](../08-dense-neural-networks/) introduces dense neural networks —
 perceptrons, backpropagation, and the foundational ideas that make everything in
-Units 10–13 possible.
+Units 09–12 possible.

@@ -1,12 +1,12 @@
 ---
-title: "Unit 04: First End-to-End Pipeline"
+title: "Unit 03: First End-to-End Pipeline"
 layout: single
 sidebar:
   nav: "ml"
-permalink: /notebooks/04-first-pipeline/
+permalink: /notebooks/03-first-pipeline/
 ---
 
-The "now do it yourself" hinge of the first quarter. Up through Unit 3 you've
+The "now do it yourself" hinge of the first quarter. Up through Unit 2 you've
 been learning components — pandas, statistics, linear algebra. Here they
 assemble into a complete machine learning workflow: load data, clean it, explore
 it, encode it, split it, train a model, and evaluate the results. You'll see
@@ -54,7 +54,7 @@ ever achieve.
 
 ## What's next
 
-[Unit 05](../05-regression-plus/) moves to continuous data — multilinear
+[Unit 04](../04-regression-plus/) moves to continuous data — multilinear
 regression, regularization, SVD, and PCA — and closes with the DIY Linear
 Regression project, a more open-ended version of the same "find your own dataset"
 pattern introduced here.

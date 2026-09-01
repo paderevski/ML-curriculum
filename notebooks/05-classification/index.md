@@ -1,9 +1,9 @@
 ---
-title: "Unit 06: Classification Classics"
+title: "Unit 05: Classification Classics"
 layout: single
 sidebar:
   nav: "ml"
-permalink: /notebooks/06-classification/
+permalink: /notebooks/05-classification/
 ---
 
 Three algorithms in three weeks, each introduced with a different dataset and a
@@ -45,10 +45,10 @@ library. You earn the library.
   {% include nb.html local="Decision_Tree_Student.ipynb" %}
 
 - **Shannon entropy** — information as surprise; encoding strings efficiently;
-  connection to the compression ideas coming in Unit 07.
+  connection to the compression ideas coming in Unit 06.
 
 ## What's next
 
-[Unit 07](../07-svm-cv-ensembles/) closes out the classical-ML arc with
+[Unit 06](../06-svm-cv-ensembles/) closes out the classical-ML arc with
 SVMs, proper cross-validation, word embeddings, and ensemble methods — the
 professional-practice layer on top of the algorithms you now know.

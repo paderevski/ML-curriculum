@@ -1,9 +1,9 @@
 ---
-title: "Unit 12: RNNs and Sequence-to-Sequence"
+title: "Unit 11: RNNs and Sequence-to-Sequence"
 layout: single
 sidebar:
   nav: "ml"
-permalink: /notebooks/12-rnns-seq2seq/
+permalink: /notebooks/11-rnns-seq2seq/
 ---
 
 Where the course pivots fully into modern NLP. The progression mirrors the
@@ -59,6 +59,6 @@ Each step reveals a limitation of the previous approach, motivating the next.
 
 ## What's next
 
-[Unit 13](../13-transformers-generative/) replaces the recurrence entirely
+[Unit 12](../12-transformers-generative/) replaces the recurrence entirely
 with self-attention — the Transformer — then uses it for translation, text
 generation, image captioning, and generative modeling.

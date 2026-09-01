@@ -1,9 +1,9 @@
 ---
-title: "Unit 07: SVM, Cross-Validation, and Ensembles"
+title: "Unit 06: SVM, Cross-Validation, and Ensembles"
 layout: single
 sidebar:
   nav: "ml"
-permalink: /notebooks/07-svm-cv-ensembles/
+permalink: /notebooks/06-svm-cv-ensembles/
 ---
 
 The last classical-ML push before deep learning. This unit adds the
@@ -31,7 +31,7 @@ coming later.
 ## Topics
 
 - **Arithmetic codes** — lecture on optimal coding; connects directly to the
-  Shannon entropy from Unit 06.
+  Shannon entropy from Unit 05.
 
 - **SVM theory and lab** — the margin, support vectors, and the kernel trick;
   then a lab applying SVM to a classification problem.
@@ -58,5 +58,5 @@ coming later.
 
 ## What's next
 
-[Unit 08](../08-anomaly/) is a short focused unit on anomaly detection —
+[Unit 07](../07-anomaly/) is a short focused unit on anomaly detection —
 the second-quarter capstone, closing with an open-ended quarter project.
