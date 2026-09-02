@@ -27,7 +27,7 @@ day-by-day schedule below is what sets the pace.
 Most recent first.
 
 - September 2, 2026 (Wednesday)
-    - Finish notes on [Linear Regression](./notes/Linear_regression_derivation.pdf) in class
+    - Finish notes on [Linear Regression](./notes/Linear_regression_derivation/) in class
     - Homework is to complete Unit 2 Lesson 1 Notebook on Least Squares
 - August 31, 2026 (Monday)
     - Bayes and London are due now

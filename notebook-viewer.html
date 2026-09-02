@@ -2,9 +2,10 @@
 layout: default
 ---
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Notebook Viewer</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
   <style>
@@ -88,6 +89,9 @@ layout: default
                 if (output.data['image/png']) {
                   const img = document.createElement('img');
                   img.src = 'data:image/png;base64,' + output.data['image/png'];
+                  // No source description available in the notebook JSON, so screen
+                  // readers just get a generic label rather than nothing at all.
+                  img.alt = 'Image output from notebook cell';
                   outputDiv.appendChild(img);
                 }
                 if (output.data['text/html']) {

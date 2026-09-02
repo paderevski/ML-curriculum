@@ -51,7 +51,7 @@
 
         .subtitle {
             text-align: center;
-            color: #7f8c8d;
+            color: #5f6c72;
             margin-bottom: 40px;
             font-size: 1.1rem;
         }
@@ -253,7 +253,7 @@
             <p>Statistics help us make sense of data by summarizing large amounts of information into meaningful numbers. Today, we'll explore four fundamental statistical measures that help us understand the <span class="highlight">center</span> and <span class="highlight">spread</span> of our data.</p>
         </div>
 
-        <h2><span class="icon">1</span> The Mean (Average)</h2>
+        <h2><span class="icon" aria-hidden="true">1</span> The Mean (Average)</h2>
 
         <p>The <strong>mean</strong> is what most people call the "average." It's calculated by adding up all the values and dividing by how many values you have.</p>
 
@@ -269,7 +269,7 @@
         </div>
 
         <div class="visualization">
-            <svg viewBox="0 0 600 250">
+            <svg viewBox="0 0 600 250" aria-hidden="true" focusable="false">
                 <!-- Axis -->
                 <line x1="50" y1="200" x2="550" y2="200" stroke="#2c3e50" stroke-width="2"/>
                 <line x1="50" y1="200" x2="50" y2="50" stroke="#2c3e50" stroke-width="2"/>
@@ -298,7 +298,7 @@
             </svg>
         </div>
 
-        <h2><span class="icon">2</span> The Median (Middle Value)</h2>
+        <h2><span class="icon" aria-hidden="true">2</span> The Median (Middle Value)</h2>
 
         <p>The <strong>median</strong> is the middle value when all data points are arranged in order. If there's an even number of values, it's the average of the two middle values.</p>
 
@@ -315,7 +315,7 @@
         </div>
 
         <div class="visualization">
-            <svg viewBox="0 0 600 250">
+            <svg viewBox="0 0 600 250" aria-hidden="true" focusable="false">
                 <!-- Axis -->
                 <line x1="50" y1="200" x2="550" y2="200" stroke="#2c3e50" stroke-width="2"/>
 
@@ -344,7 +344,7 @@
             </svg>
         </div>
 
-        <h2><span class="icon">3</span> Variance (Spread of Data)</h2>
+        <h2><span class="icon" aria-hidden="true">3</span> Variance (Spread of Data)</h2>
 
         <p>The <strong>variance</strong> measures how spread out the data is from the mean. A small variance means values are close to the mean; a large variance means they're spread out.</p>
 
@@ -360,7 +360,7 @@
         </div>
 
         <div class="visualization">
-            <svg viewBox="0 0 600 300">
+            <svg viewBox="0 0 600 300" aria-hidden="true" focusable="false">
                 <!-- Class A (Low Variance) -->
                 <text x="150" y="30" text-anchor="middle" font-size="16" fill="#2c3e50" font-weight="bold">Class A (Low Variance)</text>
                 <line x1="50" y1="100" x2="250" y2="100" stroke="#2c3e50" stroke-width="2"/>
@@ -388,7 +388,7 @@
             </svg>
         </div>
 
-        <h2><span class="icon">4</span> IQR (Interquartile Range)</h2>
+        <h2><span class="icon" aria-hidden="true">4</span> IQR (Interquartile Range)</h2>
 
         <p>The <strong>IQR</strong> measures the spread of the middle 50% of your data. It's the difference between the 75th percentile (Q3) and the 25th percentile (Q1).</p>
 
@@ -408,7 +408,7 @@
         </div>
 
         <div class="visualization">
-            <svg viewBox="0 0 600 200">
+            <svg viewBox="0 0 600 200" aria-hidden="true" focusable="false">
                 <!-- Box plot -->
                 <line x1="100" y1="100" x2="500" y2="100" stroke="#2c3e50" stroke-width="2"/>
 
@@ -446,7 +446,7 @@
             </svg>
         </div>
 
-        <h2><span class="icon">📊</span> Putting It All Together</h2>
+        <h2><span class="icon" aria-hidden="true">📊</span> Putting It All Together</h2>
 
         <div class="concept-box">
             <p>Each measure tells us something different about our data:</p>
@@ -454,10 +454,10 @@
 
         <table class="comparison-table">
             <tr>
-                <th>Measure</th>
-                <th>What it tells us</th>
-                <th>When to use it</th>
-                <th>Sensitive to outliers?</th>
+                <th scope="col">Measure</th>
+                <th scope="col">What it tells us</th>
+                <th scope="col">When to use it</th>
+                <th scope="col">Sensitive to outliers?</th>
             </tr>
             <tr>
                 <td><strong>Mean</strong></td>

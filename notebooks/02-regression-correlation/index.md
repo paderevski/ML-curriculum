@@ -24,7 +24,7 @@ against the closed-form solution.
 - **Ordinary least squares** — minimizing the sum of squared residuals;
   deriving the slope and intercept analytically
 - **Residuals and model fit** — what a good fit looks like vs. a poor one
-- [Derivation notes](../../notes/Linear_regression_derivation.pdf)
+- [Derivation notes](../../notes/Linear_regression_derivation/) ([PDF](../../notes/Linear_regression_derivation.pdf))
 
 {% include nb.html local="Least-Squares.ipynb" %}
 
