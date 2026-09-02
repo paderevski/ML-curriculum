@@ -11,11 +11,9 @@ sidebar:
 Machine Learning at the Academies of Loudoun — a from-scratch tour of the field,
 from pandas and linear regression through CNNs, RNNs, and Transformers.
 
-| | |
-|---|---|
-| **Instructor** | Dr. White |
-| **Room** | 2312 |
-| **Meeting days** | Block 3, A days |
+- **Instructor:** Dr. White
+- **Room:** 2312
+- **Meeting days:** Block 3, A days
 
 New to the course? Start with
 **[Getting Started with Google Colab]({{ '/setup/' | relative_url }})** — you'll
@@ -36,14 +34,14 @@ Most recent first.
 - August 27, 2026 (Thursday)
     - Worksheet on Confusion Matrices (Contingency Tables)
     - *HW*: Complete Unit 1.5 London Weather Notebook
-    - Submit London Weather *and* Bayes Notebooks [here](https://forms.gle/ZM2ByLhh1JR7ySev8), each as .ipynb files please
+    - Submit your [London Weather and Bayes notebooks](https://forms.gle/ZM2ByLhh1JR7ySev8) here, each as .ipynb files please
     - Block 2 Bayes' quiz next class
 - August 25, 2026 (Tuesday)
     - Unit 1.4 -- Bayes Theorem and Intro to Probability Worksheet
 - August 21, 2026 (Friday)
     - Work on Unit 1.3 Weather Activities
 - August 19, 2026 (Wednesday)
-    - Weather: Define a good weather day and a bad weather day using the data fields described [here](notebooks/01-foundations/weather-columns.md)
+    - Weather: Define a good weather day and a bad weather day using the data fields in the [weather column reference](notebooks/01-foundations/weather-columns.md)
     - In class we looked at the "Cloudy Days in Leesburg" notebook. Please complete it for next class (Unit 1)
 - August 17, 2025 (Monday)
     - Intro to class. Installing software.

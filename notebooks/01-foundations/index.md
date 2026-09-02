@@ -49,7 +49,7 @@ are the columns? How many days were clear? Does it rain more on weekends?
 - `df.describe()` and `df.info()` before anything else — always look at your
   data before you analyze it
 - Missing data is normal and you have to decide what to do about it
-- The data format is described [here](./weather-columns.md)
+- The data format is described in the [weather column reference](./weather-columns.md)
 - Notebook: {% include nb.html local="weather.ipynb" %}
 
 ---
@@ -78,8 +78,8 @@ week two.
 Introducing basic probability and one of its most fundamental theorems. We'll talk about
 'reversing probability', which matters a lot more than you might think!
 
-**[Intro to Probability](./handout.pdf)**
-**[Bayes Theorem](../../notes/bayes-notes.pdf)**
+- [Intro to Probability (PDF)](./handout.pdf)
+- [Bayes Theorem](../../notes/bayes-notes/) ([PDF](../../notes/bayes-notes.pdf))
 
 Homework is to complete this notebook {% include nb.html local="Bayes_Theorem_Student.ipynb" %}
 

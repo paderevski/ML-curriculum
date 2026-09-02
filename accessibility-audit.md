@@ -24,9 +24,18 @@ Status values: `ok`, `fixed`, `needs-fix`, `not-checked`.
 ## Not yet checked
 
 - `_layouts/` (if any custom layouts exist beyond the theme defaults)
-- Other unit `index.md` pages under `notebooks/*/`
+- Unit `index.md` pages for units 4–12 under `notebooks/*/`
 - Sidebar nav markup rendered by the theme — keyboard nav and focus order
 - Any custom Jekyll theme overrides under `_includes/`/`_layouts/` not listed above
+
+## Unit index pages (1–3) + main calendar — fixed
+
+| File | Status | Notes |
+|---|---|---|
+| `index.md` (main calendar) | fixed | Replaced blank-header `| | |` info table with a plain list (screen readers were announcing unlabeled table headers); reworded two ambiguous "here" links to descriptive link text (WCAG 2.4.4). |
+| `notebooks/01-foundations/index.md` | fixed | Reworded a "here" link to descriptive text; fixed two stacked bold PDF links that ran together as one paragraph in Markdown, now a proper list with explicit `(PDF)` labels. Note: `bayes-notes.pdf` still has no accessible `.md`/HTML twin (see PDF section below) — labeling only clarifies link purpose, doesn't fix the underlying untagged PDF. `handout.pdf` has a pandoc source (`probability-warmup-handout.md`) but it isn't currently built as a Jekyll page, so no accessible twin exists yet either — flagged as a future task, out of scope for this pass (would require editing files beyond the index page). |
+| `notebooks/02-regression-correlation/index.md` | ok | Already fixed in a previous pass (derivation notes link); Correlation Coefficient notes link already points to the accessible page directly. No further issues found. |
+| `notebooks/03-first-pipeline/index.md` | ok | No tables, images, or PDF links; all notebook links use the accessible `nb.html` include; no ambiguous link text. |
 
 ## PDF authoring convention (going forward)
 
@@ -70,11 +79,15 @@ twin instead of/alongside the PDF):
 - `notes/Correlation_Coefficient.pdf` → has `.md`
 - `notes/derivatives-crash-course.pdf` → has `.md`
 - `notes/vae_notes.pdf` → has `.md`
+- `notes/bayes-notes.pdf` → source `.md` reconstructed from the PDF (original
+  was lost) and linked as primary from `notebooks/01-foundations/index.md`,
+  PDF kept as secondary download.
 
 PDF-only, no accessible alternative exists yet:
-- `notes/bayes-notes.pdf`
 - `notes/d2l.ai-LeNet.pdf`
 - `notes/lenet-min.pdf`
+- `notebooks/01-foundations/handout.pdf` — pandoc source exists
+  (`probability-warmup-handout.md`) but isn't built as a Jekyll page yet.
 
 ## MathJax config (`_includes/head/custom.html`) — quick fix available
 
