@@ -78,7 +78,7 @@ week two.
 Introducing basic probability and one of its most fundamental theorems. We'll talk about
 'reversing probability', which matters a lot more than you might think!
 
-- [Intro to Probability (PDF)](./handout.pdf)
+- [Intro to Probability](./probability-warmup-handout/) ([PDF](./handout.pdf))
 - [Bayes Theorem](../../notes/bayes-notes/) ([PDF](../../notes/bayes-notes.pdf))
 
 Homework is to complete this notebook {% include nb.html local="Bayes_Theorem_Student.ipynb" %}

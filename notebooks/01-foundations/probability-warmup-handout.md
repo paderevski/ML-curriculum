@@ -1,8 +1,9 @@
 ---
+title: "Probability Warm-Up: Intersection, Union, and Conditional"
+layout: single
+math: true
 geometry: margin=1in
 ---
-
-# Probability Warm-Up: Intersection, Union, and Conditional
 
 Name: ______________________  Date: ______________
 
