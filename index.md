@@ -24,9 +24,14 @@ day-by-day schedule below is what sets the pace.
 
 Most recent first.
 
+- September 8, 2026 (Tuesday)
+    - Notes on Correlation Coefficients (Unit 2.2)
+    - Please complete Intro to Numpy (Unit 2.3) for Homework
+    - Submit Intro to Numpy [to the submission form](https://forms.gle/ZM2ByLhh1JR7ySev8) here
 - September 2, 2026 (Wednesday)
     - Finish notes on [Linear Regression](./notes/Linear_regression_derivation/) in class
     - Homework is to complete Unit 2 Lesson 1 Notebook on Least Squares
+    - Submit Least Squares [to the submission form](https://forms.gle/ZM2ByLhh1JR7ySev8) here
 - August 31, 2026 (Monday)
     - Bayes and London are due now
     - Start Unit 2 -- Linear Regression
