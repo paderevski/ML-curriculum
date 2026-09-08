@@ -57,7 +57,7 @@ When the predicted model for $\tilde{y}$ comes from a linear least squares regre
 of the general form for $R^2$, which applies to *any* two vectors $y$ and $\tilde{y}$. For example $\tilde{y}$ could be a best fit according to a neural network, or a random forest.
 Or $\tilde{y}$ could literally be anything. This general definition always applies when you have two vectors of data.
 
-$$R^2 = 1 - \dfrac{SS_{res}}{SS_{tot}} = \dfrac{\sum_i(\tilde{y}_i - y_i)^2} {\sum_i(y_i - \overline{y})^2}$$
+$$R^2 = 1 - \dfrac{SS_{res}}{SS_{tot}} = 1 - \dfrac{\sum_i(\tilde{y}_i - y_i)^2} {\sum_i(y_i - \overline{y})^2}$$
 
 Here the numerator is the sum of squares of the residuals. In the least squares case, this formula simplifies to the one
 we first gave. But in general it looks like this. The interpretation is the same ("explained variance") but a curiousity is that
@@ -80,5 +80,39 @@ datasets can claim to possess $r=0$ values as this helpful chart shows[^1]
 
 To be correct, $r=0$ implies no **linear** correlation between $x$ and $y$. If it so happens that every predicted $\tilde{y}_i$ value is identical to the
 mean $\overline{y}$, then $r^2=0$. Datasets with perfect vertical symmetry can have this property.
+
+
+Statistically, Pearson's $r$ is defined as the covariance of $x$ and $y$ normalized by the product of their standard deviations:
+
+$$r_{xy} = \dfrac{\text{cov}(x,y)}{\sigma_x \sigma_y} = \dfrac{\sum_i (x_i - \overline{x})(y_i - \overline{y})}{\sqrt{\sum_i (x_i - \overline{x})^2}\sqrt{\sum_i (y_i - \overline{y})^2}}$$
+
+This is why `np.corrcoef(x, y)` doesn't return a single number but a full 2x2 correlation matrix -- it's really reporting the correlation of each of $x$ and $y$ against both $x$ and $y$:
+
+$$\begin{pmatrix} r_{xx} & r_{xy} \\ r_{yx} & r_{yy} \end{pmatrix} = \begin{pmatrix} 1 & r \\ r & 1 \end{pmatrix}$$
+
+The diagonal entries are always $1$ (every variable correlates perfectly with itself), and the two off-diagonal entries are identical, since $r_{xy} = r_{yx}$. That shared off-diagonal value is the Pearson's $r$ we actually care about.
+
+A big takeaway: Pearson compares $x$ to $y$ and looks for a linear relationship. The coefficient of determination **only** looks at real $y$ versus predicted $y$.
+
+## Which of these can we use in Python?
+
+Plain NumPy is surprisingly bare here -- it only ships Pearson's as a built-in function.
+
+| Measure | In NumPy? | Function |
+|---|---|---|
+| Pearson's $r$ | Yes | [`np.corrcoef(x, y)`](https://numpy.org/doc/stable/reference/generated/numpy.corrcoef.html) -- returns the full 2x2 correlation matrix; the $r$ value is the off-diagonal entry |
+| $SSE$ | No | not provided; compute directly, e.g. `np.sum((y_pred - y) ** 2)` |
+| $MSE$ | No | not provided; compute directly, e.g. `np.mean((y_pred - y) ** 2)` |
+| $RMSE$ | No | not provided; compute directly, e.g. `np.sqrt(np.mean((y_pred - y) ** 2))` |
+| $R^2$ | No | not provided at all in NumPy |
+
+For $MSE$, $RMSE$, and $R^2$ you'll typically reach for `scikit-learn` instead, which does provide them ready-made:
+
+- [`sklearn.metrics.mean_squared_error(y, y_pred)`](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_squared_error.html) for $MSE$
+- [`sklearn.metrics.root_mean_squared_error(y, y_pred)`](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.root_mean_squared_error.html) for $RMSE$ (added in scikit-learn 1.4; before that, pass `squared=False` to `mean_squared_error`)
+- [`sklearn.metrics.r2_score(y, y_pred)`](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.r2_score.html) for the general $R^2$
+
+`scipy.stats.pearsonr(x, y)` is also a common alternative to `np.corrcoef` for Pearson's $r$, since it additionally returns a p-value for the correlation.
+
 
 [^1]: By DenisBoigelot, original uploader was Imagecreator - Own work, original uploader was Imagecreator, CC0, https://commons.wikimedia.org/w/index.php?curid=15165296
