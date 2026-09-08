@@ -45,7 +45,7 @@ paired variables, and build intuition for what these numbers do and don't tell y
 - **Pearson correlation** — linear association between two variables; why
   correlation is not causation
 - **Measures of spread** — variance, standard deviation in the context of regression
-- [Correlation Coefficient notes](../../notes/Correlation_Coefficient/)
+- [Correlation Coefficient notes](../../notes/Correlation_Coefficient/) ([PDF](../../notes/Correlation_Coefficient.pdf))
 
 {% include nb.html local="Correlation.ipynb" %}
 
