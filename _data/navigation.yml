@@ -11,6 +11,8 @@ ml:
     url: /setup/
   - title: "Calendar"
     url: /#daily-assignments
+  - title: "Submission Form"
+    url: https://forms.gle/ZM2ByLhh1JR7ySev8
 
   - title: "Units"
     children:
