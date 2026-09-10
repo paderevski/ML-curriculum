@@ -24,6 +24,11 @@ day-by-day schedule below is what sets the pace.
 
 Most recent first.
 
+- September 10, 2026 (Thursday)
+    - Turn in any late work
+    - [How to load data files in Colab](./notes/read_csv_in_colab.md)
+    - Complete Correlation Coefficient notebook (Unit 2.2)
+    - Find a dataset with multiple numerical fields for linear regression project (just find it)
 - September 8, 2026 (Tuesday)
     - Notes on Correlation Coefficients (Unit 2.2)
     - Please complete Intro to Numpy (Unit 2.3) for Homework
