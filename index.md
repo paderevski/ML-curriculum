@@ -23,7 +23,9 @@ day-by-day schedule below is what sets the pace.
 ## Daily Assignments
 
 Most recent first.
-
+- September 14, 2026 (Tuesday)
+    - Correlation Coefficient NB is due from last class
+    - Work on Linear Regression Lab -- due next class
 - September 10, 2026 (Thursday)
     - Turn in any late work
     - [How to load data files in Colab](./notes/read_csv_in_colab.md)
