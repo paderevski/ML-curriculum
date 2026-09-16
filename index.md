@@ -23,6 +23,13 @@ day-by-day schedule below is what sets the pace.
 ## Daily Assignments
 
 Most recent first.
+- September 16, 2026 (Thursday)
+    - Dr. White unexpectedly out today `:-(`
+    - Please check grades. If you were missing work at 3pm yesterday you have a 0. You can turn it in **now** for late credit. Please do!
+    - Linear Regression Project -- a bit of a change here since I'm gone. You will submit a version today (if you haven't already) and then you'll get feedback, a first grade, and then you
+    can edit and resubmit for a final grade. I'm working on a grading rubric I will post here soon **today**. Check back 11:30-ish.
+    - So today -- submit Linear Regression by end of class (if you already submitted and want to edit your first draft you can).
+    - Work on missing work OR work for another class afterwards. Thanks!
 - September 14, 2026 (Tuesday)
     - Correlation Coefficient NB is due from last class
     - Work on Linear Regression Lab -- due next class
