@@ -1,4 +1,9 @@
-## Linear Regression Project Rubric (20 points)
+---
+title: "Linear Regression Project Rubric (20 points)"
+layout: single
+sidebar:
+  nav: "ml"
+---
 
 Your notebook must have these four `##` markdown headings, in this order: **Overview of Data**, **Processing Data**, **Linear Regression**, and **Analysis**. Each section should include explanatory markdown text, not just code.
 
