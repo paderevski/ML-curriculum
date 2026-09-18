@@ -122,6 +122,10 @@ Matrix multiply, transpose, inverse, and solving linear systems.
 
 ---
 
+## 8: Linearize
+
+{% include nb.html local="Linearize_Student.ipynb" %}
+
 ## What's Next
 
 [Unit 03](../03-first-pipeline/) is the first end-to-end ML project — you'll
