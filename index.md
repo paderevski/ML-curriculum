@@ -23,15 +23,25 @@ day-by-day schedule below is what sets the pace.
 ## Daily Assignments
 
 Most recent first.
-- September 16, 2026 (Thursday)
-    -   Linear Regression [grading rubric](./assignments/linear_regression_project.md)
+- September 23, 2026 (Wednesday)
+    - Work on LinReg, Linearize HW
+    - Warmup: [Categorical Data](./notes/categorical_intro.md)
+    - Notes: Mushroom Project, Unit 3
+    - HW: Mushroom Analysis, due early next week
+- September 18, 2026 (Friday)
+    - LinReg Project Feedback
+    - Submit final by end of next week
+    - Notes: Linear Regression on Curvilinear data
+    - HW: Linearize Notebook, end of Unit 2
+- September 16, 2026 (Wednesday)
+    - Linear Regression [grading rubric](./assignments/linear_regression_project.md)
     - Dr. White unexpectedly out today `:-(`
     - Please check grades. If you were missing work at 3pm yesterday you have a 0. You can turn it in **now** for late credit. Please do!
     - Linear Regression Project -- a bit of a change here since I'm gone. You will submit a version today (if you haven't already) and then you'll get feedback, a first grade, and then you
     can edit and resubmit for a final grade.
     - So today -- submit Linear Regression by end of class (if you already submitted and want to edit your first draft you can).
     - Work on missing work OR work for another class afterwards. Thanks!
-- September 14, 2026 (Tuesday)
+- September 14, 2026 (Monday)
     - Correlation Coefficient NB is due from last class
     - Work on Linear Regression Lab -- due next class
 - September 10, 2026 (Thursday)
