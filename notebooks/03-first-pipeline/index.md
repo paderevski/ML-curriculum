@@ -38,7 +38,7 @@ ever achieve.
   running seven classifiers back-to-back to see the sklearn API in action.
   The notebook is mostly read-and-run — the goal is to see every step before
   you do them yourself.
-  {% include nb.html local="Mushroom_Student.ipynb" %}
+  {% include nb.html local="Mushroom_Student_2026B.ipynb" %}
 
 - **Self-selected categorical dataset** — reproduce the Mushroom workflow on a
   dataset you find (UCI, Kaggle, data.gov). You choose the dataset and the
