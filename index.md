@@ -23,6 +23,25 @@ day-by-day schedule below is what sets the pace.
 ## Daily Assignments
 
 Most recent first.
+
+- October 1, 2026 (Thursday)
+    - Warm-up: [Linear Systems](./handouts/gaussian_warmup_handout.pdf/) and [Ill-Conditioned matrices](./handouts/warmup_ax_b.pdf)
+    - Notes on [Solving Linear Systems and the Condition Number](./notes/lecture_notes_determinants.md)
+    - Classwork: Read through Unit 4, Lesson 1
+        - Life Expectancy Data
+        - Make sure you understand the data, the code and can draw conclusions
+        - **HW**: Problems 1-3 at end of Life Expectancy (modify a copy of that notebook)
+- September 29, 2026 (Tuesday)
+    - In groups, talk about your 'mushroom' homework
+    - Unit 4! Multi-linear Regression
+    - Warm-up: Matrix operations
+    - Classwork: Read through Unit 4, Lesson 1
+        -  Toy Test Score Data [some notes](./notes/Multilinear_regression.html)
+        -  Read the notebook carefully
+        -  Answer questions at end of class (I will call on yoU!)
+    -  No new HW
+- September 25, 2026 (Friday)
+    - Work on anything missing, if all caught up, turn in Mushroom
 - September 23, 2026 (Wednesday)
     - Work on LinReg, Linearize HW
     - Warmup: [Categorical Data](./notes/categorical_intro.md)
