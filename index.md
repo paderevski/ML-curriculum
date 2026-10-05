@@ -24,6 +24,8 @@ day-by-day schedule below is what sets the pace.
 
 Most recent first.
 
+- October 7, 2026 (Wednesday)
+    - Check out the [Life Expectancy Column Descriptors](./notebooks/04-regression-plus/life-expectancy.md)
 - October 5, 2026 (Monday)
     - PSAT = short class
     - We will discuss Life Expectancy next time
