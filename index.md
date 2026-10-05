@@ -24,6 +24,10 @@ day-by-day schedule below is what sets the pace.
 
 Most recent first.
 
+- October 5, 2026 (Monday)
+    - PSAT = short class
+    - We will discuss Life Expectancy next time
+    - Work through this [warmup on linear dependence](./handouts/linear_dependence_worksheet.pdf)
 - October 1, 2026 (Thursday)
     - Warm-up: [Linear Systems](./handouts/gaussian_warmup_handout.pdf/) and [Ill-Conditioned matrices](./handouts/warmup_ax_b.pdf)
     - Notes on [Solving Linear Systems and the Condition Number](./notes/lecture_notes_determinants.md)
