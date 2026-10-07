@@ -34,6 +34,7 @@ structure you can exploit.
   {% include nb.html local="Test_Scores.ipynb" %}
   {% include nb.html local="Life_Expectancy_Student.ipynb" %}
 
+- **Feature Selection** - See a key to day 1 {% include nb.html local="Life_Expectancy_Key.ipynb" %}
 - **Normalization and regularization** — continuing with life-expectancy data;
   adding L1/L2 penalties and sweeping alpha to find the best model.
   {% include nb.html local="Life_Part_2_Student.ipynb" %}
