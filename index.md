@@ -24,6 +24,8 @@ day-by-day schedule below is what sets the pace.
 
 Most recent first.
 
+- October 9, 2026 (Friday)
+    - Look for [data](./handouts/data-sources-student.md)
 - October 7, 2026 (Wednesday)
     - Check out the [Life Expectancy Column Descriptors](./notebooks/04-regression-plus/life-expectancy.md)
 - October 5, 2026 (Monday)
