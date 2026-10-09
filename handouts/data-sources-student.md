@@ -1,4 +1,6 @@
-# Regression Project: Where to Find Data
+---
+title: Regression Project - Where to Find Data
+---
 
 About 100 places to find a dataset for your regression project, grouped by topic. Pick something you actually care about, since you'll be looking at it for a while. Pick a dataset with at least 10 numerical columns and make a prediction before you run the analysis.
 
