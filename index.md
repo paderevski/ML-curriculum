@@ -25,7 +25,9 @@ day-by-day schedule below is what sets the pace.
 Most recent first.
 
 - October 9, 2026 (Friday)
-    - Look for [data](./handouts/data-sources-student.md)
+    - Look for [data](./handouts/data-sources-student.md) for your upcoming Linear Regression Project. Try to find a dataset you're interested in, do a bit of background research, and formulate a hypothesis. You need a dataset with at least 8 numerical features.
+    - Class notes on Gaussian Elimination
+    - Here is an [AI-generated worksheet](./handouts/ge_cost_worksheet.md) [pdf](./handouts/ge_cost_worksheet.pdf) based on my notes, with answers.
 - October 7, 2026 (Wednesday)
     - Check out the [Life Expectancy Column Descriptors](./notebooks/04-regression-plus/life-expectancy.md)
 - October 5, 2026 (Monday)
