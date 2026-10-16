@@ -47,7 +47,7 @@ structure you can exploit.
   [SVD notes](../../notes/svd_notes_ml/)
   {% include nb.html local="Visualizing_Transformation_Matrices.ipynb" %}
   {% include nb.html local="Low_Rank_Matrix_Approximations.ipynb" %}
-  {% include nb.html local="Image-Compression.ipynb" %}
+  {% include nb.html local="Image-Compression.ipynb" %} Here's [gauss](./gauss.jpg)
 
 - **PCA** — projecting data onto its principal components; applying PCA as a
   preprocessing step before regression.
