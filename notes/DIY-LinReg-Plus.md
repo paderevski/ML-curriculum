@@ -5,7 +5,7 @@ sidebar:
   nav: "ml"
 ---
 
-Include
+(This was last year 2025, but this year will probably be similar. I will also make a rubric.)
 
 1. Analysis of Features
     1. Clean up and normalize data

@@ -1,4 +1,5 @@
 {
-    "djlint.showInstallError": false,
-    "editor.snippetSuggestions": "top"
+  "djlint.showInstallError": false,
+  "editor.snippetSuggestions": "top",
+  "cSpell.words": ["collinearity"]
 }

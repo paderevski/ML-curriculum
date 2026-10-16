@@ -64,9 +64,9 @@ Finish with a written defense of your "best model" choice.
 
 ## Notes
 
-- [Multilinear regression notes](../../notes/Multilinear_regression/)
-- [SVD notes](../../notes/svd_notes_ml/)
-- [DIY LinReg++ requirements](../../notes/DIY-LinReg-Plus/)
+- [Multilinear regression notes](../../notes/Multilinear_regression.html/)
+- [SVD notes](../../notes/svd_notes_ml.md/)
+- [DIY LinReg++ requirements](../../notes/DIY-LinReg-Plus.md/)
 
 ## What's next
 
