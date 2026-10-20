@@ -23,7 +23,10 @@ day-by-day schedule below is what sets the pace.
 ## Daily Assignments
 
 Most recent first.
-
+- October 20, 2026 (Tuesday)
+    - Multi-Linear Regression project due Thursday (draft, graded)
+    - See the [rubric](./assignments/LinRegPlusPlus_Rubric.md)
+    - Also see the description in Chapter 4
 - October 9, 2026 (Friday)
     - Look for [data](./handouts/data-sources-student.md) for your upcoming Linear Regression Project. Try to find a dataset you're interested in, do a bit of background research, and formulate a hypothesis. You need a dataset with at least 8 numerical features.
     - Class notes on Gaussian Elimination
