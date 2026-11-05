@@ -22,7 +22,9 @@ day-by-day schedule below is what sets the pace.
 
 ## Daily Assignments
 
-Most recent first.
+- November 5, 2026 (Thursday)
+    - Python review: complete [part1](./notebooks/05-classification/python-practice/python_drills_1_basics.ipynb) and then [part2](./notebooks/05-classification/python-practice/python_drills_2_numpy.ipynb)
+### Quarter 1
 - October 20, 2026 (Tuesday)
     - Multi-Linear Regression project due Thursday (draft, graded)
     - See the [rubric](./assignments/LinRegPlusPlus_Rubric.md)
