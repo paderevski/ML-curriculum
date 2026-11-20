@@ -40,7 +40,7 @@ library. You earn the library.
   {% include nb.html local="knn-Student.ipynb" %}
   {% include nb.html local="digits-student.ipynb" %}
 
--**k-d Trees** -- see how k-d trees work from this
+- **k-d Trees** -- Read these [notes on kd trees](../../notes/kd-trees.md). Then see how k-d trees work from this
   [k-d tree explorer](./kdtree-explorer.html). Complete a worksheet handed out in class.
 
 - **Decision Trees** — hand-classify the WillWait? restaurant dataset to

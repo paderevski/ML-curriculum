@@ -42,7 +42,7 @@ Finding the nearest neighbor of a query point $q$ happens in two phases.
 
 **Coming back up.** The candidate might not be the true nearest neighbor, because the nearest point could sit just across one of the lines we passed. So we walk back up the same path. At each node we ask: *could a closer point be hiding on the other side of this node's line?*
 
-The answer uses the distance to the closest partition line. Any point on the far side of a vertical line $x = s$ is at least $|q_x - s|$ away from $q$. If that gap is **bigger** than our best distance so far, nothing over there can win, and we skip that entire subtree without computing a single distance. If the gap is **smaller**, we have to go look. We search the other side the same way, going down toward $q$ and then back up, and we carry our best-so-far along.
+The answer uses the distance to the closest partition line. Any point on the far side of a vertical line $x = s$ is at least $\|q_x - s\|$ away from $q$. If that gap is **bigger** than our best distance so far, nothing over there can win, and we skip that entire subtree without computing a single distance. If the gap is **smaller**, we have to go look. We search the other side the same way, going down toward $q$ and then back up, and we carry our best-so-far along.
 
 There's a nice way to picture this. Draw a circle around $q$ with radius equal to the best distance so far. A line that the circle doesn't reach can't hide anything closer. A line the circle crosses has to be checked.
 
