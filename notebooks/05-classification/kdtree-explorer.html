@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>k-d Tree Explorer</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;800&display=swap"
+              rel="stylesheet">
+        <style>
+/* VOICE everyday: a study tool for students working alone
+   IDEA the graph-paper worksheet, drawn with colored pencils, beside its tree
+   PICTURE the plane and the tree, side by side, both changing with every step
+   COLOUR white paper, ink, level pencils red / blue / green / grey, query orange
+   TYPE Figtree 800 + Figtree
+   LAYOUT laptop: plane | tree, narration and controls beneath; phone: stacked, controls sticky */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#0f141a);--ink:light-dark(#15202b,#e9eef4);--soft:light-dark(#5b6876,#9aa7b5);--panel:light-dark(#f6f8fb,#161d25);--edge:light-dark(#dfe4ea,#2a3440);--grid:light-dark(#e8edf2,#1f2832);--l0:light-dark(#d1253b,#ff6b7d);--l1:light-dark(#1d5fd8,#6ea2ff);--l2:light-dark(#11905a,#4fd59a);--l3:light-dark(#8b939c,#7f8a96);--q:light-dark(#ee6c0a,#ff9a45);--qsoft:light-dark(#fff1e5,#33230f)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 Figtree,system-ui,sans-serif;overflow-x:clip}
+.wrap{max-width:1240px;margin:0 auto;padding:20px max(3vw,16px) 40px}
+header{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px 24px;margin-bottom:14px}
+h1{font-weight:800;font-size:clamp(30px,4vw,44px);line-height:1.05;letter-spacing:-.02em;margin:0}
+.sub{color:var(--soft);margin:6px 0 0;max-width:62ch}
+.tabs{display:flex;gap:6px;background:var(--panel);border:1px solid var(--edge);border-radius:12px;padding:4px}
+.tabs button{border:0;background:none;color:var(--soft);font:600 16px Figtree,sans-serif;padding:10px 16px;border-radius:9px;cursor:pointer;min-height:44px}
+.tabs button[aria-selected=true]{background:var(--bg);color:var(--ink);box-shadow:0 1px 3px #0002}
+.stage{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:14px}
+.card{background:var(--panel);border:1px solid var(--edge);border-radius:14px;padding:10px}
+.card h2{font-size:14px;font-weight:600;color:var(--soft);margin:2px 6px 6px}
+.fig{position:relative}
+.fig>svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+#plane{aspect-ratio:1/1;max-height:560px;margin:0 auto;cursor:default}
+#plane.pick{cursor:crosshair}
+#tree{height:100%;min-height:300px}
+.treecard{display:flex;flex-direction:column}
+.treecard .fig{flex:1}
+.below{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:14px;margin-top:14px}
+.say{font-size:18px;line-height:1.5;min-height:6.5em}
+.say b{font-weight:800}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chip{border:1px solid var(--edge);background:var(--bg);border-radius:8px;padding:3px 9px;font-size:15px;white-space:nowrap}
+.chip.med{border-color:currentColor;font-weight:800}
+.ctrl{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:14px}
+.ctrl button{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--edge);background:var(--bg);color:var(--ink);font:600 15px Figtree,sans-serif;border-radius:10px;min-height:44px;min-width:44px;padding:0 12px;cursor:pointer}
+.ctrl button:hover{border-color:var(--soft)}
+.ctrl button:focus-visible,.tabs button:focus-visible,input:focus-visible{outline:3px solid var(--q);outline-offset:2px}
+.ctrl button.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.ctrl svg{width:16px;height:16px;fill:currentColor}
+input[type=range]{flex:1 1 180px;accent-color:var(--q);height:44px}
+.count{font-variant-numeric:tabular-nums;color:var(--soft);white-space:nowrap;font-size:15px}
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px;font-size:15px;color:var(--soft)}
+.tools button{border:1px solid var(--edge);background:var(--bg);color:var(--ink);font:500 15px Figtree,sans-serif;border-radius:999px;padding:0 14px;min-height:40px;cursor:pointer}
+.tools button.on{border-color:var(--q);color:var(--q);font-weight:700}
+.meter{display:flex;align-items:baseline;gap:10px;margin:2px 0 8px}
+.meter .big{font-weight:800;font-size:34px;line-height:1;font-variant-numeric:tabular-nums}
+.bar{height:10px;border-radius:5px;background:var(--grid);overflow:hidden;margin-bottom:12px}
+.bar i{display:block;height:100%;background:var(--q);transition:width .3s}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--edge);white-space:nowrap}
+th{font-weight:600;color:var(--soft);font-size:14px}
+tr.cur td{background:var(--qsoft)}
+td.ph{color:var(--soft)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px;color:var(--soft);margin:6px 6px 2px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{display:inline-block;width:18px;height:3px;border-radius:2px}
+.empty{color:var(--soft);font-size:15px}
+.hide{display:none!important}
+.orient{display:flex;gap:14px;align-items:flex-start;background:var(--qsoft);border:1px solid color-mix(in srgb,var(--q) 35%,transparent);border-radius:14px;padding:14px 18px;margin-bottom:14px;font-size:17px;line-height:1.5}
+.orient svg{flex:none;width:44px;height:44px;margin-top:2px}
+.orient p{margin:0;max-width:80ch}
+.orient b{font-weight:800}
+svg text{font-family:Figtree,sans-serif}
+@keyframes draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+.new{stroke-dasharray:1;stroke-dashoffset:0;animation:draw .7s ease-out}
+.newnode{animation:pop .45s ease-out}
+@keyframes pop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.new,.newnode{animation:none}.bar i{transition:none}}
+@media(max-width:900px){.stage,.below{grid-template-columns:minmax(0,1fr)}#tree{min-height:290px}.ctrl{position:sticky;bottom:0;background:var(--bg);padding:8px 0;z-index:2;border-top:1px solid var(--edge)}}
+@media(max-width:600px){.say{font-size:17px}th,td{padding:5px 4px;font-size:13px}}
+        </style>
+    </head>
+    <body>
+        <div class="wrap">
+            <header>
+                <div>
+                    <h1>k-d tree explorer</h1>
+                    <p class="sub" id="sub">
+                        Step through building the tree, then search it. Every step shows up in two places: the plane on the left and the tree on the right.
+                    </p>
+                </div>
+                <div class="tabs" role="tablist">
+                    <button role="tab" id="tab-build" aria-selected="true">1. Build the tree</button>
+                    <button role="tab" id="tab-search" aria-selected="false">2. Search it</button>
+                </div>
+            </header>
+
+            <div class="orient hide" id="orient">
+                <svg viewBox="0 0 44 44" aria-hidden="true">
+                    <circle cx="20" cy="22" r="15" fill="var(--q)" fill-opacity=".12" stroke="var(--q)" stroke-width="2" /><line x1="30" y1="2" x2="30" y2="42" stroke="var(--l0)" stroke-width="2.5" /><circle cx="20" cy="22" r="3" fill="var(--q)" /><circle cx="10" cy="14" r="3" fill="var(--ink)" />
+                </svg>
+                <p>
+                    <b>How the search works.</b> To find the closest point we first find this point in the tree using a binary-style search. Then draw a circle from the query point to the closest point along that route. Any partition line that crosses over this circle is a region we will have to search for possible <i>closer</i> points.
+                </p>
+            </div>
+
+            <div class="stage">
+                <div class="card">
+                    <h2 id="planeHead">The plane</h2>
+                    <div class="fig" id="plane">
+                        <svg id="ps" aria-label="Points on a 20 by 20 grid">
+                        </svg>
+                    </div>
+                    <div class="legend">
+                        <span><i style="background:var(--l0)"></i>root, splits x</span>
+                        <span><i style="background:var(--l1)"></i>level 2, splits y</span>
+                        <span><i style="background:var(--l2)"></i>level 3, splits x</span>
+                        <span><i style="background:var(--l3)"></i>bottom, splits y</span>
+                    </div>
+                </div>
+                <div class="card treecard">
+                    <h2>The tree</h2>
+                    <div class="fig" id="tree">
+                        <svg id="ts" aria-label="The k-d tree">
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ctrl" id="ctrl">
+                <button id="first" aria-label="Back to start">
+                    <svg viewBox="0 0 16 16">
+                        <path d="M2 2h2v12H2zM14 2v12L5 8z" />
+                    </svg>
+                </button>
+                <button id="prev" aria-label="Previous step">
+                    <svg viewBox="0 0 16 16">
+                        <path d="M12 2v12L3 8z" />
+                    </svg>
+                    Back
+                </button>
+                <button id="play" class="primary">
+                    <svg viewBox="0 0 16 16" id="playIcon">
+                        <path d="M4 2v12l10-6z" />
+                    </svg>
+                    <span id="playTxt">Play</span>
+                </button>
+                <button id="next" aria-label="Next step">
+                    Next
+                    <svg viewBox="0 0 16 16">
+                        <path d="M4 2v12l9-6z" />
+                    </svg>
+                </button>
+                <input type="range" id="slider" min="0" max="30" value="0" aria-label="Step">
+                <span class="count" id="count">Step 0 of 30</span>
+            </div>
+
+            <div class="below">
+                <div class="card" style="padding:14px 16px">
+                    <div class="say" id="say"></div>
+                    <div class="chips" id="chips"></div>
+                    <div class="tools" id="buildTools">
+                        Points:
+                        <button id="ptsWs" class="on">Lesson points</button>
+                        <button id="ptsRand">New random points</button>
+                    </div>
+                    <div class="tools hide" id="searchTools">
+                        Query:
+                        <button data-q="13,2" class="on">Easy (13, 2)</button>
+                        <button data-q="11,4">Crosses the root (11, 4)</button>
+                        <button data-q="9,12">Lots of crossing (9, 12)</button>
+                        <span>or click anywhere on the plane</span>
+                    </div>
+                </div>
+                <div class="card" style="padding:14px 16px">
+                    <div id="buildSide">
+                        <div class="meter">
+                            <span class="big" id="placed">0</span><span>of 15 points placed in the tree</span>
+                        </div>
+                        <div class="bar">
+                            <i id="placedBar" style="width:0%"></i>
+                        </div>
+                        <p class="empty" style="margin:0">
+                            Each node gets its own rectangle, which is where its points live before it splits them. Notice that every line stops at the edge of its node's rectangle. A node and its rectangle are the same thing, drawn two ways.
+                        </p>
+                    </div>
+                    <div id="searchSide" class="hide">
+                        <div class="meter">
+                            <span class="big" id="dcount">0</span><span>distances computed, out of 15 for brute force</span>
+                        </div>
+                        <div class="bar">
+                            <i id="dbar" style="width:0%"></i>
+                        </div>
+                        <div class="scroll">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Phase</th>
+                                        <th>Node</th>
+                                        <th>Distance or gap</th>
+                                        <th>Best so far</th>
+                                        <th>Decision</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="log">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+{
+const WS=[['A',17,9],['B',7,15],['C',14,18],['D',8,11],['E',19,6],['F',18,16],['G',9,3],['H',16,14],['I',10,8],['J',12,13],['K',4,2],['L',5,19],['M',1,10],['N',3,12],['O',11,1]];
+const LV=['var(--l0)','var(--l1)','var(--l2)','var(--l3)'];
+const $=id=>document.getElementById(id);
+let pts=WS.map(([k,x,y])=>({k,x,y}));
+let nodes=[],bfs=[],buildSteps=[],events=[],mode='build',step={build:0,search:0},query={x:13,y:2},timer=null,lastDrawn={build:-1,search:-1};
+
+function rt(n){const r=Math.round(Math.sqrt(n));return r*r===n?`√${n} = ${r}`:`√${n} ≈ ${Math.sqrt(n).toFixed(2)}`}
+function rs(n){const r=Math.round(Math.sqrt(n));return r*r===n?`${r}`:`√${n}`}
+const AX=a=>a===0?'x':'y';
+const dirWord=(ax,big)=>ax===0?(big?'right':'left'):(big?'up':'down');
+
+function build(){
+  nodes=[];
+  const rec=(list,i,depth,box)=>{
+    if(!list.length)return null;
+    const ax=depth%2,key=ax?'y':'x';
+    const s=[...list].sort((a,b)=>a[key]-b[key]),m=Math.floor(s.length/2),p=s[m];
+    const [x0,x1,y0,y1]=box;
+    const n={i,p,ax,depth,box,pts:s,L:null,R:null};nodes[i]=n;
+    n.L=rec(s.slice(0,m),2*i,depth+1,ax?[x0,x1,y0,p.y]:[x0,p.x,y0,y1]);
+    n.R=rec(s.slice(m+1),2*i+1,depth+1,ax?[x0,x1,p.y,y1]:[p.x,x1,y0,y1]);
+    return i;
+  };
+  rec(pts,1,0,[0,20,0,20]);
+  bfs=nodes.map((n,i)=>n?i:null).filter(i=>i!==null).sort((a,b)=>a-b);
+  buildSteps=[{placed:[],focus:null,phase:'start'}];
+  bfs.forEach((i,j)=>{
+    const before=bfs.slice(0,j);
+    buildSteps.push({placed:before,focus:i,phase:'consider'});
+    buildSteps.push({placed:bfs.slice(0,j+1),focus:i,phase:'place'});
+  });
+}
+
+function makeEvents(){
+  const q=query;events=[];
+  let best=null,cnt=0,visited=[],pruned=[],rows=[];
+  const snap=(e)=>events.push({...e,best:best&&{...best},cnt,visited:[...visited],pruned:[...pruned],rows:rows.map(r=>({...r}))});
+  snap({type:'start',text:`The query is at <b>(${q.x}, ${q.y})</b>. Start at the root, <b>${nodes[1].p.k}</b>, with nothing found yet. Going down works like inserting the query: at each node, compare one coordinate.`});
+  const go=i=>{
+    const n=nodes[i],p=n.p,d2=(p.x-q.x)**2+(p.y-q.y)**2;cnt++;visited.push(i);
+    const isNew=!best||d2<best.d2;if(isNew)best={i,d2};
+    const qv=n.ax?q.y:q.x,pv=n.ax?p.y:p.x,diff=qv-pv;
+    const near=diff<0?n.L:n.R,far=diff<0?n.R:n.L;
+    const leaf=!n.L&&!n.R;
+    const cmp=diff<0?`${qv} < ${pv}`:diff>0?`${qv} > ${pv}`:`${qv} = ${pv}, a tie, so`;
+    const act=leaf?'bottom':`${dirWord(n.ax,diff>=0)} (${cmp.replace(', a tie, so','')})`;
+    rows.push({ph:'down',node:p.k,val:rt(d2),best:`${nodes[best.i].p.k}, ${rs(best.d2)}`,act,i});
+    let t=`Distance from the query to <b>${p.k} (${p.x}, ${p.y})</b> is <b>${rt(d2)}</b>. `;
+    t+=isNew?(cnt===1?`That's the best so far, so the circle starts there. `:`That beats the old best, so the circle shrinks. `):`Not better than ${nodes[best.i].p.k} at ${rs(best.d2)}, so the best stays. `;
+    t+=leaf?`This is the bottom of the tree. Now we back up and check the lines we passed.`:`${p.k} splits on ${AX(n.ax)}: ${cmp} go <b>${dirWord(n.ax,diff>=0)}</b>.`;
+    snap({type:'visit',i,text:t});
+    if(near)go(near);
+    if(far){
+      const gap=Math.abs(diff),cross=gap*gap<best.d2,bk=nodes[best.i].p.k;
+      rows.push({ph:'up',node:p.k,val:`gap ${gap} to ${AX(n.ax)} = ${pv}`,best:`${bk}, ${rs(best.d2)}`,act:cross?'cross':'skip',i});
+      let t=`Back at <b>${p.k}</b>. The gap from the query to its line ${AX(n.ax)} = ${pv} is <b>${gap}</b>, and the best distance is <b>${rt(best.d2)}</b>. `;
+      if(cross){
+        t+=`${gap} is smaller, so the circle crosses the line. Something on the other side could be closer, so we have to <b>go look</b> there.`;
+        snap({type:'check',i,cross:true,text:t});
+        go(far);
+      }else{
+        const sz=nodes[far].pts.length;
+        pruned.push(far);
+        t+=`${gap} is bigger, so the circle never reaches the line. Nothing on the other side can be closer: <b>skip all ${sz} point${sz>1?'s':''}</b> over there without computing a single distance.`;
+        snap({type:'check',i,cross:false,text:t});
+      }
+    }
+  };
+  go(1);
+  const b=nodes[best.i].p;
+  snap({type:'done',text:`Done. The nearest neighbor is <b>${b.k} (${b.x}, ${b.y})</b> at distance <b>${rt(best.d2)}</b>. That took <b>${cnt}</b> distance computations. Brute force always takes 15.`});
+}
+
+/* ---------- plane ---------- */
+function planeGeom(W,H){const pad={l:26,r:10,t:10,b:24};const S=Math.min(W-pad.l-pad.r,H-pad.t-pad.b)/20;const ox=pad.l+(W-pad.l-pad.r-20*S)/2,oy=pad.t;return{S,X:x=>ox+x*S,Y:y=>oy+(20-y)*S,ox,oy}}
+function drawPlane(){
+  const s=$('ps'),W=s.clientWidth,H=s.clientHeight;if(!W)return;
+  const g=planeGeom(W,H),{S,X,Y}=g;let o='';
+  o+=`<defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="var(--panel)" opacity=".6" /><line x1="0" y1="0" x2="0" y2="6" stroke="var(--l3)" stroke-width="1.6" opacity=".55" /></pattern><clipPath id="clip"><rect x="${X(0)}" y="${Y(20)}" width="${20*S}" height="${20*S}" /></clipPath></defs>`;
+  o+=`<rect x="${X(0)}" y="${Y(20)}" width="${20*S}" height="${20*S}" fill="var(--bg)" />`;
+  for(let v=0;v<=20;v++){o+=`<line x1="${X(v)}" y1="${Y(0)}" x2="${X(v)}" y2="${Y(20)}" stroke="var(--grid)" /><line x1="${X(0)}" y1="${Y(v)}" x2="${X(20)}" y2="${Y(v)}" stroke="var(--grid)" />`}
+  const tickStep=W<420?4:2;
+  for(let v=0;v<=20;v+=tickStep){o+=`<text x="${X(v)}" y="${Y(0)+17}" font-size="13" text-anchor="middle" fill="var(--soft)">${v}</text><text x="${X(0)-6}" y="${Y(v)+4}" font-size="13" text-anchor="end" fill="var(--soft)">${v}</text>`}
+  o+=`<rect x="${X(0)}" y="${Y(20)}" width="${20*S}" height="${20*S}" fill="none" stroke="var(--edge)" />`;
+  const line=(n,cls='',w=null)=>{const [x0,x1,y0,y1]=n.box,p=n.p,c=LV[n.depth];const dash=n.depth===3?'stroke-dasharray="5 4"':'';const sw=w||(n.depth===3?1.6:2.6);
+    return n.ax===0?`<line class="${cls}" pathLength="1" x1="${X(p.x)}" y1="${Y(y0)}" x2="${X(p.x)}" y2="${Y(y1)}" stroke="${c}" stroke-width="${sw}" ${cls?'':dash}/>`:`<line class="${cls}" pathLength="1" x1="${X(x0)}" y1="${Y(p.y)}" x2="${X(x1)}" y2="${Y(p.y)}" stroke="${c}" stroke-width="${sw}" ${cls?'':dash}/>`};
+  const rectOf=(b,fill,op)=>`<rect x="${X(b[0])}" y="${Y(b[3])}" width="${(b[1]-b[0])*S}" height="${(b[3]-b[2])*S}" fill="${fill}" opacity="${op}" />`;
+  let dimSet=null,hi={},best=null;
+  if(mode==='build'){
+    const st=buildSteps[step.build],placed=new Set(st.placed);
+    if(st.focus){const n=nodes[st.focus];o+=rectOf(n.box,LV[n.depth],.12);o+=`<rect x="${X(n.box[0])}" y="${Y(n.box[3])}" width="${(n.box[1]-n.box[0])*S}" height="${(n.box[3]-n.box[2])*S}" fill="none" stroke="${LV[n.depth]}" stroke-width="1.5" stroke-dasharray="3 3" />`;dimSet=new Set(n.pts.map(p=>p.k))}
+    const isNew=st.phase==='place'&&step.build!==lastDrawn.build;
+    st.placed.forEach(i=>{const n=nodes[i];o+=line(n,(isNew&&i===st.focus)?'new':'')});
+    st.placed.forEach(i=>hi[nodes[i].p.k]=LV[nodes[i].depth]);
+    if(st.focus&&st.phase==='place')hi[nodes[st.focus].p.k]=LV[nodes[st.focus].depth];
+    lastDrawn.build=step.build;
+    pts.forEach(p=>{const dim=dimSet&&!dimSet.has(p.k),c=hi[p.k]||'var(--ink)',isMed=st.focus&&nodes[st.focus].p.k===p.k;
+      o+=`<g opacity="${dim?.22:1}"><circle cx="${X(p.x)}" cy="${Y(p.y)}" r="${isMed?7:5}" fill="${c}" />${isMed?`<circle cx="${X(p.x)}" cy="${Y(p.y)}" r="11" fill="none" stroke="${c}" stroke-width="2" />`:''}<text x="${X(p.x)+8}" y="${Y(p.y)-8}" font-size="14" font-weight="600" fill="var(--ink)">${p.k}</text></g>`});
+  }else{
+    const e=events[step.search];best=e.best;
+    e.pruned.forEach(i=>{o+=rectOf(nodes[i].box,'url(#hatch)',1)});
+    bfs.forEach(i=>{o+=line(nodes[i],'',nodes[i].depth===3?1.3:1.8).replace('<line ','<line opacity=".55" ')}); if(e.type==='check'){const n=nodes[e.i];o+=line(n,'',4.5)} if(best){const r=Math.sqrt(best.d2)*S,bp=nodes[best.i].p;o+=`<g clip-path="url(#clip)"><circle cx="${X(query.x)}" cy="${Y(query.y)}" r="${r}" fill="var(--q)" fill-opacity=".09" stroke="var(--q)" stroke-width="2"/></g>`; o+=`<circle cx="${X(bp.x)}" cy="${Y(bp.y)}" r="12" fill="none" stroke="var(--q)" stroke-width="2.5"/>`} if(e.type==='visit'){const p=nodes[e.i].p;o+=`<line x1="${X(query.x)}" y1="${Y(query.y)}" x2="${X(p.x)}" y2="${Y(p.y)}" stroke="var(--ink)" stroke-width="1.6" stroke-dasharray="4 4"/>`} if(e.type==='check'){const n=nodes[e.i],p=n.p;const fx=n.ax===0?p.x:query.x,fy=n.ax===0?query.y:p.y; o+=`<line x1="${X(query.x)}" y1="${Y(query.y)}" x2="${X(fx)}" y2="${Y(fy)}" stroke="var(--ink)" stroke-width="3"/><circle cx="${X(fx)}" cy="${Y(fy)}" r="3.5" fill="var(--ink)"/>`; const mx=(X(query.x)+X(fx))/2,my=(Y(query.y)+Y(fy))/2;o+=`<text x="${mx+(n.ax?8:0)}" y="${my-(n.ax?0:8)}" font-size="14" font-weight="800" text-anchor="${n.ax?'start':'middle'}" fill="var(--ink)" style="paint-order:stroke;stroke:var(--bg);stroke-width:4px">gap ${Math.abs((n.ax?query.y:query.x)-(n.ax?p.y:p.x))}</text>`} const vis=new Set(e.visited.map(i=>nodes[i].p.k)); pts.forEach(p=>{const c=vis.has(p.k)?'var(--ink)':'var(--l3)';o+=`<circle cx="${X(p.x)}" cy="${Y(p.y)}" r="5" fill="${c}"/><text x="${X(p.x)+8}" y="${Y(p.y)-8}" font-size="14" font-weight="600" fill="${c}" style="paint-order:stroke;stroke:var(--bg);stroke-width:3px">${p.k}</text>`}); const qx=X(query.x),qy=Y(query.y),star=[...Array(10)].map((_,k)=>{const a=Math.PI/5*k-Math.PI/2,r=k%2?4.5:10;return `${qx+r*Math.cos(a)},${qy+r*Math.sin(a)}`}).join(' '); o+=`<polygon points="${star}" fill="var(--q)" stroke="var(--bg)" stroke-width="1.5"/>`; } s.innerHTML=o; }  /* ---------- tree ---------- */ function drawTree(){ const s=$('ts'),W=s.clientWidth,H=s.clientHeight;if(!W)return; const narrow=W<520,bw=narrow?Math.min(38,W/8-4):Math.min(70,W/8-8),bh=narrow?32:42,top=14,lh=(H-top-bh-12)/3; const pos=i=>{const d=Math.floor(Math.log2(i)),k=i-2**d,slots=2**d;return{x:W*(k+.5)/slots,y:top+d*lh+bh/2,d}}; let o='',placed=new Set(),focus=null,phase='',e=null; if(mode==='build'){const st=buildSteps[step.build];placed=new Set(st.placed);focus=st.focus;phase=st.phase} else{e=events[step.search];bfs.forEach(i=>placed.add(i))} const prunedSet=new Set();if(e)e.pruned.forEach(r=>{const st=[r];while(st.length){const i=st.pop();if(!nodes[i])continue;prunedSet.add(i);st.push(2*i,2*i+1)}}); const visited=new Set(e?e.visited:[]); bfs.forEach(i=>{if(i===1)return;const a=pos(i),b=pos(i>>1),show=placed.has(i); o+=`<line x1="${b.x}" y1="${b.y+bh/2}" x2="${a.x}" y2="${a.y-bh/2}" stroke="${show?'var(--soft)':'var(--edge)'}" stroke-width="${show?1.6:1}" ${show?'':'stroke-dasharray="3 3"'} opacity="${prunedSet.has(i)?.25:1}"/>`}); bfs.forEach(i=>{const n=nodes[i],c=pos(i),show=placed.has(i),isF=i===focus,col=LV[n.depth]; let fill='var(--bg)',stroke=show?col:'var(--edge)',sw=show?2:1,op=1,txt='var(--ink)'; if(e){if(prunedSet.has(i))op=.25;if(visited.has(i))fill='var(--qsoft)';if(e.best&&e.best.i===i){fill='var(--q)';txt='#fff'}if(e.i===i){sw=4;stroke='var(--q)'}} if(isF&&phase==='consider'){stroke=col;sw=2.5} const cls=(mode==='build'&&isF&&phase==='place')?'newnode':''; o+=`<g class="${cls}" opacity="${op}"><rect x="${c.x-bw/2}" y="${c.y-bh/2}" width="${bw}" height="${bh}" rx="8" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" ${show||isF?'':'stroke-dasharray="3 3"'}/>`; if(show)o+=narrow?`<text x="${c.x}" y="${c.y+5}" font-size="15" font-weight="800" text-anchor="middle" fill="${txt}">${n.p.k}</text>`:`<text x="${c.x}" y="${c.y-2}" font-size="15" font-weight="800" text-anchor="middle" fill="${txt}">${n.p.k}</text><text x="${c.x}" y="${c.y+14}" font-size="13" text-anchor="middle" fill="${txt}">${n.p.x},${n.p.y}</text>`; else if(isF)o+=`<text x="${c.x}" y="${c.y+5}" font-size="15" font-weight="800" text-anchor="middle" fill="${col}">?</text>`; o+=`</g>`}); if(!narrow)['split on x','split on y','split on x','split on y'].forEach((t,d)=>{o+=`<text x="4" y="${top+d*lh+bh/2-bh/2-3}" font-size="13" fill="var(--soft)">${d===3?'bottom, ':''}${t}</text>`}); s.innerHTML=o; }  /* ---------- narration ---------- */ function narrate(){ const say=$('say'),chips=$('chips');chips.innerHTML=''; if(mode==='build'){ const st=buildSteps[step.build];$('placed').textContent=st.placed.length;$('placedBar').style.width=st.placed.length/15*100+'%'; if(st.phase==='start'){say.innerHTML=`Here are 15 points. We'll build the tree from the top down. At every node we find the <b>median</b> point, split the rest into the two sides, and switch between x and y as we go down: x at the root, then y, then x, then y.`;return}
+    const n=nodes[st.focus],[x0,x1,y0,y1]=n.box,key=AX(n.ax),col=LV[n.depth],par=nodes[st.focus>>1];
+    const where=st.focus===1?'the whole plane':`${x0} ≤ x ≤ ${x1}, ${y0} ≤ y ≤ ${y1}`;
+    if(st.phase==='consider'){
+      const cnt=n.pts.length;
+      say.innerHTML=cnt===1?`Next rectangle: <b>${where}</b>. Only one point is left in it, so that point is the median. It still splits on ${key}.`:
+        `Next rectangle: <b>${where}</b>. It holds ${cnt} points. Sort them by <b>${key}</b> and take the middle one, which is number ${(cnt+1)/2} of ${cnt}.`;
+      chips.innerHTML=n.pts.map(p=>`<span class="chip ${p===n.p?'med':''}" style="${p===n.p?`color:${col}`:''}">${p.k}: ${key} = ${p[key]}</span>`).join('');
+    }else{
+      const p=n.p,side=st.focus===1?'':` It becomes the ${st.focus%2?'right':'left'} child of ${par.p.k}, because it's on the ${dirWord(par.ax,st.focus%2===1)} side of ${par.p.k}'s line.`;
+      const lineTxt=n.ax===0?`a vertical line x = ${p.x}, running from y = ${y0} to y = ${y1}`:`a horizontal line y = ${p.y}, running from x = ${x0} to x = ${x1}`;
+      say.innerHTML=`<b style="color:${col}">${p.k} (${p.x}, ${p.y})</b> is the median.${side} It splits on ${key}, so it gets ${lineTxt}. The line only crosses ${st.focus===1?'the plane':`${par.p.k}'s ${st.focus%2?'right':'left'} part`}, not the whole grid.${n.depth===3?' Nothing is left below it.':''}`;
+      if(step.build===30)say.innerHTML+=` <b>The tree is done.</b> Switch to <b>Search it</b> to find a nearest neighbor.`;
+    }
+  }else{
+    const e=events[step.search];say.innerHTML=e.text;$('dcount').textContent=e.cnt;$('dbar').style.width=e.cnt/15*100+'%';
+    $('log').innerHTML=e.rows.map((r,k)=>`<tr class="${k===e.rows.length-1&&e.type!=='done'?'cur':''}"><td class="ph">${r.ph==='down'?'going down':'coming up'}</td><td><b>${r.node}</b></td><td>${r.val}</td><td>${r.best}</td><td>${r.act==='cross'?'<b>cross</b>':r.act}</td></tr>`).join('')||`<tr><td colspan="5" class="empty">Nothing yet. Press Next.</td></tr>`;
+  }
+}
+
+function max(){return mode==='build'?buildSteps.length-1:events.length-1}
+function render(){
+  const m=max(),v=step[mode];$('slider').max=m;$('slider').value=v;$('count').textContent=`Step ${v} of ${m}`;
+  drawPlane();drawTree();narrate();
+}
+function setStep(v){step[mode]=Math.max(0,Math.min(max(),v));render();if(step[mode]>=max())stop()}
+function stop(){clearInterval(timer);timer=null;$('playTxt').textContent='Play';$('playIcon').innerHTML='<path d="M4 2v12l10-6z" />'}
+function play(){if(timer){stop();return}if(step[mode]>=max())step[mode]=0;$('playTxt').textContent='Pause';$('playIcon').innerHTML='<path d="M3 2h4v12H3zM9 2h4v12H9z" />';timer=setInterval(()=>setStep(step[mode]+1),mode==='build'?1300:1900);render()}
+function setMode(m){stop();mode=m;$('tab-build').setAttribute('aria-selected',m==='build');$('tab-search').setAttribute('aria-selected',m==='search');
+  ['buildTools','buildSide'].forEach(id=>$(id).classList.toggle('hide',m!=='build'));['searchTools','searchSide','orient'].forEach(id=>$(id).classList.toggle('hide',m!=='search'));
+  $('plane').classList.toggle('pick',m==='search');$('planeHead').textContent=m==='build'?'The plane':'The plane (click to move the query)';render()}
+function setQuery(x,y){query={x,y};makeEvents();step.search=0;document.querySelectorAll('#searchTools button').forEach(b=>b.classList.toggle('on',b.dataset.q===`${x},${y}`));stop();render()}
+function randomPts(){
+  for(let t=0;t<500;t++){const xs=shuffle([...Array(19)].map((_,i)=>i+1)).slice(0,15),ys=shuffle([...Array(19)].map((_,i)=>i+1)).slice(0,15);
+    const c=xs.map((x,i)=>({k:'ABCDEFGHIJKLMNO'[i],x,y:ys[i]}));let ok=true;
+    for(let a=0;a<15&&ok;a++)for(let b=a+1;b<15;b++)if((c[a].x-c[b].x)**2+(c[a].y-c[b].y)**2<6){ok=false;break}
+    if(ok)return c}
+  return WS.map(([k,x,y])=>({k,x,y}))}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function usePts(p,ws){pts=p;build();makeEvents();step.build=0;step.search=0;lastDrawn.build=-1;$('ptsWs').classList.toggle('on',ws);$('ptsRand').classList.toggle('on',!ws);stop();render()}
+
+$('tab-build').onclick=()=>setMode('build');$('tab-search').onclick=()=>setMode('search');
+$('first').onclick=()=>{stop();setStep(0)};$('prev').onclick=()=>{stop();setStep(step[mode]-1)};$('next').onclick=()=>{stop();setStep(step[mode]+1)};$('play').onclick=play;
+$('slider').oninput=e=>{stop();setStep(+e.target.value)};
+$('ptsWs').onclick=()=>usePts(WS.map(([k,x,y])=>({k,x,y})),true);$('ptsRand').onclick=()=>usePts(randomPts(),false);
+document.querySelectorAll('#searchTools button').forEach(b=>b.onclick=()=>{const [x,y]=b.dataset.q.split(',').map(Number);setQuery(x,y)});
+$('ps').addEventListener('click',ev=>{if(mode!=='search')return;const s=$('ps'),r=s.getBoundingClientRect(),g=planeGeom(s.clientWidth,s.clientHeight);
+  const x=Math.round((ev.clientX-r.left-g.ox)/g.S),y=Math.round(20-(ev.clientY-r.top-g.oy)/g.S);if(x<0||x>20||y<0||y>20)return;setQuery(x,y)});
+document.addEventListener('keydown',e=>{if(e.target.tagName==='INPUT')return;if(e.key==='ArrowRight'){stop();setStep(step[mode]+1)}if(e.key==='ArrowLeft'){stop();setStep(step[mode]-1)}});
+const ro=new ResizeObserver(()=>{drawPlane();drawTree()});ro.observe($('ps'));ro.observe($('ts'));
+build();makeEvents();render();
+}
+        </script>
+    </body>
+</html>
