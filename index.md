@@ -22,6 +22,11 @@ day-by-day schedule below is what sets the pace.
 
 ## Daily Assignments
 
+- November 20, 2026 (Friday)
+    - Read about k-d Trees in Chapter 5
+    - Work with the k-d tree demo widget on the same page
+    - Complete packet handed out in class after you finish the demo. Turn in today!
+    - Complete any old work (Logistic Cancer, Loan, knn, digits)
 - November 5, 2026 (Thursday)
     - Python review: complete [part1](./notebooks/05-classification/python-practice/python_drills_1_basics.ipynb) and then [part2](./notebooks/05-classification/python-practice/python_drills_2_numpy.ipynb)
 ### Quarter 1
