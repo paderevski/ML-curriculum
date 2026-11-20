@@ -27,6 +27,7 @@ day-by-day schedule below is what sets the pace.
     - Work with the k-d tree demo widget on the same page
     - Complete packet handed out in class after you finish the demo. Turn in today!
     - Complete any old work (Logistic Cancer, Loan, knn, digits)
+    - RSEF NOTE: If you're preparing for RSEF please make sure you have filled out all the forms in [zFairs](https://aet-cs.github.io/white/2026/research/zFairs-Student.pdf). Ask me any questions you may have about it!
 - November 5, 2026 (Thursday)
     - Python review: complete [part1](./notebooks/05-classification/python-practice/python_drills_1_basics.ipynb) and then [part2](./notebooks/05-classification/python-practice/python_drills_2_numpy.ipynb)
 ### Quarter 1
