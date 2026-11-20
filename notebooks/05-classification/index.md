@@ -40,6 +40,9 @@ library. You earn the library.
   {% include nb.html local="knn-Student.ipynb" %}
   {% include nb.html local="digits-student.ipynb" %}
 
+-**k-d Trees** -- see how k-d trees work from this
+  [k-d tree explorer](./kdtree-explorer.html). Complete a worksheet handed out in class.
+
 - **Decision Trees** — hand-classify the WillWait? restaurant dataset to
   motivate entropy and information gain, then run the lab on income data.
   {% include nb.html local="Decision_Tree_Student.ipynb" %}
