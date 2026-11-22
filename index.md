@@ -28,8 +28,13 @@ day-by-day schedule below is what sets the pace.
     - Complete packet handed out in class after you finish the demo. Turn in today!
     - Complete any old work (Logistic Cancer, Loan, knn, digits)
     - RSEF NOTE: If you're preparing for RSEF please make sure you have filled out all the forms in [zFairs](https://aet-cs.github.io/white/2026/research/zFairs-Student.pdf). Ask me any questions you may have about it!
+- November 10,12,16,18, 2026
+   - Logistic Regression: Cancer and Loan data
+   - Introduce kNN. Write your own algorithm. Complete kNN intro assignment
+   - [Python Review part2](./notebooks/05-classification/python-practice/python_drills_2_numpy.ipynb)
+   - Complete MNIST Digits
 - November 5, 2026 (Thursday)
-    - Python review: complete [part1](./notebooks/05-classification/python-practice/python_drills_1_basics.ipynb) and then [part2](./notebooks/05-classification/python-practice/python_drills_2_numpy.ipynb)
+    - Python review: complete [part1](./notebooks/05-classification/python-practice/python_drills_1_basics.ipynb) and then
 ### Quarter 1
 - October 20, 2026 (Tuesday)
     - Multi-Linear Regression project due Thursday (draft, graded)
