@@ -1,0 +1,60 @@
+{%- comment -%}
+  One row in a unit section's materials list.
+
+  item.kind:  notebook (default) | worksheet | dataset | interactive | link | soon
+  item.role:  demo | hw | demo-hw | classwork        (drives the badge)
+  item.local: notebook filename in this unit's folder   (notebooks only)
+  item.path:  repo path to a notebook elsewhere         (notebooks only)
+  item.url:   link target                               (non-notebooks)
+  item.label: display title (defaults to the notebook's own title)
+  item.blurb: one-line description (markdown)
+  item.due:   optional due text, e.g. "Nov 18"
+{%- endcomment -%}
+{%- assign m = include.item -%}
+{%- assign kind = m.kind | default: "notebook" -%}
+{%- assign entry = nil -%}
+{%- if kind == "notebook" -%}
+{%- assign page_dir = page.dir | default: '' | remove_first: '/' -%}
+{%- if m.local -%}{%- assign entry = site.data.notebooks.by_dir[page_dir][m.local] -%}
+{%- elsif m.path -%}{%- assign entry = site.data.notebooks.by_path[m.path] -%}{%- endif -%}
+{%- endif -%}
+{%- case m.role -%}
+{%- when "demo" -%}{%- assign role_label = "Demo" -%}
+{%- when "hw" -%}{%- assign role_label = "Homework" -%}
+{%- when "demo-hw" -%}{%- assign role_label = "Demo + HW" -%}
+{%- when "classwork" -%}{%- assign role_label = "In class" -%}
+{%- else -%}{%- assign role_label = "" -%}
+{%- endcase -%}
+{%- case kind -%}
+{%- when "worksheet" -%}{%- assign kind_label = "Worksheet" -%}
+{%- when "dataset" -%}{%- assign kind_label = "Dataset" -%}
+{%- when "interactive" -%}{%- assign kind_label = "Interactive" -%}
+{%- when "link" -%}{%- assign kind_label = "Reading" -%}
+{%- when "soon" -%}{%- assign kind_label = "Coming soon" -%}
+{%- else -%}{%- assign kind_label = "Notebook" -%}
+{%- endcase -%}
+<div class="unit-item unit-item--{{ m.role | default: 'none' }} unit-item--{{ kind }}">
+<span class="role-badge role-badge--{{ m.role | default: 'none' }}">{{ role_label | default: kind_label }}</span>
+<div class="unit-item__body">
+<p class="unit-item__title">
+{%- if entry -%}<a href="{{ '/' | append: entry.html_path | relative_url }}">{{ m.label | default: entry.title }}</a>
+{%- elsif m.url -%}<a href="{{ m.url | relative_url }}">{{ m.label }}</a>
+{%- else -%}{{ m.label }}{%- endif -%}
+{%- if role_label != "" and kind != "notebook" -%} <span class="unit-item__kind">{{ kind_label }}</span>{%- endif -%}
+{%- if m.due -%} <span class="unit-item__due">Due {{ m.due }}</span>{%- endif -%}
+</p>
+{%- if m.blurb -%}<div class="unit-item__blurb">{{ m.blurb | markdownify }}</div>{%- endif -%}
+{%- if kind == "notebook" and entry == nil -%}<p class="unit-item__missing">Missing notebook metadata for {{ m.local | default: m.path }}</p>{%- endif -%}
+</div>
+{%- if entry -%}
+<div class="unit-item__actions">
+<a href="{{ '/' | append: entry.html_path | relative_url }}">View</a>
+<a href="{{ '/' | append: entry.ipynb_path | relative_url }}" download>Download</a>
+{%- if entry.colab_url -%}<a class="is-primary" href="{{ entry.colab_url }}">Open in Colab</a>{%- endif -%}
+</div>
+{%- elsif m.url and kind != "soon" -%}
+<div class="unit-item__actions">
+<a href="{{ m.url | relative_url }}"{% if kind == "dataset" %} download{% endif %}>{% if kind == "dataset" %}Download{% else %}Open{% endif %}</a>
+</div>
+{%- endif -%}
+</div>
