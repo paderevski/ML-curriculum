@@ -1,0 +1,50 @@
+{%- comment -%}
+  Left navigation from _data/navigation.yml[include.nav].
+
+  - Top-level items with a url and no children render as plain links
+    (consecutive ones are grouped into one list).
+  - Items with `children` render as a small label + list of links.
+  - A child title like "05 · Classification" is split so the number
+    sits in its own aligned column.
+  - A child is "current" on its own page and on pages beneath its url,
+    so a unit stays highlighted on that unit's sub-pages.
+  - On small screens it's hidden and opened as a panel by the Menu button
+    in the masthead (_includes/theme/masthead.html).
+{%- endcomment -%}
+{%- assign items = site.data.navigation[include.nav] -%}
+<aside class="sidebar">
+<nav id="sidebar-nav" class="sidebar__nav" aria-label="Course">
+{%- assign in_plain = false -%}
+{%- for item in items -%}
+{%- if item.children == nil and item.url -%}
+{%- unless in_plain -%}<ul class="nav__list nav__list--top">{%- assign in_plain = true -%}{%- endunless -%}
+{%- assign external = false -%}{%- if item.url contains "://" -%}{%- assign external = true -%}{%- endif -%}
+<li><a class="nav__link{% if item.url == page.url %} is-current{% endif %}" href="{{ item.url | relative_url }}"{% if item.url == page.url %} aria-current="page"{% endif %}><span class="nav__text">{{ item.title }}</span>{%- if external -%}<span class="nav__ext" aria-label="(opens external site)">↗</span>{%- endif -%}</a></li>
+{%- else -%}
+{%- if in_plain -%}</ul>{%- assign in_plain = false -%}{%- endif -%}
+<div class="nav__group">
+{%- if item.url -%}<a class="nav__label" href="{{ item.url | relative_url }}">{{ item.title }}</a>
+{%- else -%}<p class="nav__label">{{ item.title }}</p>{%- endif -%}
+{%- if item.children -%}
+<ul class="nav__list">
+{%- for child in item.children -%}
+{%- assign prefix = page.url | slice: 0, child.url.size -%}
+{%- assign current = false -%}
+{%- if child.url == page.url or prefix == child.url and child.url != "/" -%}{%- assign current = true -%}{%- endif -%}
+{%- assign parts = child.title | split: " · " -%}
+<li><a class="nav__link{% if current %} is-current{% endif %}" href="{{ child.url | relative_url }}"{% if child.url == page.url %} aria-current="page"{% endif %}>
+{%- if parts.size > 1 -%}
+<span class="nav__num">{{ parts[0] }}</span><span class="nav__text">{{ child.title | remove_first: parts[0] | remove_first: " · " }}</span>
+{%- else -%}
+<span class="nav__text">{{ child.title }}</span>
+{%- endif -%}
+</a></li>
+{%- endfor -%}
+</ul>
+{%- endif -%}
+</div>
+{%- endif -%}
+{%- endfor -%}
+{%- if in_plain -%}</ul>{%- endif -%}
+</nav>
+</aside>

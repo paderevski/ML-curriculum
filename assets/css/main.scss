@@ -4,41 +4,48 @@
 
 @charset "utf-8";
 
-// ─── Typography ───────────────────────────────────────────────────────────────
-// Defined BEFORE the MM imports so the !default flag picks up this value.
-// Also update _includes/head/custom.html to load the matching Google Font.
-//
-// Swap the active line to change the body font:
-// $global-font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-$global-font-family: "Source Sans 3", -apple-system, sans-serif;  // warmer, academic
-// $global-font-family: "Nunito", -apple-system, sans-serif;          // rounded, friendly
-// $global-font-family: "IBM Plex Sans", -apple-system, sans-serif;   // structured, technical
-// $global-font-family: -apple-system, BlinkMacSystemFont, sans-serif; // MM default (system font)
+// ─── Theme ────────────────────────────────────────────────────────────────────
+// Our own theme (replaced Minimal Mistakes). To change fonts, colors, widths,
+// edit _sass/theme/_tokens.scss. If you change --font-body, also update the
+// Google Fonts link in _includes/head/custom.html.
+@import "theme/tokens";
+@import "theme/base";
+@import "theme/layout";
+@import "theme/syntax";
 
-// MM skin and core — must come AFTER custom variable definitions
-@import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}";
-@import "minimal-mistakes";
+// Everything below is specific to this site (not part of the reusable theme).
 
-// ─── Page width ───────────────────────────────────────────────────────────────
-// MM reserves padding-right on .page for a right sidebar (the TOC). On pages
-// that don't have one, that's just dead space, so we reclaim it.
+// ─── Body font: Source Sans 3, self-hosted ────────────────────────────────────
+// Served from assets/fonts/ (latin subset, variable weight 200-900, SIL OFL)
+// and preloaded in _includes/head/custom.html, so it's usually ready before
+// first paint. Previously loaded from Google Fonts, which made every page
+// render once in the system font and then re-flow when the font arrived.
 //
-// The :not(:has(...)) guard matters: unit pages DO have a TOC (enabled via
-// toc: true in _config.yml defaults), and zeroing their padding would run the
-// content under the TOC. This rule only applies where no .sidebar__right
-// exists.
-//
-// Failure mode is safe: if #main isn't the shared ancestor of .page and
-// .sidebar__right in some layout, the selector simply doesn't match and MM's
-// default padding applies -- slightly narrower content, nothing broken.
-//
-// Set to e.g. 2em instead of 0 if the full-width pages feel too wide.
+// "Source Sans 3 Fallback" is Arial scaled to Source Sans's width and line
+// metrics, so if the real font is ever late, the swap barely moves anything.
+// (size-adjust measured in-browser: Source Sans 3 is 91.0% as wide as Arial.)
 
-@media (min-width: 64em) {  // MM's $large breakpoint (~1024px)
-  #main:not(:has(.sidebar__right)) .page { padding-right: 0; }
+@font-face {
+  font-family: "Source Sans 3";
+  font-style: normal;
+  font-weight: 200 900;
+  font-display: swap;
+  src: url("{{ '/assets/fonts/source-sans-3-latin.woff2' | relative_url }}") format("woff2");
 }
-@media (min-width: 80em) {  // MM's $x-large breakpoint (~1280px)
-  #main:not(:has(.sidebar__right)) .page { padding-right: 0; }
+@font-face {
+  font-family: "Source Sans 3";
+  font-style: italic;
+  font-weight: 200 900;
+  font-display: swap;
+  src: url("{{ '/assets/fonts/source-sans-3-latin-italic.woff2' | relative_url }}") format("woff2");
+}
+@font-face {
+  font-family: "Source Sans 3 Fallback";
+  src: local("Arial"), local("ArialMT");
+  size-adjust: 91%;
+  ascent-override: 112.5%;
+  descent-override: 44%;
+  line-gap-override: 0%;
 }
 
 // ─── Notebook link label ──────────────────────────────────────────────────────
@@ -73,11 +80,11 @@ $global-font-family: "Source Sans 3", -apple-system, sans-serif;  // warmer, aca
 
 .notebook-links__label:hover,
 .notebook-links__label:focus-visible {
-  color: #1a6bb0;
+  color: var(--color-link);
 }
 
 .notebook-links__label:focus-visible {
-  outline: 2px solid rgba(26, 107, 176, 0.25);
+  outline: 2px solid var(--color-focus);
   outline-offset: 0.18rem;
   border-bottom-color: transparent;
 }
@@ -106,13 +113,13 @@ $global-font-family: "Source Sans 3", -apple-system, sans-serif;  // warmer, aca
     align-items: center;
     padding: 0.2rem 0.5rem;
     border-radius: 999px;
-    background: rgba(26, 107, 176, 0.08);
+    background: var(--color-accent-soft);
     color: inherit;
     font-size: 0.88em;
     text-decoration: none;
 
     &:hover {
-      background: rgba(26, 107, 176, 0.16);
+      background: rgba(65, 38, 188, 0.14);
       text-decoration: none;
     }
   }
@@ -334,15 +341,6 @@ $role-none:       #6b7280;
   .unit-item__actions { justify-content: flex-start; margin-top: 0.3em; }
 }
 
-// ─── Base font size ───────────────────────────────────────────────────────────
-// Overrides MM's body font size. Value is relative to the browser default
-// (usually 16px), so 0.8em ≈ 12.8px, 0.875em ≈ 14px, 0.9em ≈ 14.4px.
-// MM handles all other body properties; only font-size needs overriding here.
-
-body {
-  font-size: 0.8em;
-}
-
 // ─── Read the Docs ad placement ────────────────────────────────────────────────
 // Corresponds to the explicit placeholder in _includes/footer/custom.html.
 // RTD's Addons script looks for #ethical-ad-placement and, when found, puts
@@ -351,47 +349,6 @@ body {
 //
 // The wrapper gets our own light styling so the ad reads as an intentional,
 // separate footer element rather than a raw unstyled box.
-
-// Layout: put the ad on the right half of the footer, sharing space
-// with the FOLLOW links and copyright line rather than sitting in its
-// own separate section above them. Confirmed via live DOM inspection
-// that .rtd-ad-placement-wrap, .page__footer-follow, and
-// .page__footer-copyright are direct siblings under <footer> -- using
-// named grid-template-areas here instead of row/column indices, less
-// error-prone if the source order ever changes. !important on display
-// as a defensive measure in case Minimal Mistakes' own compiled CSS
-// sets a competing display value on <footer> at equal specificity.
-
-.page__footer footer {
-  display: grid !important;
-  grid-template-columns: 1fr auto;
-  grid-template-areas:
-    "follow ad"
-    "copyright ad";
-  align-items: center;
-  column-gap: 2em;
-  // Overriding Minimal Mistakes' own _footer.scss:21, which sets
-  // margin-top: 2em and padding: 0 1em 2em by default.
-  margin-top: 0.75em !important;
-  padding: 0 1em 0.75em !important;
-}
-
-// Minimal Mistakes also applies its own margin-top: 3em (plus a
-// staggered "intro" reveal animation) to .page__footer itself -- the
-// outer wrapper, separate from the <footer> tag above. Tightening
-// that down too so the whole footer area doesn't have two stacked
-// large top margins.
-.page__footer {
-  margin-top: 1em !important;
-}
-
-.page__footer-follow {
-  grid-area: follow;
-}
-
-.page__footer-copyright {
-  grid-area: copyright;
-}
 
 .rtd-ad-placement-wrap {
   grid-area: ad;

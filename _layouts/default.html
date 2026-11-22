@@ -1,0 +1,24 @@
+<!doctype html>
+{%- comment -%}
+  Base shell for every page. Theme files live in:
+    _layouts/{default,single}.html
+    _includes/theme/*.html
+    _sass/theme/*.scss
+    assets/js/theme.js
+  Site-specific hooks (kept separate so the theme can be reused elsewhere):
+    _includes/head/custom.html     -> extra <head> tags (fonts, MathJax, ...)
+    _includes/footer/custom.html   -> extra footer content
+{%- endcomment -%}
+<html lang="{{ site.locale | default: 'en' | slice: 0, 2 }}">
+<head>
+{% include theme/head.html %}
+{% include head/custom.html %}
+</head>
+<body class="layout--{{ page.layout | default: 'default' }}{% for c in page.classes %} {{ c }}{% endfor %}">
+<a class="skip-link" href="#main-content">Skip to content</a>
+{% include theme/masthead.html %}
+{{ content }}
+{% include theme/footer.html %}
+<script src="{{ '/assets/js/theme.js' | relative_url }}" defer></script>
+</body>
+</html>
