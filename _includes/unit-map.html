@@ -1,0 +1,27 @@
+{%- comment -%}
+  Badge key + unit map for `layout: unit` pages.
+  page.unit_sections is filled by _plugins/unit_pages.rb from the page's
+  "## " section headings and its card list items. Shares CSS with the
+  front-matter version of the unit page.
+{%- endcomment -%}
+<p class="unit-legend">
+<span class="role-badge role-badge--demo">Demo</span> we go through it together,
+<span class="role-badge role-badge--classwork">In class</span> you work on it during class,
+<span class="role-badge role-badge--hw">Homework</span> you finish and submit it.
+</p>
+<nav class="unit-map" aria-label="Sections in this unit">
+<p class="unit-map__label">Unit map</p>
+<ol class="unit-map__list">
+{%- for s in page.unit_sections -%}
+<li class="unit-map__item">
+<a href="#{{ s.id }}"><span class="unit-map__num">{{ s.num }}</span> {{ s.title | markdownify | remove: '<p>' | remove: '</p>' | strip }}</a>
+<span class="unit-map__counts">
+{%- if s.notes -%}<span class="pip pip--notes" title="Notes">Notes</span>{%- endif -%}
+{%- if s.demo > 0 -%}<span class="pip pip--demo" title="Demos">{{ s.demo }} demo</span>{%- endif -%}
+{%- if s.classwork > 0 -%}<span class="pip pip--classwork" title="In class">{{ s.classwork }} in class</span>{%- endif -%}
+{%- if s.hw > 0 -%}<span class="pip pip--hw" title="Homework">{{ s.hw }} hw</span>{%- endif -%}
+</span>
+</li>
+{%- endfor -%}
+</ol>
+</nav>

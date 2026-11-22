@@ -1,0 +1,11 @@
+---
+layout: single
+---
+{%- comment -%}
+  Unit page. Write the page as Markdown sections (## headings) with card
+  lists; _plugins/unit_pages.rb numbers sections, builds cards and the unit
+  map, and switches on math and the unit styles. This layout adds the
+  previous / next unit links at the bottom.
+{%- endcomment -%}
+{{ content }}
+{% include unit-nav.html %}
