@@ -84,6 +84,8 @@ negative is the costly mistake.
 - **Demo + HW** [Cancer Data Logistic Regression](./Cancer_Logistic_Student.ipynb):
   We work through the first half together on the Wisconsin breast-cancer data,
   and you finish the rest for homework.
+- **In class** [Split Point Explorer](./widgets/split-point-explorer.html):
+  Drag the split point and watch the confusion matrix change. Can you catch every cancer, and what does it cost?
 - **Homework** [Loan Data: best-model challenge](./loan_data.csv):
   Open-ended. Build the best logistic regression you can on `loan_data.csv` and
   defend your feature and threshold choices in markdown. Start your own notebook.

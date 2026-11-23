@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Split Point Explorer</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;800&display=swap"
+              rel="stylesheet">
+        <style>
+/* VOICE everyday: a study tool for students working alone or in pairs
+   IDEA a logistic model scores 114 tumors; you choose where "malignant" starts
+   PICTURE the notebook's sorted-probability plot with a draggable split line, the confusion matrix, the stats
+   COLOUR white paper, ink; TP blue, TN green, FP red, FN orange (the notebook's colours);
+          right answers are filled dots, mistakes are crosses (shape + position + hue)
+   TYPE Figtree 800 + Figtree
+   LAYOUT laptop: plot | matrix + stats; phone: stacked */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#0f141a);--ink:light-dark(#15202b,#e9eef4);--soft:light-dark(#5b6876,#9aa7b5);--panel:light-dark(#f6f8fb,#161d25);--edge:light-dark(#dfe4ea,#2a3440);--grid:light-dark(#e8edf2,#1f2832);--hi:light-dark(#fff7d6,#2b2710);
+  --tp:light-dark(#1d5fd8,#6ea2ff);--tps:light-dark(#e8f0ff,#16233a);
+  --tn:light-dark(#17804f,#4cc58a);--tns:light-dark(#e4f5ec,#10291c);
+  --fp:light-dark(#cf2438,#ff6b7a);--fps:light-dark(#ffe9ec,#3a1419);
+  --fn:light-dark(#c9560a,#ff9a45);--fns:light-dark(#fff1e5,#33230f);
+  --zone:light-dark(#f3ecff,#1f1830);--line:light-dark(#7a3cd6,#b892ff)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 Figtree,system-ui,sans-serif;overflow-x:clip}
+.wrap{max-width:1280px;margin:0 auto;padding:20px max(3vw,16px) 40px}
+header{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px 24px;margin-bottom:14px}
+h1{font-weight:800;font-size:clamp(30px,4vw,44px);line-height:1.05;letter-spacing:-.02em;margin:0}
+.sub{color:var(--soft);margin:6px 0 0;max-width:72ch}
+.hbtns{display:flex;gap:8px;flex-wrap:wrap}
+button{font-family:Figtree,sans-serif}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid var(--edge);background:var(--bg);color:var(--ink);font-weight:600;font-size:15px;border-radius:10px;min-height:44px;padding:0 14px;cursor:pointer}
+.btn:hover:not(:disabled){border-color:var(--soft)}
+.btn:disabled{opacity:.45;cursor:default}
+:focus-visible{outline:3px solid var(--tp);outline-offset:2px}
+.status{display:flex;flex-wrap:wrap;align-items:center;gap:8px 28px;background:var(--panel);border:1px solid var(--edge);border-radius:14px;padding:12px 18px;margin-bottom:14px}
+.meter{display:flex;align-items:baseline;gap:8px}
+.meter .big{font-weight:800;font-size:30px;line-height:1;font-variant-numeric:tabular-nums}
+.meter.t .big{color:var(--line)}
+.meter.fn .big{color:var(--fn)}.meter.fp .big{color:var(--fp)}.meter.tp .big{color:var(--tp)}
+.stage{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:14px;align-items:start}
+.col{display:flex;flex-direction:column;gap:14px;min-width:0}
+.card{background:var(--panel);border:1px solid var(--edge);border-radius:14px;padding:12px 14px}
+.card h2{font-size:14px;font-weight:600;color:var(--soft);margin:0 0 8px;text-transform:uppercase;letter-spacing:.04em}
+.card h2 span{text-transform:none;letter-spacing:0;font-weight:500}
+.plotbox{position:relative;background:var(--bg);border:1px solid var(--edge);border-radius:10px;overflow:hidden}
+#plot{display:block;width:100%;touch-action:pan-y;cursor:ns-resize;user-select:none}
+#plot text{font-family:Figtree,sans-serif}
+.handle{position:absolute;right:6px;display:flex;align-items:center;gap:4px;height:30px;padding:0 9px 0 7px;border-radius:999px;background:var(--line);color:var(--bg);font-weight:800;font-size:15px;font-variant-numeric:tabular-nums;cursor:ns-resize;touch-action:none;user-select:none;box-shadow:0 1px 4px rgb(0 0 0/.25)}
+.handle svg{width:12px;height:14px;fill:currentColor}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font-size:13.5px;line-height:1.4;border-radius:8px;padding:6px 10px;max-width:230px;opacity:0;transition:opacity .12s;z-index:2}
+.tip.on{opacity:1}
+.tip b{font-weight:800}
+.ctrl{display:flex;align-items:center;gap:8px;margin-top:10px}
+.ctrl label{font-weight:600;font-size:15px;white-space:nowrap}
+.ctrl input[type=range]{flex:1 1 0;width:0;accent-color:var(--line);min-height:36px}
+.tip .g{vertical-align:-1px;margin-right:4px;--c:var(--bg)}
+.nudge{min-width:44px;padding:0}
+.say{background:var(--bg);border:1px solid var(--edge);border-left:4px solid var(--line);border-radius:10px;padding:10px 14px;margin-top:10px;font-size:16px;min-height:4.6em}
+.say .vs{display:block;color:var(--soft);font-size:14px;margin-top:4px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px;color:var(--soft);margin:10px 2px 0}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.g{display:inline-block;width:12px;height:12px;flex:none;position:relative}
+.g.ok{border-radius:50%;background:var(--c)}
+.g.x::before,.g.x::after{content:"";position:absolute;left:-1px;right:-1px;top:50%;height:3px;margin-top:-1.5px;background:var(--c);border-radius:2px;transform:rotate(45deg)}
+.g.x::after{transform:rotate(-45deg)}
+.c-tp{--c:var(--tp)}.c-tn{--c:var(--tn)}.c-fp{--c:var(--fp)}.c-fn{--c:var(--fn)}
+/* confusion matrix */
+.cm{display:grid;grid-template-columns:auto 1fr 1fr;gap:6px;font-variant-numeric:tabular-nums}
+.cm .ax{font-size:13px;font-weight:600;color:var(--soft);display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.2;padding:2px}
+.cm .rowh{writing-mode:vertical-rl;transform:rotate(180deg);padding:4px 0}
+.cell{border:1px solid var(--edge);border-left:5px solid var(--c);background:var(--s);border-radius:10px;padding:8px 10px;min-height:118px;display:flex;flex-direction:column;gap:2px}
+.cell .top{display:flex;align-items:baseline;gap:8px}
+.cell .n{font-weight:800;font-size:30px;line-height:1}
+.cell .nm{font-weight:700;font-size:14px;color:var(--c)}
+.cell .pl{font-size:13px;color:var(--soft);line-height:1.25}
+.cell .pile{display:flex;flex-wrap:wrap;gap:2px;margin-top:4px}
+.cell .pile i{width:6px;height:6px;border-radius:50%;background:var(--c)}
+.cell.x .pile i{border-radius:1px;transform:rotate(45deg);width:5px;height:5px;margin:.5px}
+.cell.tp{--c:var(--tp);--s:var(--tps)}.cell.tn{--c:var(--tn);--s:var(--tns)}.cell.fp{--c:var(--fp);--s:var(--fps)}.cell.fn{--c:var(--fn);--s:var(--fns)}
+@keyframes bump{from{box-shadow:0 0 0 3px var(--c)}to{box-shadow:0 0 0 0 transparent}}
+.cell.bump{animation:bump .5s ease-out}
+.note{font-size:13px;color:var(--soft);margin:8px 2px 0}
+/* stats */
+.stat{padding:8px 0;border-top:1px solid var(--edge)}
+.stat:first-of-type{border-top:0;padding-top:0}
+.stat .hd{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.stat .nm{font-weight:700}
+.stat .v{font-weight:800;font-size:22px;font-variant-numeric:tabular-nums;line-height:1}
+.stat .q{font-size:13.5px;color:var(--soft);line-height:1.3}
+.stat .q b{color:var(--ink);font-weight:600}
+.sbar{position:relative;height:9px;border-radius:5px;background:var(--grid);margin-top:6px}
+.sbar i{position:absolute;left:0;top:0;bottom:0;border-radius:5px;background:var(--ink);transition:width .2s}
+.sbar u{position:absolute;top:-3px;bottom:-3px;width:2px;margin-left:-1px;background:var(--soft);text-decoration:none}
+.src{color:var(--soft);font-size:13px;margin-top:16px}
+@media(prefers-reduced-motion:reduce){.sbar i{transition:none}.cell.bump{animation:none}.tip{transition:none}}
+@media(max-width:960px){.stage{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:600px){.meter .big{font-size:26px}.status{gap:6px 18px}.cell{min-height:104px;padding:7px 8px}.cell .n{font-size:26px}}
+        </style>
+    </head>
+    <body>
+        <div class="wrap">
+            <header>
+                <div>
+                    <h1>Split point explorer</h1>
+                    <p class="sub">
+                        A logistic regression model looked at 114 tumors it had never seen and gave each one a <b>probability of being malignant</b>. It doesn't say “cancer” or “not cancer” on its own. You decide that by picking a split point. Drag the line and watch what happens to the mistakes.
+                    </p>
+                </div>
+                <div class="hbtns">
+                    <button class="btn" id="reset">Back to 0.5</button>
+                </div>
+            </header>
+
+            <div class="status" aria-live="polite">
+                <div class="meter t"><span class="big" id="mT">0.50</span><span>split point</span></div>
+                <div class="meter tp"><span class="big" id="mTP">39</span><span>of 43 cancers caught</span></div>
+                <div class="meter fn"><span class="big" id="mFN">4</span><span id="mFNw">cancers missed</span></div>
+                <div class="meter fp"><span class="big" id="mFP">3</span><span id="mFPw">false alarms</span></div>
+            </div>
+
+            <div class="stage">
+                <div class="card">
+                    <h2>Every test tumor, sorted by the model's probability</h2>
+                    <div class="plotbox" id="plotbox">
+                        <svg id="plot" aria-hidden="true"></svg>
+                        <div class="handle" id="handle" aria-hidden="true">
+                            <svg viewBox="0 0 12 14"><path d="M6 0 11 5H1zM6 14 1 9h10z"/></svg><span id="hv">0.50</span>
+                        </div>
+                        <div class="tip" id="tip" role="status"></div>
+                    </div>
+                    <div class="ctrl">
+                        <label for="t">Split point</label>
+                        <button class="btn nudge" id="down" aria-label="Lower the split point by 0.01">−</button>
+                        <input type="range" id="t" min="0" max="100" step="1" value="50" aria-valuetext="0.50">
+                        <button class="btn nudge" id="up" aria-label="Raise the split point by 0.01">+</button>
+                    </div>
+                    <div class="say" id="say" aria-live="polite"></div>
+                    <div class="legend">
+                        <span><i class="g ok c-tp"></i>Cancer, caught</span>
+                        <span><i class="g x c-fn"></i>Cancer, missed</span>
+                        <span><i class="g ok c-tn"></i>Benign, cleared</span>
+                        <span><i class="g x c-fp"></i>Benign, false alarm</span>
+                    </div>
+                    <p class="note">Top line: tumors that really were malignant (1). Bottom line: benign (0). The black curve is the model's probability for each one. Hover over or tap a dot for details.</p>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <h2>Confusion matrix <span>(same layout as sklearn)</span></h2>
+                        <div class="cm" id="cm"></div>
+                    </div>
+                    <div class="card">
+                        <h2>How good is it? <span>(grey tick = at 0.5)</span></h2>
+                        <div id="stats"></div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="src">
+                Data: the 114-tumor test set from the <i>Cancer Data Logistic Regression</i> notebook (Wisconsin breast cancer data, <code>random_state=42</code>). A tumor counts as predicted malignant when its probability is greater than the split point, as in <code>binary_classify</code>.
+            </p>
+        </div>
+        <script>
+{
+const RAW='0.000156:0,0.000251:0,0.000461:0,0.000874:0,0.000892:0,0.001608:0,0.002431:0,0.002803:0,0.002876:0,0.003331:0,0.003742:0,0.004015:0,0.005372:0,0.005858:0,0.005862:0,0.00715:0,0.007244:0,0.007616:0,0.008082:0,0.008568:0,0.008666:0,0.009334:0,0.011128:0,0.011455:0,0.01212:0,0.012926:0,0.012989:0,0.013475:0,0.013898:0,0.015077:0,0.016485:0,0.016947:0,0.016983:0,0.018593:0,0.0197:0,0.022565:0,0.022613:0,0.024745:0,0.026262:0,0.032358:0,0.033789:0,0.036894:0,0.041317:0,0.042361:0,0.04346:0,0.043498:0,0.044901:0,0.049231:0,0.053924:0,0.055505:0,0.064762:0,0.069813:0,0.070585:0,0.071361:0,0.076902:0,0.080046:0,0.080824:0,0.103196:0,0.106327:0,0.107657:1,0.134302:0,0.179282:0,0.233828:0,0.242111:0,0.292788:0,0.29291:0,0.31562:0,0.366917:0,0.439982:1,0.449431:0,0.459241:1,0.470792:1,0.52825:0,0.576364:0,0.593598:0,0.695929:1,0.742963:1,0.776861:1,0.870838:1,0.872369:1,0.888499:1,0.911386:1,0.923055:1,0.94864:1,0.954236:1,0.954754:1,0.961814:1,0.968062:1,0.973706:1,0.976701:1,0.983806:1,0.99151:1,0.991759:1,0.992703:1,0.993932:1,0.994075:1,0.994444:1,0.996182:1,0.996529:1,0.997753:1,0.999922:1,0.999922:1,0.999924:1,0.999939:1,0.999954:1,0.999968:1,0.999972:1,0.999993:1,0.999995:1,0.999996:1,0.999998:1,0.999999:1,1.:1,1.:1';
+const D=RAW.split(',').map((s,i)=>{const[p,y]=s.split(':');return{i,p:+p,y:+y}}); // already sorted by p
+const N=D.length,POS=D.filter(d=>d.y).length,NEG=N-POS;
+const $=id=>document.getElementById(id);
+const CAT={
+  tp:{name:'True positive',plain:'cancer, caught',x:false},
+  fn:{name:'False negative',plain:'cancer, missed',x:true},
+  tn:{name:'True negative',plain:'benign, cleared',x:false},
+  fp:{name:'False positive',plain:'benign, false alarm',x:true},
+};
+
+let t=.5;
+const cat=(d,s=t)=>d.p>s?(d.y?'tp':'fp'):(d.y?'fn':'tn');
+function counts(s=t){const c={tp:0,fn:0,tn:0,fp:0};D.forEach(d=>c[cat(d,s)]++);return c}
+const f2=x=>x.toFixed(2);
+const plural=(n,one,many)=>n===1?one:many;
+
+/* ---------- plot ---------- */
+let G=null; // geometry of the last draw
+function drawPlot(){
+  const box=$('plotbox'),W=box.clientWidth,phone=W<560,H=phone?300:460;
+  const L=phone?40:52,R=phone?62:70,T=30,B=40,pw=W-L-R,ph=H-T-B;
+  const X=i=>L+(i+.5)/N*pw,Y=p=>T+(1-p)*ph;
+  G={L,R,T,B,pw,ph,H,W,X,Y};
+  const svg=$('plot');svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.setAttribute('height',H);
+  const k=D.filter(d=>d.p<=t).length,xb=L+k/N*pw; // first k tumors are called benign
+  let s='';
+  // predicted-malignant zone
+  s+=`<rect x="${xb}" y="${T}" width="${L+pw-xb}" height="${ph}" fill="var(--zone)"/>`;
+  // grid + y ticks
+  for(const v of[0,.25,.5,.75,1]){
+    s+=`<line x1="${L}" x2="${L+pw}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--grid)" stroke-width="1"/>`;
+    s+=`<text x="${L-8}" y="${Y(v)+4.5}" text-anchor="end" font-size="13" fill="var(--soft)">${v===0||v===1?v:v.toFixed(2).replace(/^0/,'')}</text>`;
+  }
+  // zone labels
+  const lab=(x1,x2,txt,short,arrow)=>{const w=x2-x1;if(w<46)return'';const tx=w>(phone?150:190)?txt:w>80?short:'';return tx?`<text x="${(x1+x2)/2}" y="${T-10}" text-anchor="middle" font-size="13" font-weight="700" fill="var(--soft)">${arrow==='l'?'← ':''}${tx}${arrow==='r'?' →':''}</text>`:''};
+  s+=lab(L,xb,'called benign','benign','l');
+  s+=lab(xb,L+pw,'called malignant','malignant','r');
+  // boundary
+  s+=`<line x1="${xb}" x2="${xb}" y1="${T}" y2="${T+ph}" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="3 4"/>`;
+  // mistakes: faint drop from the curve to the true label
+  D.forEach(d=>{const c=cat(d);if(c==='fp'||c==='fn')s+=`<line x1="${X(d.i)}" x2="${X(d.i)}" y1="${Y(d.p)}" y2="${Y(d.y)}" stroke="var(--${c})" stroke-width="1.5" opacity=".35"/>`});
+  // probability curve
+  s+=`<polyline points="${D.map(d=>`${X(d.i).toFixed(1)},${Y(d.p).toFixed(1)}`).join(' ')}" fill="none" stroke="var(--ink)" stroke-width="2.2" stroke-linejoin="round"/>`;
+  // split line
+  s+=`<line x1="${L}" x2="${W-6}" y1="${Y(t)}" y2="${Y(t)}" stroke="var(--line)" stroke-width="2.5" stroke-dasharray="8 5"/>`;
+  // tumors: filled dot = right, cross = mistake; drawn mistakes last so they sit on top
+  const r=phone?3.2:4.4,xs=phone?3.6:5;
+  const order=[...D].sort((a,b)=>CAT[cat(a)].x-CAT[cat(b)].x);
+  for(const d of order){
+    const c=cat(d),cx=X(d.i),cy=Y(d.y);
+    s+=`<g class="pt" data-i="${d.i}">`;
+    s+=CAT[c].x?`<path d="M${cx-xs} ${cy-xs}L${cx+xs} ${cy+xs}M${cx-xs} ${cy+xs}L${cx+xs} ${cy-xs}" stroke="var(--${c})" stroke-width="${phone?2.2:2.8}" stroke-linecap="round"/>`
+               :`<circle cx="${cx}" cy="${cy}" r="${r}" fill="var(--${c})"/>`;
+    s+=`<circle cx="${cx}" cy="${cy}" r="${phone?6:8}" fill="transparent"/></g>`;
+  }
+  // axis titles
+  s+=`<text x="${L+pw/2}" y="${H-12}" text-anchor="middle" font-size="13" fill="var(--soft)">${phone?'114 tumors, lowest to highest probability':'114 test tumors, from lowest to highest probability of malignant'}</text>`;
+  s+=`<text transform="translate(13 ${T+ph/2}) rotate(-90)" text-anchor="middle" font-size="13" fill="var(--soft)">${phone?'probability':'probability of malignant'}</text>`;
+  svg.innerHTML=s;
+  const hd=$('handle');hd.style.top=(Y(t)-15)+'px';
+}
+
+/* ---------- confusion matrix ---------- */
+let last=null;
+function drawCM(c){
+  const cell=k=>`<div class="cell ${k}${CAT[k].x?' x':''}${last&&last[k]!==c[k]?' bump':''}" aria-label="${CAT[k].name}: ${c[k]}">
+      <div class="top"><span class="n">${c[k]}</span><span class="nm">${CAT[k].name}</span></div>
+      <div class="pl">${CAT[k].plain}</div>
+      <div class="pile">${'<i></i>'.repeat(c[k])}</div></div>`;
+  $('cm').innerHTML=`<div></div><div class="ax">Predicted benign (0)</div><div class="ax">Predicted malignant (1)</div>
+    <div class="ax rowh">Actually benign (0)</div>${cell('tn')}${cell('fp')}
+    <div class="ax rowh">Actually malignant (1)</div>${cell('fn')}${cell('tp')}`;
+  last=c;
+}
+
+/* ---------- statistics ---------- */
+function stats(c){
+  const P=c.tp+c.fp,acc=(c.tp+c.tn)/N,rec=c.tp/POS,spec=c.tn/NEG,prec=P?c.tp/P:null;
+  const f1=prec===null||prec+rec===0?0:2*prec*rec/(prec+rec);
+  return{acc,rec,spec,prec,f1,P};
+}
+const BASE=stats(counts(.5));
+function drawStats(c){
+  const s=stats(c);
+  const row=(nm,v,base,q)=>`<div class="stat"><div class="hd"><span class="nm">${nm}</span><span class="v">${v===null?'—':v.toFixed(3)}</span></div>
+    <div class="q">${q}</div><div class="sbar"><i style="width:${(v??0)*100}%"></i>${base===null?'':`<u style="left:${base*100}%"></u>`}</div></div>`;
+  $('stats').innerHTML=
+    row('Recall',s.rec,BASE.rec,`Of the 43 real cancers, how many did it catch? <b>${c.tp} of ${POS}</b>`)+
+    row('Precision',s.prec,BASE.prec,s.P?`Of the tumors it called malignant, how many really were? <b>${c.tp} of ${s.P}</b>`:`It called nothing malignant, so there is nothing to check.`)+
+    row('Accuracy',s.acc,BASE.acc,`How many of all 114 did it get right? <b>${c.tp+c.tn} of ${N}</b>`)+
+    row('Specificity',s.spec,BASE.spec,`Of the 71 benign tumors, how many did it clear? <b>${c.tn} of ${NEG}</b>`)+
+    row('F1 score',s.f1,BASE.f1,`One number that is high only when precision <i>and</i> recall are both high.`);
+}
+
+/* ---------- plain-language summary ---------- */
+function drawSay(c){
+  let h;
+  if(!c.tp&&!c.fp)h=`At <b>${f2(t)}</b> the model never says malignant. All 71 benign tumors are cleared, but <b>all 43 cancers are missed</b>.`;
+  else if(!c.tn&&!c.fn)h=`At <b>${f2(t)}</b> every tumor is called malignant. No cancer is missed, but <b>all 71 benign tumors get a false alarm</b>.`;
+  else{
+    h=`Any tumor with a probability above <b>${f2(t)}</b> is called malignant. `;
+    h+=c.fn?`That catches <b>${c.tp} of ${POS}</b> cancers and <b>misses ${c.fn}</b>`:`That catches <b>all ${POS} cancers</b>`;
+    h+=c.fp?`, and <b>${c.fp} benign ${plural(c.fp,'tumor gets','tumors get')} a false alarm</b>.`:`, with <b>no false alarms</b>.`;
+  }
+  const b=counts(.5);
+  if(Math.abs(t-.5)>1e-9){
+    const dc=c.tp-b.tp,df=c.fp-b.fp;
+    const a=dc>0?`${dc} more ${plural(dc,'cancer','cancers')} caught`:dc<0?`${-dc} more ${plural(-dc,'cancer','cancers')} missed`:'the same cancers caught';
+    const f=df>0?`${df} more false ${plural(df,'alarm','alarms')}`:df<0?`${-df} fewer false ${plural(-df,'alarm','alarms')}`:'the same number of false alarms';
+    h+=`<span class="vs">Compared with the default 0.5: ${a}, ${f}.</span>`;
+  }else h+=`<span class="vs">0.5 is sklearn's default. Is it the best choice when a missed cancer is so costly?</span>`;
+  $('say').innerHTML=h;
+}
+
+function drawStatus(c){
+  $('mT').textContent=f2(t);$('mTP').textContent=c.tp;
+  $('mFN').textContent=c.fn;$('mFNw').textContent=plural(c.fn,'cancer missed','cancers missed');
+  $('mFP').textContent=c.fp;$('mFPw').textContent=plural(c.fp,'false alarm','false alarms');
+  $('hv').textContent=f2(t);
+  const r=$('t');r.value=Math.round(t*100);r.setAttribute('aria-valuetext',f2(t));
+  $('down').disabled=t<=0;$('up').disabled=t>=1;$('reset').disabled=Math.abs(t-.5)<1e-9;
+}
+
+function render(){const c=counts();drawPlot();drawCM(c);drawStats(c);drawSay(c);drawStatus(c);if(tipI!=null)showTip(tipI)}
+function setT(v){v=Math.min(1,Math.max(0,Math.round(v*100)/100));if(v===t)return;t=v;render()}
+
+/* ---------- tooltip ---------- */
+let tipI=null;
+function showTip(i){
+  tipI=i;const d=D[i],c=cat(d),tip=$('tip');
+  const pr=d.p<.001?'less than 0.001':d.p>.999?'more than 0.999':d.p.toFixed(3);
+  tip.innerHTML=`<b>Tumor ${i+1} of ${N}</b><br>Model's probability: <b>${pr}</b><br>Actually ${d.y?'malignant':'benign'} →<br><i class="g ${CAT[c].x?'x':'ok'}"></i><b>${CAT[c].name}</b> (${CAT[c].plain})`;
+  tip.classList.add('on');
+  const x=G.X(i),y=G.Y(d.y),tw=tip.offsetWidth,th=tip.offsetHeight;
+  tip.style.left=Math.min(G.W-tw-4,Math.max(4,x-tw/2))+'px';
+  tip.style.top=(d.y?y+14:y-th-14)+'px';
+}
+function hideTip(){tipI=null;$('tip').classList.remove('on')}
+
+/* ---------- events ---------- */
+const svg=$('plot');
+const tFromY=cy=>{const r=svg.getBoundingClientRect();return 1-(cy-r.top-G.T)/G.ph};
+let drag=false;
+function startDrag(e){drag=true;e.currentTarget.setPointerCapture(e.pointerId);hideTip();setT(tFromY(e.clientY))}
+let lastType='mouse';
+svg.addEventListener('pointerdown',e=>{lastType=e.pointerType;if(e.pointerType==='touch')return;if(e.button===0)startDrag(e)}); // touch: a tap sets it (below), so the page still scrolls
+svg.addEventListener('pointermove',e=>{
+  if(drag){setT(tFromY(e.clientY));return}
+  if(e.pointerType!=='mouse')return;
+  const g=e.target.closest('.pt');g?showTip(+g.dataset.i):hideTip();
+});
+svg.addEventListener('pointerleave',()=>{if(!drag)hideTip()});
+const stop=()=>{drag=false};
+svg.addEventListener('pointerup',stop);svg.addEventListener('pointercancel',stop);
+svg.addEventListener('click',e=>{
+  if(lastType!=='touch')return;
+  const g=e.target.closest('.pt');
+  if(g&&tipI!==+g.dataset.i)showTip(+g.dataset.i);else{hideTip();setT(tFromY(e.clientY))}
+});
+const hd=$('handle');
+hd.addEventListener('pointerdown',startDrag);
+hd.addEventListener('pointermove',e=>{if(drag)setT(tFromY(e.clientY))});
+hd.addEventListener('pointerup',stop);hd.addEventListener('pointercancel',stop);
+
+$('t').addEventListener('input',e=>setT(+e.target.value/100));
+$('down').addEventListener('click',()=>setT(t-.01));
+$('up').addEventListener('click',()=>setT(t+.01));
+$('reset').addEventListener('click',()=>setT(.5));
+
+let rz;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(()=>{hideTip();drawPlot()},100)});
+render();
+}
+        </script>
+    </body>
+</html>
