@@ -130,8 +130,9 @@
 }
 
 // ─── Unit pages: sections, notes, materials ──────────────────────────────────
-// Rendered by _includes/unit-sections.html + unit-material.html from a unit's
-// front matter. Role colors are the one place to retune the badge palette.
+// Unit pages (layout: unit) are rendered by _plugins/unit_pages.rb with
+// _includes/unit-map.html and unit-material.html. Role colors come from
+// _data/unit_roles.yml.
 
 $unit-ink:        #1f2430;
 $unit-muted:      #5d6472;
