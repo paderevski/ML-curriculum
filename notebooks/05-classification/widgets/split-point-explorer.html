@@ -95,7 +95,34 @@ button{font-family:Figtree,sans-serif}
 .sbar i{position:absolute;left:0;top:0;bottom:0;border-radius:5px;background:var(--ink);transition:width .2s}
 .sbar u{position:absolute;top:-3px;bottom:-3px;width:2px;margin-left:-1px;background:var(--soft);text-decoration:none}
 .src{color:var(--soft);font-size:13px;margin-top:16px}
-@media(prefers-reduced-motion:reduce){.sbar i{transition:none}.cell.bump{animation:none}.tip{transition:none}}
+/* show the math */
+.btn[aria-pressed=true]{background:var(--hi);border-color:var(--ink)}
+.btn .sig{font-weight:800;font-size:17px;line-height:1}
+.cell{position:relative;transition:opacity .15s}
+.cell .ab{font-size:12px;font-weight:800;border-radius:999px;padding:0 6px;background:var(--c);color:var(--bg)}
+.cell .role{position:absolute;top:-9px;right:8px;font-size:11.5px;font-weight:700;border-radius:999px;padding:0 7px;background:var(--bg);border:1px solid var(--c);color:var(--ink);display:none;white-space:nowrap}
+#cm.hl .cell{opacity:.28}
+#cm.hl .cell.hd,#cm.hl .cell.hn{opacity:1}
+#cm.hl .cell.hd{outline:2px dashed var(--c);outline-offset:2px}
+#cm.hl .cell.hn{outline:3px solid var(--c);outline-offset:2px}
+#cm.hl .cell.hd .role,#cm.hl .cell.hn .role{display:block}
+#plot .pt,#plot .miss{transition:opacity .15s}
+#plot .dim{opacity:.12}
+.eq{display:flex;align-items:center;flex-wrap:wrap;gap:4px 10px;margin:6px 0 2px;padding:6px 8px;border:1px solid var(--edge);border-radius:10px;background:var(--bg);cursor:pointer;font-variant-numeric:tabular-nums}
+.eq:hover{border-color:var(--soft)}
+.eq.pin{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.frac{display:inline-flex;flex-direction:column;align-items:center}
+.frac>span{display:flex;align-items:center;gap:4px;padding:2px 4px;white-space:nowrap}
+.frac .nu{border-bottom:2px solid var(--ink)}
+.eq .res{font-weight:800;font-size:17px}
+.eq .op{color:var(--soft);font-weight:600}
+.tk{display:inline-flex;align-items:baseline;gap:3px;border-radius:7px;padding:1px 6px;background:var(--s);border:1px solid var(--c);color:var(--ink);font-weight:800;font-size:15px;transition:box-shadow .15s}
+.tk small{font-size:10.5px;font-weight:800;color:var(--c)}
+.tk.lit{box-shadow:0 0 0 2px var(--c)}
+.tk.c-tp{--s:var(--tps)}.tk.c-tn{--s:var(--tns)}.tk.c-fp{--s:var(--fps)}.tk.c-fn{--s:var(--fns)}
+.alt{font-size:13px;color:var(--soft);margin-top:2px}
+.mhint{font-size:13.5px;color:var(--soft);margin:0 0 8px}
+@media(prefers-reduced-motion:reduce){.sbar i,.cell,.tk,#plot .pt,#plot .miss{transition:none}.cell.bump{animation:none}.tip{transition:none}}
 @media(max-width:960px){.stage{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:600px){.meter .big{font-size:26px}.status{gap:6px 18px}.cell{min-height:104px;padding:7px 8px}.cell .n{font-size:26px}}
         </style>
@@ -110,6 +137,7 @@ button{font-family:Figtree,sans-serif}
                     </p>
                 </div>
                 <div class="hbtns">
+                    <button class="btn" id="mathBtn" aria-pressed="false"><span class="sig" aria-hidden="true">Σ</span> Show the math</button>
                     <button class="btn" id="reset">Back to 0.5</button>
                 </div>
             </header>
@@ -153,6 +181,7 @@ button{font-family:Figtree,sans-serif}
                     </div>
                     <div class="card">
                         <h2>How good is it? <span>(grey tick = at 0.5)</span></h2>
+                        <p class="mhint" id="mhint" hidden>Point at an equation, or tap it, to see which cells of the confusion matrix it uses. Click to keep it lit while you move the split point.</p>
                         <div id="stats"></div>
                     </div>
                 </div>
@@ -205,7 +234,7 @@ function drawPlot(){
   // boundary
   s+=`<line x1="${xb}" x2="${xb}" y1="${T}" y2="${T+ph}" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="3 4"/>`;
   // mistakes: faint drop from the curve to the true label
-  D.forEach(d=>{const c=cat(d);if(c==='fp'||c==='fn')s+=`<line x1="${X(d.i)}" x2="${X(d.i)}" y1="${Y(d.p)}" y2="${Y(d.y)}" stroke="var(--${c})" stroke-width="1.5" opacity=".35"/>`});
+  D.forEach(d=>{const c=cat(d);if(c==='fp'||c==='fn')s+=`<line class="miss" data-c="${c}" x1="${X(d.i)}" x2="${X(d.i)}" y1="${Y(d.p)}" y2="${Y(d.y)}" stroke="var(--${c})" stroke-width="1.5" opacity=".35"/>`});
   // probability curve
   s+=`<polyline points="${D.map(d=>`${X(d.i).toFixed(1)},${Y(d.p).toFixed(1)}`).join(' ')}" fill="none" stroke="var(--ink)" stroke-width="2.2" stroke-linejoin="round"/>`;
   // split line
@@ -215,7 +244,7 @@ function drawPlot(){
   const order=[...D].sort((a,b)=>CAT[cat(a)].x-CAT[cat(b)].x);
   for(const d of order){
     const c=cat(d),cx=X(d.i),cy=Y(d.y);
-    s+=`<g class="pt" data-i="${d.i}">`;
+    s+=`<g class="pt" data-i="${d.i}" data-c="${c}">`;
     s+=CAT[c].x?`<path d="M${cx-xs} ${cy-xs}L${cx+xs} ${cy+xs}M${cx-xs} ${cy+xs}L${cx+xs} ${cy-xs}" stroke="var(--${c})" stroke-width="${phone?2.2:2.8}" stroke-linecap="round"/>`
                :`<circle cx="${cx}" cy="${cy}" r="${r}" fill="var(--${c})"/>`;
     s+=`<circle cx="${cx}" cy="${cy}" r="${phone?6:8}" fill="transparent"/></g>`;
@@ -231,12 +260,14 @@ function drawPlot(){
 let last=null;
 function drawCM(c){
   const cell=k=>`<div class="cell ${k}${CAT[k].x?' x':''}${last&&last[k]!==c[k]?' bump':''}" aria-label="${CAT[k].name}: ${c[k]}">
-      <div class="top"><span class="n">${c[k]}</span><span class="nm">${CAT[k].name}</span></div>
+      <span class="role" aria-hidden="true"></span>
+      <div class="top"><span class="n">${c[k]}</span><span class="nm">${CAT[k].name}</span>${math?`<span class="ab">${k.toUpperCase()}</span>`:''}</div>
       <div class="pl">${CAT[k].plain}</div>
       <div class="pile">${'<i></i>'.repeat(c[k])}</div></div>`;
   $('cm').innerHTML=`<div></div><div class="ax">Predicted benign (0)</div><div class="ax">Predicted malignant (1)</div>
     <div class="ax rowh">Actually benign (0)</div>${cell('tn')}${cell('fp')}
     <div class="ax rowh">Actually malignant (1)</div>${cell('fn')}${cell('tp')}`;
+  $('cm').querySelectorAll('.cell').forEach(e=>e.dataset.c=e.classList[1]);
   last=c;
 }
 
@@ -247,16 +278,49 @@ function stats(c){
   return{acc,rec,spec,prec,f1,P};
 }
 const BASE=stats(counts(.5));
+/* every metric is a fraction of confusion-matrix cells; the numerator cells are always in the denominator too */
+const M={
+  rec:{nm:'Recall',num:['tp'],den:['tp','fn']},
+  prec:{nm:'Precision',num:['tp'],den:['tp','fp']},
+  acc:{nm:'Accuracy',num:['tp','tn'],den:['tp','tn','fp','fn']},
+  spec:{nm:'Specificity',num:['tn'],den:['tn','fp']},
+  f1:{nm:'F1 score',num:['tp'],den:['tp','fp','fn'],two:true}, // 2PR/(P+R) simplifies to 2TP/(2TP+FP+FN)
+};
+const chip=(k,c)=>`<span class="tk c-${k}" data-c="${k}"><small>${k.toUpperCase()}</small>${c[k]}</span>`;
+function eqHTML(key,c,v){
+  const m=M[key],two=k=>m.two&&k==='tp'?`2 <span class="op">×</span> `:'';
+  const side=ks=>ks.map(k=>two(k)+chip(k,c)).join(' <span class="op">+</span> ');
+  const res=v===null?'undefined (0 ÷ 0)':v.toFixed(3);
+  const say=`${m.nm} equals ${m.num.map(k=>(m.two?'2 times ':'')+k.toUpperCase()+' '+c[k]).join(' plus ')} over ${m.den.map(k=>(m.two&&k==='tp'?'2 times ':'')+k.toUpperCase()+' '+c[k]).join(' plus ')}, which is ${res}`;
+  return`<div class="eq${pin===key?' pin':''}" tabindex="0" role="button" aria-pressed="${pin===key}" data-m="${key}" aria-label="${say}">
+    <span class="frac"><span class="nu">${side(m.num)}</span><span class="de">${side(m.den)}</span></span><span class="res">= ${res}</span></div>`;
+}
 function drawStats(c){
   const s=stats(c);
-  const row=(nm,v,base,q)=>`<div class="stat"><div class="hd"><span class="nm">${nm}</span><span class="v">${v===null?'—':v.toFixed(3)}</span></div>
-    <div class="q">${q}</div><div class="sbar"><i style="width:${(v??0)*100}%"></i>${base===null?'':`<u style="left:${base*100}%"></u>`}</div></div>`;
+  const row=(key,v,base,q,extra='')=>`<div class="stat"><div class="hd"><span class="nm">${M[key].nm}</span><span class="v">${v===null?'—':v.toFixed(3)}</span></div>
+    <div class="q">${q}</div>${math?eqHTML(key,c,v)+extra:''}<div class="sbar"><i style="width:${(v??0)*100}%"></i>${base===null?'':`<u style="left:${base*100}%"></u>`}</div></div>`;
+  const f1alt=s.prec===null?'':`<div class="alt">Same as 2 × P × R ÷ (P + R) = 2 × ${s.prec.toFixed(3)} × ${s.rec.toFixed(3)} ÷ (${s.prec.toFixed(3)} + ${s.rec.toFixed(3)})</div>`;
   $('stats').innerHTML=
-    row('Recall',s.rec,BASE.rec,`Of the 43 real cancers, how many did it catch? <b>${c.tp} of ${POS}</b>`)+
-    row('Precision',s.prec,BASE.prec,s.P?`Of the tumors it called malignant, how many really were? <b>${c.tp} of ${s.P}</b>`:`It called nothing malignant, so there is nothing to check.`)+
-    row('Accuracy',s.acc,BASE.acc,`How many of all 114 did it get right? <b>${c.tp+c.tn} of ${N}</b>`)+
-    row('Specificity',s.spec,BASE.spec,`Of the 71 benign tumors, how many did it clear? <b>${c.tn} of ${NEG}</b>`)+
-    row('F1 score',s.f1,BASE.f1,`One number that is high only when precision <i>and</i> recall are both high.`);
+    row('rec',s.rec,BASE.rec,`Of the 43 real cancers, how many did it catch? <b>${c.tp} of ${POS}</b>`)+
+    row('prec',s.prec,BASE.prec,s.P?`Of the tumors it called malignant, how many really were? <b>${c.tp} of ${s.P}</b>`:`It called nothing malignant, so there is nothing to check.`)+
+    row('acc',s.acc,BASE.acc,`How many of all 114 did it get right? <b>${c.tp+c.tn} of ${N}</b>`)+
+    row('spec',s.spec,BASE.spec,`Of the 71 benign tumors, how many did it clear? <b>${c.tn} of ${NEG}</b>`)+
+    row('f1',s.f1,BASE.f1,`One number that is high only when precision <i>and</i> recall are both high.`,f1alt);
+}
+
+/* ---------- highlighting: equation -> cells + dots, cell -> chips ---------- */
+let math=false,pin=null,hov=null,cellHov=null;
+try{math=localStorage.getItem('spe-math')==='1'}catch(e){}
+function applyHL(){
+  const key=hov??pin,m=key&&math?M[key]:null,cm=$('cm');
+  cm.classList.toggle('hl',!!m);
+  cm.querySelectorAll('.cell').forEach(e=>{
+    const k=e.dataset.c,n=!!m&&m.num.includes(k),d=!!m&&m.den.includes(k);
+    e.classList.toggle('hn',n);e.classList.toggle('hd',d&&!n);
+    e.querySelector('.role').textContent=n?'top and bottom':d?'bottom only':'';
+  });
+  $('plot').querySelectorAll('.pt,.miss').forEach(e=>e.classList.toggle('dim',!!m&&!m.den.includes(e.dataset.c)));
+  document.querySelectorAll('.tk').forEach(e=>e.classList.toggle('lit',e.dataset.c===cellHov));
 }
 
 /* ---------- plain-language summary ---------- */
@@ -288,7 +352,7 @@ function drawStatus(c){
   $('down').disabled=t<=0;$('up').disabled=t>=1;$('reset').disabled=Math.abs(t-.5)<1e-9;
 }
 
-function render(){const c=counts();drawPlot();drawCM(c);drawStats(c);drawSay(c);drawStatus(c);if(tipI!=null)showTip(tipI)}
+function render(){const c=counts();drawPlot();drawCM(c);drawStats(c);drawSay(c);drawStatus(c);applyHL();if(tipI!=null)showTip(tipI)}
 function setT(v){v=Math.min(1,Math.max(0,Math.round(v*100)/100));if(v===t)return;t=v;render()}
 
 /* ---------- tooltip ---------- */
@@ -334,7 +398,28 @@ $('down').addEventListener('click',()=>setT(t-.01));
 $('up').addEventListener('click',()=>setT(t+.01));
 $('reset').addEventListener('click',()=>setT(.5));
 
-let rz;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(()=>{hideTip();drawPlot()},100)});
+let rz;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(()=>{hideTip();drawPlot();applyHL()},100)});
+
+/* show the math */
+function setMath(on){
+  math=on;$('mathBtn').setAttribute('aria-pressed',on);$('mhint').hidden=!on;
+  if(!on){pin=hov=null}
+  try{localStorage.setItem('spe-math',on?'1':'0')}catch(e){}
+  render();
+}
+$('mathBtn').addEventListener('click',()=>setMath(!math));
+$('mathBtn').setAttribute('aria-pressed',math);$('mhint').hidden=!math;
+const st=$('stats');
+st.addEventListener('pointerover',e=>{if(e.pointerType!=='mouse')return;const q=e.target.closest('.eq');const k=q?q.dataset.m:null;if(k!==hov){hov=k;applyHL()}});
+st.addEventListener('pointerleave',()=>{if(hov){hov=null;applyHL()}});
+st.addEventListener('focusin',e=>{const q=e.target.closest('.eq');if(q){hov=q.dataset.m;applyHL()}});
+st.addEventListener('focusout',()=>{hov=null;applyHL()});
+function togglePin(q,kb){pin=pin===q.dataset.m?null:q.dataset.m;hov=null;const k=q.dataset.m;drawStats(counts());if(kb){st.querySelector(`.eq[data-m="${k}"]`)?.focus({preventScroll:true});hov=k}applyHL()}
+st.addEventListener('click',e=>{const q=e.target.closest('.eq');if(q)togglePin(q)});
+st.addEventListener('keydown',e=>{const q=e.target.closest('.eq');if(q&&(e.key==='Enter'||e.key===' ')){e.preventDefault();togglePin(q,true)}});
+const cmEl=$('cm');
+cmEl.addEventListener('pointerover',e=>{if(!math)return;const c=e.target.closest('.cell');const k=c?c.dataset.c:null;if(k!==cellHov){cellHov=k;applyHL()}});
+cmEl.addEventListener('pointerleave',()=>{if(cellHov){cellHov=null;applyHL()}});
 render();
 }
         </script>
