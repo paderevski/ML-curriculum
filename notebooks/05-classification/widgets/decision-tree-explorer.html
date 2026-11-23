@@ -38,10 +38,18 @@ button{font-family:Figtree,sans-serif}
 .bar i{display:block;height:100%;background:var(--ink);transition:width .3s}
 .goal{color:var(--soft);font-size:15px;flex:1 1 300px}
 .goal b{color:var(--ink)}
-.stage{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:14px;align-items:start}
+.stage{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:14px;align-items:start}
 .card{background:var(--panel);border:1px solid var(--edge);border-radius:14px;padding:12px 14px}
 .card h2{font-size:14px;font-weight:600;color:var(--soft);margin:0 0 8px;text-transform:uppercase;letter-spacing:.04em}
 .treewrap{overflow:auto;min-height:340px;max-height:640px;border-radius:10px;background:var(--bg);border:1px solid var(--edge)}
+.treewrap.pan{cursor:grab}.treewrap.panning{cursor:grabbing;user-select:none}
+.cardhead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+.cardhead h2{margin:0}
+.zoom{display:flex;border:1px solid var(--edge);border-radius:10px;overflow:hidden;background:var(--bg)}
+.zoom button{border:0;background:none;color:var(--ink);font:600 16px Figtree,sans-serif;min-width:40px;min-height:36px;padding:0 8px;cursor:pointer}
+.zoom button+button{border-left:1px solid var(--edge)}
+.zoom button:hover{background:var(--panel)}
+#zoomFit{font-size:13px;font-variant-numeric:tabular-nums;min-width:56px}
 #ts{display:block;margin:0 auto}
 #ts text{font-family:Figtree,sans-serif}
 .node{cursor:pointer}
@@ -137,7 +145,14 @@ tr.gh .dots{margin-left:8px}
 
             <div class="stage">
                 <div class="card">
-                    <h2>Your tree</h2>
+                    <div class="cardhead">
+                        <h2>Your tree</h2>
+                        <div class="zoom" role="group" aria-label="Zoom the tree">
+                            <button id="zoomOut" aria-label="Zoom out">−</button>
+                            <button id="zoomFit" aria-label="Fit the tree to the box"><span id="zoomPct">100%</span></button>
+                            <button id="zoomIn" aria-label="Zoom in">+</button>
+                        </div>
+                    </div>
                     <div class="treewrap" id="treewrap">
                         <svg id="ts" role="tree" aria-label="Your decision tree"></svg>
                     </div>
@@ -238,10 +253,17 @@ const isPure=g=>g.rows.length&&(!g.y||!g.no);
 const dotsHTML=rows=>rows.map(i=>`<i class="d ${D[i].y?'y':'n'}" title="${D[i].id}: ${D[i].y?'waited':'left'}"></i>`).join('');
 
 /* ---------- tree drawing ---------- */
-const NW=140,NH=62,EW=104,EH=48,GAP=16,LEVEL=122,PAD=18;
-function size(n){
-  [n.w,n.h]=n.kind==='empty'?[EW,EH]:[NW,NH];
-  n.kids.forEach(k=>size(k.node));
+const NH=58,EH=44,GAP=12,LEVEL=112,PAD=16,DOT=9;
+const FONT={title:'800 15px Figtree, system-ui, sans-serif',open:'italic 600 15px Figtree, system-ui, sans-serif',small:'600 12.5px Figtree, system-ui, sans-serif',edge:'600 13px Figtree, system-ui, sans-serif'};
+const ctx=document.createElement('canvas').getContext('2d');
+const tw=(s,f)=>{ctx.font=f;return ctx.measureText(s).width};
+let zoom=null; // null = fit to the box
+function size(n,inLabel){
+  const lw=inLabel?tw(inLabel,FONT.edge)+18:0;
+  if(n.kind==='empty'){n.h=EH;n.w=Math.max(tw('none',FONT.small),tw(guess(n.guess),FONT.small))+18}
+  else{n.h=NH;n.w=Math.max(tw(title(n),n.kind==='open'?FONT.open:FONT.title)+22,n.rows.length*DOT+16)}
+  n.w=Math.ceil(Math.max(n.w,lw,48));
+  n.kids.forEach(k=>size(k.node,k.v));
   const kw=n.kids.reduce((s,k)=>s+k.node.sw,0)+GAP*Math.max(0,n.kids.length-1);
   n.sw=Math.max(n.w,kw);n.kw=kw;
 }
@@ -252,25 +274,28 @@ function place(n,x0,y){
 }
 function title(n){
   if(n.kind==='split')return`${FK[n.f].name}?`;
-  if(n.kind==='pure')return n.guess==='Y'?'Yes, wait':'No, leave';
-  if(n.kind==='stop')return`Stop: ${guess(n.guess)}`;
-  if(n.kind==='empty')return'No examples';
-  return'Needs a question';
+  if(n.kind==='pure')return n.guess==='Y'?'Yes':'No';
+  if(n.kind==='stop')return n.guess?`Guess ${word(n.guess)}`:'Coin flip';
+  if(n.kind==='empty')return'none';
+  return'Ask what?';
 }
+function fitScale(W){return Math.min(1,Math.max(.85,($('treewrap').clientWidth-2)/W))}
 function drawTree(scroll){
   size(tree);place(tree,PAD,PAD);
   let maxY=0;walk(tree,n=>maxY=Math.max(maxY,n.y+n.h));
   const W=tree.sw+2*PAD,H=maxY+PAD,svg=$('ts'),wrap=$('treewrap');
-  const sc=Math.min(1,Math.max(.7,(wrap.clientWidth-2)/W));
+  const sc=zoom??fitScale(W);
+  $('zoomPct').textContent=Math.round(sc*100)+'%';
   svg.setAttribute('width',W*sc);svg.setAttribute('height',H*sc);svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
   let edges='',labels='',nodes='';
   const newKeys=new Set();
   walk(tree,n=>{
-    for(const k of n.kids){
-      const c=k.node,x1=n.x,y1=n.y+n.h,x2=c.x,y2=c.y-24,my=(y1+y2)/2;
+    const nk=n.kids.length,spread=Math.min(14,(n.w-20)/Math.max(1,nk-1));
+    for(const [j,k] of n.kids.entries()){
+      const c=k.node,x1=n.x+(j-(nk-1)/2)*spread,y1=n.y+n.h,x2=c.x,y2=c.y-24,my=(y1+y2)/2;
       const faint=c.kind==='empty';
       edges+=`<path d="M${x1} ${y1}C${x1} ${my} ${x2} ${my} ${x2} ${y2}V${c.y}" fill="none" stroke="var(--soft)" stroke-width="${faint?1.2:1.8}" ${faint?'stroke-dasharray="3 4"':''}/>`;
-      const lx=x2,ly=y2,lw=k.v.length*7.4+14;
+      const lx=x2,ly=y2,lw=tw(k.v,FONT.edge)+14;
       labels+=`<g><rect x="${lx-lw/2}" y="${ly-11}" width="${lw}" height="22" rx="11" fill="var(--panel)" stroke="var(--edge)"/><text x="${lx}" y="${ly+4.5}" text-anchor="middle" font-size="13" font-weight="600" fill="var(--ink)">${esc(k.v)}</text></g>`;
     }
     const x=n.x-n.w/2,y=n.y,isSel=n.key===sel;
@@ -286,12 +311,12 @@ function drawTree(scroll){
     g+=`<rect class="ring" x="${x-5}" y="${y-5}" width="${n.w+10}" height="${n.h+10}" rx="14" fill="none" stroke="var(--ink)" stroke-width="3" opacity="${isSel?1:0}"/>`;
     g+=`<rect x="${x}" y="${y}" width="${n.w}" height="${n.h}" rx="10" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" ${dash?`stroke-dasharray="${dash}"`:''}/>`;
     if(n.kind==='empty'){
-      g+=`<text x="${n.x}" y="${y+20}" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--soft)">No examples</text>`;
-      g+=`<text x="${n.x}" y="${y+37}" text-anchor="middle" font-size="12.5" fill="var(--soft)">${guess(n.guess)}</text>`;
+      g+=`<text x="${n.x}" y="${y+18}" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--soft)">none</text>`;
+      g+=`<text x="${n.x}" y="${y+34}" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--soft)">${guess(n.guess)}</text>`;
     }else{
       const tc=n.kind==='pure'?(n.guess==='Y'?'var(--yes)':'var(--no)'):n.kind==='open'?'var(--soft)':'var(--ink)';
-      g+=`<text x="${n.x}" y="${y+22}" text-anchor="middle" font-size="15" font-weight="${n.kind==='open'?600:800}" fill="${tc}" ${n.kind==='open'?'font-style="italic"':''}>${esc(title(n))}</text>`;
-      const cnt=n.rows.length,step=Math.min(10.5,(n.w-20)/Math.max(1,cnt-1)),sx=n.x-step*(cnt-1)/2,dy=y+44;
+      g+=`<text x="${n.x}" y="${y+21}" text-anchor="middle" font-size="15" font-weight="${n.kind==='open'?600:800}" fill="${tc}" ${n.kind==='open'?'font-style="italic"':''}>${esc(title(n))}</text>`;
+      const cnt=n.rows.length,step=Math.min(DOT+1.5,(n.w-16)/Math.max(1,cnt-1)),sx=n.x-step*(cnt-1)/2,dy=y+41;
       n.rows.forEach((i,j)=>{
         const cx=sx+j*step;
         g+=D[i].y?`<circle cx="${cx}" cy="${dy}" r="4.4" fill="var(--yes)"><title>${D[i].id}: waited</title></circle>`
@@ -420,6 +445,30 @@ $('undo').addEventListener('click',()=>{const h=hist.pop();if(!h)return;choices=
 $('reset').addEventListener('click',()=>{if(!Object.keys(choices).length)return;save();choices={};sel='';preview=null;derive();render()});
 
 let rz;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(()=>drawTree(false),120)});
+document.fonts?.ready.then(()=>drawTree(false)); // re-measure text once Figtree has loaded
+
+/* zoom: Fit follows the box (never below 85%); − and + take over until Fit is pressed */
+const curScale=()=>parseFloat($('ts').getAttribute('width'))/parseFloat($('ts').getAttribute('viewBox').split(' ')[2]);
+const setZoom=z=>{zoom=z==null?null:Math.min(1.6,Math.max(.4,z));drawTree()};
+$('zoomIn').addEventListener('click',()=>setZoom(curScale()*1.2));
+$('zoomOut').addEventListener('click',()=>setZoom(curScale()/1.2));
+$('zoomFit').addEventListener('click',()=>setZoom(null));
+
+/* drag the background to pan when the tree is bigger than its box (mouse only; touch scrolls natively) */
+{
+  const wrap=$('treewrap');let drag=null;
+  const over=()=>wrap.scrollWidth>wrap.clientWidth||wrap.scrollHeight>wrap.clientHeight;
+  wrap.addEventListener('pointermove',e=>{
+    if(!drag){wrap.classList.toggle('pan',e.pointerType==='mouse'&&over()&&!e.target.closest('.node'));return}
+    wrap.scrollLeft=drag.l-(e.clientX-drag.x);wrap.scrollTop=drag.t-(e.clientY-drag.y);
+  });
+  wrap.addEventListener('pointerdown',e=>{
+    if(e.pointerType!=='mouse'||e.button!==0||e.target.closest('.node')||!over())return;
+    drag={x:e.clientX,y:e.clientY,l:wrap.scrollLeft,t:wrap.scrollTop};wrap.setPointerCapture(e.pointerId);wrap.classList.add('panning');
+  });
+  const end=()=>{drag=null;wrap.classList.remove('panning')};
+  wrap.addEventListener('pointerup',end);wrap.addEventListener('pointercancel',end);
+}
 
 derive();render();
 }
