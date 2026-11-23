@@ -1,9 +1,8 @@
 # Jekyll _config.yml for local development.
 # GitHub Pages production overrides live in _config.github.yml.
 
-# Theme
-theme: "minimal-mistakes-jekyll"
-minimal_mistakes_skin: "default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+# Theme: our own, in _layouts/, _includes/theme/, _sass/theme/ and
+# assets/js/theme.js. Look-and-feel knobs live in _sass/theme/_tokens.scss.
 
 # Site Settings
 locale: "en-US"

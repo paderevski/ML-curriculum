@@ -1,0 +1,25 @@
+{%- comment -%}
+  Top bar (sticky). Optional right-hand links come from `main:` in
+  _data/navigation.yml. On pages with a sidebar, small screens get a Menu
+  button here that opens the sidebar as a panel under the bar.
+{%- endcomment -%}
+<header class="masthead">
+<div class="masthead__inner">
+<a class="masthead__brand" href="{{ '/' | relative_url }}">
+<span class="masthead__title">{{ site.title }}</span>
+{%- if site.subtitle -%}<span class="masthead__subtitle">{{ site.subtitle }}</span>{%- endif -%}
+</a>
+{%- if site.data.navigation.main -%}
+<nav class="masthead__links" aria-label="Site">
+{%- for link in site.data.navigation.main -%}
+<a href="{{ link.url | relative_url }}">{{ link.title }}</a>
+{%- endfor -%}
+</nav>
+{%- endif -%}
+{%- if page.sidebar.nav -%}
+<button class="masthead__menu" type="button" aria-expanded="false" aria-controls="sidebar-nav" data-nav-toggle>
+<span class="masthead__menu-icon" aria-hidden="true"></span>Menu
+</button>
+{%- endif -%}
+</div>
+</header>

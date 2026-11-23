@@ -3,8 +3,8 @@ source "https://rubygems.org"
 # Match the parent site's Jekyll version
 gem "jekyll", "~> 4.3"
 
-# Theme used by parent site
-gem "minimal-mistakes-jekyll"
+# No theme gem: the site ships its own layouts (_layouts/, _includes/theme/,
+# _sass/theme/). The parent aet-cs site still uses minimal-mistakes-jekyll.
 
 # Plugins (matching parent site)
 gem "jekyll-remote-theme"

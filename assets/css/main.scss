@@ -4,41 +4,48 @@
 
 @charset "utf-8";
 
-// ─── Typography ───────────────────────────────────────────────────────────────
-// Defined BEFORE the MM imports so the !default flag picks up this value.
-// Also update _includes/head/custom.html to load the matching Google Font.
-//
-// Swap the active line to change the body font:
-// $global-font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-$global-font-family: "Source Sans 3", -apple-system, sans-serif;  // warmer, academic
-// $global-font-family: "Nunito", -apple-system, sans-serif;          // rounded, friendly
-// $global-font-family: "IBM Plex Sans", -apple-system, sans-serif;   // structured, technical
-// $global-font-family: -apple-system, BlinkMacSystemFont, sans-serif; // MM default (system font)
+// ─── Theme ────────────────────────────────────────────────────────────────────
+// Our own theme (replaced Minimal Mistakes). To change fonts, colors, widths,
+// edit _sass/theme/_tokens.scss. If you change --font-body, also update the
+// Google Fonts link in _includes/head/custom.html.
+@import "theme/tokens";
+@import "theme/base";
+@import "theme/layout";
+@import "theme/syntax";
 
-// MM skin and core — must come AFTER custom variable definitions
-@import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}";
-@import "minimal-mistakes";
+// Everything below is specific to this site (not part of the reusable theme).
 
-// ─── Page width ───────────────────────────────────────────────────────────────
-// MM reserves padding-right on .page for a right sidebar (the TOC). On pages
-// that don't have one, that's just dead space, so we reclaim it.
+// ─── Body font: Source Sans 3, self-hosted ────────────────────────────────────
+// Served from assets/fonts/ (latin subset, variable weight 200-900, SIL OFL)
+// and preloaded in _includes/head/custom.html, so it's usually ready before
+// first paint. Previously loaded from Google Fonts, which made every page
+// render once in the system font and then re-flow when the font arrived.
 //
-// The :not(:has(...)) guard matters: unit pages DO have a TOC (enabled via
-// toc: true in _config.yml defaults), and zeroing their padding would run the
-// content under the TOC. This rule only applies where no .sidebar__right
-// exists.
-//
-// Failure mode is safe: if #main isn't the shared ancestor of .page and
-// .sidebar__right in some layout, the selector simply doesn't match and MM's
-// default padding applies -- slightly narrower content, nothing broken.
-//
-// Set to e.g. 2em instead of 0 if the full-width pages feel too wide.
+// "Source Sans 3 Fallback" is Arial scaled to Source Sans's width and line
+// metrics, so if the real font is ever late, the swap barely moves anything.
+// (size-adjust measured in-browser: Source Sans 3 is 91.0% as wide as Arial.)
 
-@media (min-width: 64em) {  // MM's $large breakpoint (~1024px)
-  #main:not(:has(.sidebar__right)) .page { padding-right: 0; }
+@font-face {
+  font-family: "Source Sans 3";
+  font-style: normal;
+  font-weight: 200 900;
+  font-display: swap;
+  src: url("{{ '/assets/fonts/source-sans-3-latin.woff2' | relative_url }}") format("woff2");
 }
-@media (min-width: 80em) {  // MM's $x-large breakpoint (~1280px)
-  #main:not(:has(.sidebar__right)) .page { padding-right: 0; }
+@font-face {
+  font-family: "Source Sans 3";
+  font-style: italic;
+  font-weight: 200 900;
+  font-display: swap;
+  src: url("{{ '/assets/fonts/source-sans-3-latin-italic.woff2' | relative_url }}") format("woff2");
+}
+@font-face {
+  font-family: "Source Sans 3 Fallback";
+  src: local("Arial"), local("ArialMT");
+  size-adjust: 91%;
+  ascent-override: 112.5%;
+  descent-override: 44%;
+  line-gap-override: 0%;
 }
 
 // ─── Notebook link label ──────────────────────────────────────────────────────
@@ -73,11 +80,11 @@ $global-font-family: "Source Sans 3", -apple-system, sans-serif;  // warmer, aca
 
 .notebook-links__label:hover,
 .notebook-links__label:focus-visible {
-  color: #1a6bb0;
+  color: var(--color-link);
 }
 
 .notebook-links__label:focus-visible {
-  outline: 2px solid rgba(26, 107, 176, 0.25);
+  outline: 2px solid var(--color-focus);
   outline-offset: 0.18rem;
   border-bottom-color: transparent;
 }
@@ -106,13 +113,13 @@ $global-font-family: "Source Sans 3", -apple-system, sans-serif;  // warmer, aca
     align-items: center;
     padding: 0.2rem 0.5rem;
     border-radius: 999px;
-    background: rgba(26, 107, 176, 0.08);
+    background: var(--color-accent-soft);
     color: inherit;
     font-size: 0.88em;
     text-decoration: none;
 
     &:hover {
-      background: rgba(26, 107, 176, 0.16);
+      background: rgba(65, 38, 188, 0.14);
       text-decoration: none;
     }
   }
@@ -122,13 +129,297 @@ $global-font-family: "Source Sans 3", -apple-system, sans-serif;  // warmer, aca
   display: none;
 }
 
-// ─── Base font size ───────────────────────────────────────────────────────────
-// Overrides MM's body font size. Value is relative to the browser default
-// (usually 16px), so 0.8em ≈ 12.8px, 0.875em ≈ 14px, 0.9em ≈ 14.4px.
-// MM handles all other body properties; only font-size needs overriding here.
+// ─── Unit pages: sections, notes, materials ──────────────────────────────────
+// Unit pages (layout: unit) are rendered by _plugins/unit_pages.rb with
+// _includes/unit-map.html and unit-material.html. Role colors come from
+// _data/unit_roles.yml.
 
-body {
-  font-size: 0.8em;
+$unit-ink:        #1f2430;
+$unit-muted:      #5d6472;
+$unit-line:       #e3e5ec;
+$unit-surface:    #f7f8fb;
+$unit-accent:     #4126bc;              // = rgb(65 38 188), matches the existing notebook pill tint
+
+// Role colors come from _data/unit_roles.yml ($role-<key> for each role).
+{%- for r in site.data.unit_roles %}{% if r.color %}
+$role-{{ r.key }}: {{ r.color }};
+{%- endif %}{% endfor %}
+$role-none:       #6b7280;
+
+@mixin role-colors($c) {
+  color: $c;
+  background: rgba($c, 0.10);
+  border-color: rgba($c, 0.28);
+}
+
+.unit-map {
+  margin: 1.5em 0 2.25em;
+  padding: 0.9em 1.1em;
+  border: 1px solid $unit-line;
+  border-radius: 10px;
+  background: $unit-surface;
+}
+.unit-map__label,
+.unit-section__label {
+  margin: 0 0 0.45em;
+  font-size: 0.72em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $unit-muted;
+}
+.unit-map__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.unit-map__item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.25em 1em;
+  margin: 0;
+  padding: 0.35em 0;
+  border-top: 1px solid $unit-line;
+  position: relative;
+  &:first-child { border-top: 0; }
+  a { font-weight: 600; text-decoration: none; color: $unit-ink; }
+  // Stretch the title link over the whole row, so the pills click too.
+  a::after { content: ""; position: absolute; inset: 0; }
+  &:hover a { color: $unit-accent; }
+}
+.unit-map__num,
+.unit-section__num {
+  font-variant-numeric: tabular-nums;
+  color: $unit-muted;
+  font-weight: 600;
+  margin-right: 0.3em;
+}
+.unit-map__counts { display: inline-flex; gap: 0.35em; }
+
+.pip {
+  font-size: 0.72em;
+  font-weight: 600;
+  padding: 0.05em 0.55em;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.pip--notes { @include role-colors($role-none); }
+{%- for r in site.data.unit_roles %}{% if r.color %}
+.pip--{{ r.key }} { @include role-colors($role-{{ r.key }}); }
+{%- endif %}{% endfor %}
+
+.unit-section {
+  margin: 0 0 2.5em;
+  padding-top: 0.25em;
+}
+.unit-section__title {
+  margin-top: 0.5em;
+  padding-bottom: 0.3em;
+  border-bottom: 2px solid $unit-line;
+}
+.unit-section__summary p { margin-bottom: 0.75em; }
+.unit-section__ideas {
+  ul { margin: 0 0 1em; }
+  li { margin-bottom: 0.15em; }
+}
+
+.unit-notes {
+  margin: 0 0 1.25em;
+  padding: 0.8em 1em;
+  border-left: 3px solid rgba($unit-accent, 0.45);
+  border-radius: 0 8px 8px 0;
+  background: rgba($unit-accent, 0.04);
+  p:last-child { margin-bottom: 0; }
+}
+.unit-notes--draft { border-left-style: dashed; }
+.unit-notes__body p { margin-bottom: 0.6em; }
+.unit-notes__link { font-weight: 600; }
+.unit-notes__pdf { margin-left: 0.6em; font-weight: 400; font-size: 0.9em; }
+.unit-notes__empty { color: $unit-muted; font-style: italic; }
+.draft-tag {
+  margin-left: 0.4em;
+  padding: 0 0.45em;
+  border: 1px dashed $unit-muted;
+  border-radius: 4px;
+  font-size: 0.9em;
+  letter-spacing: 0.04em;
+}
+
+.unit-materials { display: grid; gap: 0.55em; }
+
+.unit-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas:
+    "badge title actions"
+    "blurb blurb blurb";
+  align-items: center;
+  gap: 0.2em 0.7em;
+  padding: 0.6em 0.9em;
+  border: 1px solid $unit-line;
+  border-radius: 8px;
+  background: #fff;
+}
+.unit-item--soon { background: $unit-surface; border-style: dashed; }
+.page__content .unit-item p { margin: 0; }
+.unit-item > .role-badge { grid-area: badge; }
+.unit-item__body { display: contents; }
+.unit-item__title { grid-area: title; min-width: 0; }
+.unit-item__blurb, .unit-item__missing { grid-area: blurb; }
+.unit-item__actions { grid-area: actions; }
+.unit-item__title {
+  margin: 0;
+  font-weight: 600;
+  line-height: 1.3;
+  a { text-decoration: none; }
+  a:hover { text-decoration: underline; }
+}
+.unit-item__kind,
+.unit-item__due {
+  margin-left: 0.4em;
+  font-size: 0.78em;
+  font-weight: 400;
+  color: $unit-muted;
+}
+.unit-item__due { color: $role-hw; font-weight: 600; }
+.unit-item__blurb {
+  font-size: 0.9em;
+  color: $unit-muted;
+  p { margin: 0.15em 0 0; }
+}
+.unit-item__missing { margin: 0.2em 0 0; color: #b91c1c; font-size: 0.85em; }
+.unit-item__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35em;
+  justify-content: flex-end;
+  a {
+    padding: 0.2em 0.65em;
+    border: 1px solid $unit-line;
+    border-radius: 999px;
+    font-size: 0.82em;
+    white-space: nowrap;
+    text-decoration: none;
+    color: $unit-ink;
+    &:hover { border-color: $unit-accent; color: $unit-accent; }
+    &.is-primary {
+      background: $unit-accent;
+      border-color: $unit-accent;
+      color: #fff;
+      &:hover { background: #321d93; color: #fff; }
+    }
+  }
+}
+
+.role-badge {
+  display: inline-block;
+  justify-self: start;
+  padding: 0.12em 0.6em;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 0.74em;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+{%- for r in site.data.unit_roles %}{% if r.color %}
+.role-badge--{{ r.key }} { @include role-colors($role-{{ r.key }}); }
+{%- endif %}{% endfor %}
+.role-badge--none      { @include role-colors($role-none); }
+.role-badge--demo-hw {
+  color: $unit-ink;
+  border-color: rgba($role-hw, 0.35);
+  background: linear-gradient(90deg, rgba($role-demo, 0.14), rgba($role-hw, 0.14));
+}
+
+// ─── Markdown-body unit pages (classes: [unit-page]) ─────────────────────────
+// Plain markdown gets the same look as the front-matter version:
+//   #### Key ideas / Notes / Notebooks & materials -> small section labels
+//   > blockquote right after "#### Notes"           -> the notes box
+//   consecutive unit-material includes              -> spaced card list
+
+.unit-page .page__content {
+  h4 {
+    margin: 1.4em 0 0.5em;
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: $unit-muted;
+    .draft-tag { font-size: 0.9em; }
+  }
+  h2 + p, h2 + h4 { margin-top: 0; }
+  h4 + ul { margin-bottom: 1em; li { margin-bottom: 0.15em; } }
+
+  h4 + blockquote {
+    margin: 0 0 1.25em;
+    padding: 0.8em 1em;
+    border-left: 3px solid rgba($unit-accent, 0.45);
+    border-radius: 0 8px 8px 0;
+    background: rgba($unit-accent, 0.04);
+    font-style: normal;
+    color: inherit;
+    p:last-child { margin-bottom: 0; }
+  }
+  h4:has(.draft-tag) + blockquote { border-left-style: dashed; }
+
+  .unit-item + .unit-item { margin-top: 0.55em; }
+  .unit-item + h2 { margin-top: 2.5em; }
+}
+
+// "Key" button: answer keys, local preview only.
+.unit-item__actions a.is-key {
+  border-style: dashed;
+  color: $unit-muted;
+  &:hover { color: $unit-accent; border-color: $unit-accent; }
+}
+
+// Previous / next unit (added by _layouts/unit.html).
+.unit-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75em;
+  margin-top: 3em;
+  padding-top: 1.25em;
+  border-top: 1px solid $unit-line;
+}
+.unit-nav__link {
+  display: flex;
+  flex-direction: column;
+  padding: 0.7em 1em;
+  border: 1px solid $unit-line;
+  border-radius: 8px;
+  text-decoration: none;
+  color: $unit-ink;
+  &:hover { border-color: $unit-accent; color: $unit-accent; }
+}
+.unit-nav__link--next { grid-column: 2; text-align: right; }
+.unit-nav__dir {
+  font-size: 0.72em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $unit-muted;
+}
+.unit-nav__title { font-weight: 600; }
+@media (max-width: 40em) {
+  .unit-nav { grid-template-columns: 1fr; }
+  .unit-nav__link--next { grid-column: 1; }
+}
+
+@media (max-width: 40em) {
+  .unit-item {
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      "badge title"
+      "blurb blurb"
+      "actions actions";
+  }
+  .unit-item__actions { justify-content: flex-start; margin-top: 0.3em; }
 }
 
 // ─── Read the Docs ad placement ────────────────────────────────────────────────
@@ -139,47 +430,6 @@ body {
 //
 // The wrapper gets our own light styling so the ad reads as an intentional,
 // separate footer element rather than a raw unstyled box.
-
-// Layout: put the ad on the right half of the footer, sharing space
-// with the FOLLOW links and copyright line rather than sitting in its
-// own separate section above them. Confirmed via live DOM inspection
-// that .rtd-ad-placement-wrap, .page__footer-follow, and
-// .page__footer-copyright are direct siblings under <footer> -- using
-// named grid-template-areas here instead of row/column indices, less
-// error-prone if the source order ever changes. !important on display
-// as a defensive measure in case Minimal Mistakes' own compiled CSS
-// sets a competing display value on <footer> at equal specificity.
-
-.page__footer footer {
-  display: grid !important;
-  grid-template-columns: 1fr auto;
-  grid-template-areas:
-    "follow ad"
-    "copyright ad";
-  align-items: center;
-  column-gap: 2em;
-  // Overriding Minimal Mistakes' own _footer.scss:21, which sets
-  // margin-top: 2em and padding: 0 1em 2em by default.
-  margin-top: 0.75em !important;
-  padding: 0 1em 0.75em !important;
-}
-
-// Minimal Mistakes also applies its own margin-top: 3em (plus a
-// staggered "intro" reveal animation) to .page__footer itself -- the
-// outer wrapper, separate from the <footer> tag above. Tightening
-// that down too so the whole footer area doesn't have two stacked
-// large top margins.
-.page__footer {
-  margin-top: 1em !important;
-}
-
-.page__footer-follow {
-  grid-area: follow;
-}
-
-.page__footer-copyright {
-  grid-area: copyright;
-}
 
 .rtd-ad-placement-wrap {
   grid-area: ad;

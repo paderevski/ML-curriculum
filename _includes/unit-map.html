@@ -1,0 +1,26 @@
+{%- comment -%}
+  Unit map for `layout: unit` pages.
+  page.unit_sections and page.unit_roles_used are filled by
+  _plugins/unit_pages.rb from the page's "## " section headings and card
+  list items. Roles (labels, pills, order) come from
+  _data/unit_roles.yml. Shares CSS with the front-matter unit page.
+{%- endcomment -%}
+<nav class="unit-map" aria-label="Sections in this unit">
+<p class="unit-map__label">Unit map</p>
+<ol class="unit-map__list">
+{%- for s in page.unit_sections -%}
+<li class="unit-map__item">
+<a href="#{{ s.id }}"><span class="unit-map__num">{{ s.num }}</span> {{ s.title | markdownify | remove: '<p>' | remove: '</p>' | strip }}</a>
+<span class="unit-map__counts">
+{%- if s.notes -%}<span class="pip pip--notes" title="Notes">Notes</span>{%- endif -%}
+{%- for r in site.data.unit_roles -%}
+{%- if r.pill -%}
+{%- assign n = s.counts[r.key] | default: 0 -%}
+{%- if n > 0 -%}<span class="pip pip--{{ r.key }}" title="{{ r.label }}">{{ n }} {{ r.pill }}</span>{%- endif -%}
+{%- endif -%}
+{%- endfor -%}
+</span>
+</li>
+{%- endfor -%}
+</ol>
+</nav>

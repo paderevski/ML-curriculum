@@ -1,0 +1,29 @@
+{%- comment -%}
+  Previous / next unit links for `layout: unit` pages, taken from the
+  "Units" children in _data/navigation.yml (the sidebar's own list).
+  The current unit is matched by the page's source folder, so it works
+  even if the page has a custom permalink.
+{%- endcomment -%}
+{%- assign unit_url = page.path | split: "/" | pop | join: "/" | prepend: "/" | append: "/" -%}
+{%- assign units = nil -%}
+{%- for group in site.data.navigation[page.sidebar.nav] -%}
+{%- for child in group.children -%}
+{%- if child.url == unit_url -%}{%- assign units = group.children -%}{%- endif -%}
+{%- endfor -%}
+{%- endfor -%}
+{%- if units -%}
+{%- for child in units -%}
+{%- if child.url == unit_url -%}
+{%- assign prev_i = forloop.index0 | minus: 1 -%}
+{%- assign next_i = forloop.index0 | plus: 1 -%}
+{%- endif -%}
+{%- endfor -%}
+<nav class="unit-nav" aria-label="Units">
+{%- if prev_i >= 0 -%}{%- assign u = units[prev_i] -%}
+<a class="unit-nav__link unit-nav__link--prev" href="{{ u.url | relative_url }}"><span class="unit-nav__dir">Previous unit</span><span class="unit-nav__title">{{ u.title }}</span></a>
+{%- endif -%}
+{%- if next_i < units.size -%}{%- assign u = units[next_i] -%}
+<a class="unit-nav__link unit-nav__link--next" href="{{ u.url | relative_url }}"><span class="unit-nav__dir">Next unit</span><span class="unit-nav__title">{{ u.title }}</span></a>
+{%- endif -%}
+</nav>
+{%- endif -%}

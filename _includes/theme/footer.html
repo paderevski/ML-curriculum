@@ -1,0 +1,17 @@
+{%- comment -%}
+  Site footer. Links come from `footer.links` in _config.yml;
+  site-specific extras go in _includes/footer/custom.html.
+{%- endcomment -%}
+<footer class="site-footer">
+<div class="site-footer__inner">
+{%- if site.footer.links -%}
+<ul class="site-footer__links">
+{%- for link in site.footer.links -%}
+<li><a href="{{ link.url }}">{{ link.label }}</a></li>
+{%- endfor -%}
+</ul>
+{%- endif -%}
+<p class="site-footer__copyright">&copy; {{ site.time | date: '%Y' }} {{ site.author.name | default: site.title }}</p>
+{% include footer/custom.html %}
+</div>
+</footer>

@@ -1,0 +1,332 @@
+// ─── Page chrome: masthead, sidebar, content, TOC, footer ─────────────────────
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0.5rem;
+  z-index: 100;
+  padding: 0.5em 1em;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius);
+  &:focus { left: 0.5rem; }
+}
+
+// Masthead ────────────────────────────────────────────────────────────────────
+// Slim and sticky: header + sidebar form one fixed frame; only content scrolls.
+.masthead {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.92);
+  -webkit-backdrop-filter: saturate(180%) blur(8px);
+  backdrop-filter: saturate(180%) blur(8px);
+  border-bottom: 1px solid var(--color-border);
+}
+.masthead__inner {
+  max-width: var(--max-width);
+  height: var(--masthead-height);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1em;
+}
+.masthead__brand {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75em;
+  min-width: 0;
+  text-decoration: none;
+  color: var(--color-text);
+  &:hover { color: var(--color-text); }
+}
+.masthead__title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+.masthead__subtitle {
+  font-size: 0.8rem;
+  color: var(--color-faint);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  &::before {
+    content: "";
+    display: inline-block;
+    width: 1px;
+    height: 0.9em;
+    margin-right: 0.75em;
+    vertical-align: -0.1em;
+    background: var(--color-border-strong);
+  }
+}
+@media (max-width: $bp-medium - 1px) {
+  .masthead__subtitle { display: none; }
+}
+.masthead__links {
+  display: flex;
+  gap: 1.25em;
+  font-size: 0.875rem;
+  a { color: var(--color-faint); text-decoration: none; }
+  a:hover { color: var(--color-text); }
+}
+
+// Shell: sidebar + main ───────────────────────────────────────────────────────
+.shell {
+  flex: 1 0 auto;
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 1em var(--gutter) 2em;
+}
+@media (min-width: $bp-large) {
+  .shell--with-nav {
+    display: grid;
+    grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+    column-gap: 1rem;
+    align-items: start;
+  }
+}
+
+// Sidebar ─────────────────────────────────────────────────────────────────────
+// Same vocabulary as the unit pages: small letter-spaced labels, numbers in a
+// muted aligned column, the accent color for "you are here".
+.sidebar { font-size: 0.9375rem; }
+@media (min-width: $bp-large) {
+  .sidebar {
+    position: sticky;
+    top: calc(var(--masthead-height) + 1rem);
+    max-height: calc(100vh - var(--masthead-height) - 2rem);
+    overflow-y: auto;
+    padding: 0.25rem 1rem 1rem 0;
+    scrollbar-width: thin;
+  }
+}
+// Small screens: the sidebar becomes a panel under the sticky masthead,
+// opened by the masthead's Menu button (see assets/js/theme.js).
+@media (max-width: $bp-large - 1px) {
+  .sidebar {
+    display: none;
+    position: fixed;
+    z-index: 40;
+    top: var(--masthead-height);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 1rem var(--gutter) 2rem calc(var(--gutter) + 0.6rem);
+    background: var(--color-bg);
+  }
+  .sidebar.is-open { display: block; }
+  html.nav-open { overflow: hidden; }   // page behind the panel doesn't scroll
+}
+
+// Menu button: only on small screens, only on pages with a sidebar.
+.masthead__menu {
+  display: none;
+  align-items: center;
+  gap: 0.5em;
+  flex-shrink: 0;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.35em 0.85em;
+  color: var(--color-text);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border-strong);
+  border-radius: 999px;
+  cursor: pointer;
+  &[aria-expanded="true"] {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+    background: var(--color-accent-soft);
+  }
+}
+@media (max-width: $bp-large - 1px) {
+  .masthead__menu { display: inline-flex; }
+}
+// Three-line icon that turns into an X when open.
+.masthead__menu-icon {
+  position: relative;
+  width: 0.9em;
+  height: 2px;
+  background: currentColor;
+  border-radius: 1px;
+  &::before, &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: currentColor;
+    border-radius: 1px;
+    transition: transform 0.15s ease;
+  }
+  &::before { top: -0.3em; }
+  &::after  { top: 0.3em; }
+}
+.masthead__menu[aria-expanded="true"] .masthead__menu-icon {
+  background: transparent;
+  &::before { transform: translateY(0.3em) rotate(45deg); }
+  &::after  { transform: translateY(-0.3em) rotate(-45deg); }
+}
+
+.nav__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  li { margin: 0; }
+}
+// Pull links left by their own padding so text lines up with the site title;
+// the hover/current pill then extends slightly into the gutter.
+.sidebar__nav { margin-left: -0.6rem; }
+.nav__list--top { margin-bottom: 1.5em; }
+.nav__group { margin-bottom: 1.5em; }
+
+// Matches .unit-section__label / .unit-map__label on unit pages.
+.nav__label {
+  display: block;
+  margin: 0 0 0.4em;
+  padding: 0 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  text-decoration: none;
+}
+a.nav__label:hover { color: var(--color-accent); }
+
+.nav__link {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5em;
+  padding: 0.28em 0.6rem;
+  border-radius: var(--radius);
+  line-height: 1.35;
+  color: var(--color-text);
+  text-decoration: none;
+  &:hover { color: var(--color-text); background: var(--color-surface); }
+  &.is-current {
+    color: var(--color-accent);
+    background: var(--color-accent-soft);
+    font-weight: 600;
+    .nav__num { color: inherit; }
+  }
+}
+.nav__num {
+  flex: 0 0 1.4em;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--color-faint);
+}
+.nav__text { min-width: 0; }
+.nav__ext {
+  margin-left: -0.2em;
+  font-size: 0.85em;
+  color: var(--color-faint);
+}
+
+// Page ────────────────────────────────────────────────────────────────────────
+.page { min-width: 0; }
+.page__header { margin-bottom: 0.5em; }
+.page__title { margin: 0.25em 0 0.5em; }
+
+// The content column: first child shouldn't add space above the title.
+.page__content > :first-child { margin-top: 0; }
+
+// TOC: right column on wide screens, a box above the content on narrow ones.
+.page__body { min-width: 0; }
+@media (min-width: $bp-large) {
+  .page--with-toc .page__body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) var(--toc-width);
+    column-gap: 1.5rem;
+    align-items: start;
+  }
+  .page--with-toc .page__content { grid-column: 1; grid-row: 1; }
+  .page--with-toc .page__toc {
+    grid-column: 2;
+    grid-row: 1;
+    position: sticky;
+    top: calc(var(--masthead-height) + 1rem);
+    max-height: calc(100vh - var(--masthead-height) - 2rem);
+    overflow-y: auto;
+  }
+}
+.page__toc { margin-bottom: 1.5em; }
+.toc {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.toc__title {
+  margin: 0;
+  padding: 0.6em 1em;
+  font-weight: 700;
+  color: #fff;
+  background: var(--color-faint);
+}
+.toc__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.toc__item {
+  margin: 0;
+  border-top: 1px solid var(--color-border);
+  a {
+    display: block;
+    padding: 0.5em 1em;
+    color: var(--color-muted);
+    font-weight: 600;
+    text-decoration: none;
+    &:hover { background: var(--color-surface); color: var(--color-text); }
+    &.is-current { background: var(--color-surface); color: var(--color-text); }
+  }
+}
+.toc__item--h3 a { padding-left: 2em; font-weight: 400; }
+
+// `classes: wide` pages never get a TOC column.
+.wide .page__body { display: block; }
+
+// Footer ──────────────────────────────────────────────────────────────────────
+.site-footer {
+  flex-shrink: 0;
+  margin-top: 1em;
+  background: var(--color-surface);
+  color: var(--color-muted);
+  font-size: 0.8rem;
+}
+.site-footer__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 1em var(--gutter);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "links ad"
+    "copyright ad";
+  align-items: center;
+  column-gap: 2em;
+}
+.site-footer__links {
+  grid-area: links;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  font-weight: 700;
+  a { color: var(--color-muted); text-decoration: none; }
+  a:hover { color: var(--color-text); }
+}
+.site-footer__copyright { grid-area: copyright; margin: 0.25em 0 0; }

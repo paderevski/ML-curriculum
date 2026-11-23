@@ -1,132 +1,112 @@
 ---
 title: "Unit 02: Regression, Correlation, and Linear Algebra"
-layout: single
+layout: unit
 sidebar:
   nav: "ml"
 permalink: /notebooks/02-regression-correlation/
 ---
 
-We spend time deriving the linear regression line-of-best-fit equation from scratch. Then we implement linear regression in python, learning how to use NumPy and work with
-matrices on the way. We talk about goodness-of-fit measures, introduce some linear algebra and analyze some data along the way.
+We derive the linear regression line of best fit from scratch, then implement
+it in Python, learning NumPy and working with matrices along the way. We talk
+about goodness-of-fit measures, introduce some linear algebra, and analyze
+some data.
 
-## 1: Linear Regression Derivation
+## Least Squares
 
 The math behind least squares, then applied in NumPy from scratch.
 
-### What you'll do
+#### Key ideas
 
-Derive the slope and intercept of the best-fit line analytically, minimizing
-the sum of squared residuals. Then implement the result in NumPy and check it
-against the closed-form solution.
+- **Ordinary least squares**: minimize the sum of squared residuals; derive the
+  slope and intercept analytically
+- **Residuals and model fit**: what a good fit looks like vs. a poor one
+- One idea from calculus does the work: the derivative is zero at a minimum
 
-### Key ideas
+#### Notes
 
-- **Ordinary least squares** — minimizing the sum of squared residuals;
-  deriving the slope and intercept analytically
-- **Residuals and model fit** — what a good fit looks like vs. a poor one
-- [Derivation notes](../../notes/Linear_regression_derivation/) ([PDF](../../notes/Linear_regression_derivation.pdf))
+> [Linear regression derivation](../../notes/Linear_regression_derivation.md)
+> ([PDF](../../notes/Linear_regression_derivation.pdf))
+>
+> New to derivatives? [Derivatives crash course](../../notes/derivatives-crash-course.md)
+> ([PDF](../../notes/derivatives-crash-course.pdf))
 
-{% include nb.html local="Least-Squares.ipynb" %}
+#### Notebooks & materials
 
----
+- **Homework** [Least Squares](./Least-Squares.ipynb):
+  Implement the closed-form solution in NumPy and check it against the data.
 
-## 2: Correlation and R²
+## Correlation and R²
 
 Measuring how well a line fits and how strongly two variables are related.
 
-### What you'll do
+#### Key ideas
 
-Compute Pearson correlation and R² (coefficient of determination) for several
-paired variables, and build intuition for what these numbers do and don't tell you.
+- **$R^2$** (coefficient of determination): how much of the variance in $y$ your model explains
+- **Pearson correlation**: linear association between two variables; correlation is not causation
+- **Measures of spread**: variance and standard deviation in the context of regression
 
-### Key ideas
+#### Notes
 
-- **R² (coefficient of determination)** — how much variance in y your model explains
-- **Pearson correlation** — linear association between two variables; why
-  correlation is not causation
-- **Measures of spread** — variance, standard deviation in the context of regression
-- [Correlation Coefficient notes](../../notes/Correlation_Coefficient/) ([PDF](../../notes/Correlation_Coefficient.pdf))
+> [Correlation coefficient](../../notes/Correlation_Coefficient.md)
+> ([PDF](../../notes/Correlation_Coefficient.pdf))
 
-{% include nb.html local="Correlation.ipynb" %}
+#### Notebooks & materials
 
----
+- **Homework** [Correlation](./Correlation.ipynb):
+  Compute Pearson correlation and $R^2$ for several paired variables and build
+  intuition for what these numbers do and don't tell you.
 
-## 3: NumPy Reference
+## NumPy
 
-A supplementary notebook covering the array operations used throughout the unit.
+The array operations used throughout the unit: indexing, slicing, and basic
+array math, as a refresher or first exposure.
 
-### What you'll do
+#### Notebooks & materials
 
-Work through indexing, slicing, and basic array math as a refresher or
-first exposure, depending on how comfortable you already are with NumPy.
+- **Homework** [Intro to NumPy](./Numpy-Intro.ipynb):
+  Work through the notebook, then submit it.
 
-{% include nb.html local="Numpy-Intro.ipynb" %}
+## Linear Regression Project
 
----
+Find your own dataset, fit a single-variable linear regression, and defend the
+fit. You'll submit a draft, get feedback, then revise for a final grade.
 
-## 4: Custom Regression Assignment
+#### Notebooks & materials
 
-Find your own dataset, fit a single-variable linear regression, and defend
-the fit in a markdown cell.
+- **Project** Linear regression lab: Pick a dataset with numerical fields, fit
+  the line, report $R^2$, and explain in markdown whether it justifies the model.
+- **Reference** [Grading rubric](../../assignments/linear_regression_project.md):
+  The four sections your notebook needs and how each is scored.
+- **Reference** [Loading data files in Colab](../../notes/read_csv_in_colab.md):
+  How to get your CSV into a Colab notebook.
 
-### What you'll do
+## Linear Algebra in Python
 
-Pick a dataset, fit the line, and report the R². Does it justify the model?
-What would a better one need?
+Building the matrix foundation that later units rely on heavily. The goal is
+fluency with NumPy matrix operations, not proof-writing.
 
-> **Assignment:** submit your notebook.
+#### Key ideas
 
----
+- **Vectors and matrices**: notation, shapes, row vs. column vectors
+- **Matrix multiplication**: how dot products chain together; why order matters
+- **Transpose and inverse**: what they do and when they exist
+- **NumPy**: indexing, slicing, broadcasting, `@` for matrix multiply
 
-## 5: Linear Algebra in Python
+#### Notebooks & materials
 
-A self-contained stretch to build the matrix foundation that later units
-rely on heavily. The goal is fluency with NumPy matrix operations, not
-proof-writing.
+- **Homework** [Linear Algebra and Python](./Linear_Algebra_and_Python.ipynb):
+  Vectors, matrices, and the NumPy operations that manipulate them.
+- **Homework** [Matrix Indexing Warm-up](./Matrices_Index_Warmup-Student.ipynb):
+  Selecting rows, columns, and submatrices.
+- **Homework** [Intro to Matrices in NumPy](./Intro_to_Matrices_in_NumPy.ipynb):
+  Matrix multiply, transpose, inverse, and solving linear systems.
 
-### What you'll do
+## Linearize
 
-Work through vectors, matrices, and the NumPy operations that manipulate
-them — notation, shapes, and the difference between a row and a column vector.
+Linear regression on curvilinear data: transform the data so a straight line
+fits, then transform back.
 
-### Key ideas
+#### Notebooks & materials
 
-- **Vectors and matrices** — notation, shapes, the difference between a row
-  and a column vector
-- **Matrix multiplication** — how dot products chain together; why order matters
-- **NumPy array operations** — indexing, slicing, broadcasting, `@` for matrix
-  multiply
-
-{% include nb.html local="Linear_Algebra_and_Python.ipynb" %}
-
----
-
-## 6: Matrix Indexing Warmup
-
-Practice selecting rows, columns, and submatrices; builds the indexing
-fluency used everywhere else.
-
-{% include nb.html local="Matrices_Index_Warmup-Student.ipynb" %}
-
----
-
-## 7: Intro to Matrices in NumPy
-
-Matrix multiply, transpose, inverse, and solving linear systems.
-
-### Key ideas
-
-- **Transpose and inverse** — what they do geometrically and when they exist
-
-{% include nb.html local="Intro_to_Matrices_in_NumPy.ipynb" %}
-
----
-
-## 8: Linearize
-
-{% include nb.html local="Linearize_Student.ipynb" %}
-
-## What's Next
-
-[Unit 03](../03-first-pipeline/) is the first end-to-end ML project — you'll
-use everything from Units 1–2 to clean, explore, and model a real dataset.
+- **Homework** [Linearize](./Linearize_Student.ipynb):
+  Fit curved data by linearizing it first.

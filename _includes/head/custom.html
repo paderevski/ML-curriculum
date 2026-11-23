@@ -1,24 +1,14 @@
-<!-- Custom fonts — loaded via Google Fonts
-     Keep this in sync with $global-font-family in assets/css/main.scss.
-     To switch fonts: change the `family=` parameter in the href below AND
-     update the font name in main.scss. -->
+<!-- Body font: Source Sans 3, self-hosted from assets/fonts/ (see the
+     @font-face rules in assets/css/main.scss). Preloading the upright face
+     means it's normally ready before the first paint, so pages don't render
+     in a system font and then jump when the web font arrives.
 
-<!-- Current font: Inter (clean, modern, reads well at small sizes) -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap"
-      rel="stylesheet">
-
-<!-- Other options — swap the href above for any of these:
-  Source Sans 3 (warm, very readable, academic feel):
-    family=Source+Sans+3:wght@400;600;700
-
-  Nunito (rounded, friendly, good for students):
-    family=Nunito:wght@400;600;700
-
-  IBM Plex Sans (technical, structured):
-    family=IBM+Plex+Sans:wght@400;500;600;700
--->
+     To switch fonts: download the new woff2 file(s) into assets/fonts/,
+     update the @font-face rules in main.scss, the --font-body token in
+     _sass/theme/_tokens.scss, and the preload href below. Candidates that
+     suit the site: Nunito (rounded, friendly), IBM Plex Sans (technical). -->
+<link rel="preload" href="{{ '/assets/fonts/source-sans-3-latin.woff2' | relative_url }}"
+      as="font" type="font/woff2" crossorigin>
 
 {% if page.math %}
     <script>

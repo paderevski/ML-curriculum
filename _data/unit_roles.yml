@@ -1,0 +1,54 @@
+# Card roles for unit pages.
+#
+# In a unit page, a card is a list item starting with a role in bold:
+#     - **Homework** [Title](./notebook.ipynb): description
+#
+#   key:       internal name (CSS class role-badge--<key>, pip--<key>)
+#   label:     text on the badge
+#   aliases:   what you may type in bold (case doesn't matter)
+#   color:     badge color
+#   pill:      short text for the unit-map count ("2 hw"); omit to not count
+#   counts_as: which pills this role adds to (default: its own)
+#
+# The order here is the order of pills in the unit map.
+
+- key: warmup
+  label: Warm-up
+  aliases: [warm-up, warmup, warm up]
+  color: "#0e7490"
+  pill: warm-up
+
+- key: demo
+  label: Demo
+  aliases: [demo]
+  color: "#1a6bb0"
+  pill: demo
+
+- key: classwork
+  label: In class
+  aliases: [in class, classwork]
+  color: "#2e7d32"
+  pill: in class
+
+- key: hw
+  label: Homework
+  aliases: [homework, hw]
+  color: "#b45309"
+  pill: hw
+
+- key: demo-hw
+  label: Demo + HW
+  aliases: [demo + hw, demo+hw, demo + homework]
+  counts_as: [demo, hw]
+  # drawn as a demo-to-homework gradient (see assets/css/main.scss)
+
+- key: project
+  label: Project
+  aliases: [project]
+  color: "#be185d"
+  pill: project
+
+- key: reference
+  label: Reference
+  aliases: [reference, ref]
+  color: "#6b7280"

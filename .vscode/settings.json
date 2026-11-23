@@ -1,5 +1,16 @@
 {
   "djlint.showInstallError": false,
   "editor.snippetSuggestions": "top",
-  "cSpell.words": ["collinearity"]
+  "cSpell.words": ["collinearity"],
+
+  // Flag Markdown links to files or #headings that don't exist.
+  "markdown.validate.enabled": true,
+  // When a notebook or page is renamed/moved in the Explorer, update links to it.
+  "markdown.updateLinksOnFileMove.enabled": "prompt",
+
+  // Markdown has no as-you-type suggestions by default, so let a snippet
+  // prefix (card, cardx, sec, unitpage) expand with Tab.
+  "[markdown]": {
+    "editor.tabCompletion": "onlySnippets"
+  }
 }

@@ -2,3 +2,7 @@ title: "ML Curriculum (local preview)"
 description: "Local preview of the ML curriculum subset"
 url: ""
 baseurl: ""
+
+# Local preview only: show answer-key buttons on unit-page cards.
+# Production configs (_config.github.yml, Read the Docs) don't set this.
+show_keys: true

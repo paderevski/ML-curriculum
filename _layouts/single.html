@@ -1,0 +1,36 @@
+---
+layout: default
+---
+{%- comment -%}
+  Standard content page.
+  Front matter it understands:
+    title
+    sidebar: { nav: "<key in _data/navigation.yml>" }  -> left navigation
+    toc: true          -> "On this page" box built from h2/h3 (toc_label to rename)
+    classes: [wide]    -> no TOC column, full width
+{%- endcomment -%}
+{%- assign nav_name = page.sidebar.nav -%}
+<div class="shell{% if nav_name %} shell--with-nav{% endif %}">
+{%- if nav_name -%}{% include theme/sidebar-nav.html nav=nav_name %}{%- endif -%}
+<main id="main-content" class="page{% if page.toc %} page--with-toc{% endif %}">
+<article>
+{%- if page.title -%}
+<header class="page__header">
+<h1 class="page__title">{{ page.title | markdownify | remove: '<p>' | remove: '</p>' | strip }}</h1>
+</header>
+{%- endif -%}
+<div class="page__body">
+{%- if page.toc -%}
+<aside class="page__toc" aria-label="{{ page.toc_label | default: 'On this page' }}">
+<nav class="toc" data-toc>
+<p class="toc__title">{{ page.toc_label | default: "On this page" }}</p>
+</nav>
+</aside>
+{%- endif -%}
+<div class="page__content">
+{{ content }}
+</div>
+</div>
+</article>
+</main>
+</div>
