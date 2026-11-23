@@ -23,6 +23,7 @@
   --zone:light-dark(#f3ecff,#1f1830);--line:light-dark(#7a3cd6,#b892ff)}
 :root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
+[hidden]{display:none!important}
 html,body{margin:0}
 body{background:var(--bg);color:var(--ink);font:16px/1.5 Figtree,system-ui,sans-serif;overflow-x:clip}
 .wrap{max-width:1280px;margin:0 auto;padding:20px max(3vw,16px) 40px}
@@ -123,7 +124,17 @@ button{font-family:Figtree,sans-serif}
 .alt{font-size:13px;color:var(--soft);margin-top:2px}
 .mhint{font-size:13.5px;color:var(--soft);margin:0 0 8px}
 @media(prefers-reduced-motion:reduce){.sbar i,.cell,.tk,#plot .pt,#plot .miss{transition:none}.cell.bump{animation:none}.tip{transition:none}}
-@media(max-width:960px){.stage{grid-template-columns:minmax(0,1fr)}}
+.tabhead{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin-bottom:8px}
+.tabs{display:flex;border:1px solid var(--edge);border-radius:10px;overflow:hidden;background:var(--bg)}
+.tabs button{border:0;background:none;color:var(--soft);font:600 15px Figtree,sans-serif;min-height:40px;padding:0 14px;cursor:pointer}
+.tabs button+button{border-left:1px solid var(--edge)}
+.tabs button:hover{color:var(--ink)}
+.tabs button[aria-selected=true]{background:var(--ink);color:var(--bg)}
+.tabsub{color:var(--soft);font-size:14px}
+.prbox{background:var(--bg);border:1px solid var(--edge);border-radius:10px;overflow:hidden}
+#pr{display:block;width:100%;touch-action:pan-y;cursor:pointer;user-select:none}
+#pr text{font-family:Figtree,sans-serif}
+@media(max-width:960px){.stage{grid-template-columns:minmax(0,1fr)}.col{display:contents}#plotCard{order:1}#cmCard{order:2}#statsCard{order:3}}
 @media(max-width:600px){.meter .big{font-size:26px}.status{gap:6px 18px}.cell{min-height:104px;padding:7px 8px}.cell .n{font-size:26px}}
         </style>
     </head>
@@ -150,15 +161,23 @@ button{font-family:Figtree,sans-serif}
             </div>
 
             <div class="stage">
-                <div class="card">
-                    <h2>Every test tumor, sorted by the model's probability</h2>
-                    <div class="plotbox" id="plotbox">
+                <div class="col">
+                <div class="card" id="plotCard">
+                    <div class="tabhead">
+                        <div class="tabs" role="tablist" aria-label="Choose a view">
+                            <button role="tab" id="tab-plot" aria-controls="view-plot" aria-selected="true">Tumors</button>
+                            <button role="tab" id="tab-pr" aria-controls="view-pr" aria-selected="false" tabindex="-1">Precision vs. recall</button>
+                        </div>
+                        <span class="tabsub" id="tabsub">every test tumor, sorted by the model's probability</span>
+                    </div>
+                    <div class="plotbox" id="view-plot" role="tabpanel" aria-labelledby="tab-plot">
                         <svg id="plot" aria-hidden="true"></svg>
                         <div class="handle" id="handle" aria-hidden="true">
                             <svg viewBox="0 0 12 14"><path d="M6 0 11 5H1zM6 14 1 9h10z"/></svg><span id="hv">0.50</span>
                         </div>
                         <div class="tip" id="tip" role="status"></div>
                     </div>
+                    <div class="prbox" id="view-pr" role="tabpanel" aria-labelledby="tab-pr" hidden><svg id="pr" aria-hidden="true"></svg></div>
                     <div class="ctrl">
                         <label for="t">Split point</label>
                         <button class="btn nudge" id="down" aria-label="Lower the split point by 0.01">−</button>
@@ -166,20 +185,22 @@ button{font-family:Figtree,sans-serif}
                         <button class="btn nudge" id="up" aria-label="Raise the split point by 0.01">+</button>
                     </div>
                     <div class="say" id="say" aria-live="polite"></div>
-                    <div class="legend">
+                    <div class="legend for-plot">
                         <span><i class="g ok c-tp"></i>Cancer, caught</span>
                         <span><i class="g x c-fn"></i>Cancer, missed</span>
                         <span><i class="g ok c-tn"></i>Benign, cleared</span>
                         <span><i class="g x c-fp"></i>Benign, false alarm</span>
                     </div>
-                    <p class="note">Top line: tumors that really were malignant (1). Bottom line: benign (0). The black curve is the model's probability for each one. Hover over or tap a dot for details.</p>
+                    <p class="note for-plot">Top line: tumors that really were malignant (1). Bottom line: benign (0). The black curve is the model's probability for each one. Hover over or tap a dot for details.</p>
+                    <p class="note for-pr" id="prNote" hidden></p>
+                </div>
                 </div>
                 <div class="col">
-                    <div class="card">
+                    <div class="card" id="cmCard">
                         <h2>Confusion matrix <span>(same layout as sklearn)</span></h2>
                         <div class="cm" id="cm"></div>
                     </div>
-                    <div class="card">
+                    <div class="card" id="statsCard">
                         <h2>How good is it? <span>(grey tick = at 0.5)</span></h2>
                         <p class="mhint" id="mhint" hidden>Point at an equation, or tap it, to see which cells of the confusion matrix it uses. Click to keep it lit while you move the split point.</p>
                         <div id="stats"></div>
@@ -213,7 +234,7 @@ const plural=(n,one,many)=>n===1?one:many;
 /* ---------- plot ---------- */
 let G=null; // geometry of the last draw
 function drawPlot(){
-  const box=$('plotbox'),W=box.clientWidth,phone=W<560,H=phone?300:460;
+  const box=$('view-plot'),W=box.clientWidth,phone=W<560,H=phone?300:460;
   const L=phone?40:52,R=phone?62:70,T=30,B=40,pw=W-L-R,ph=H-T-B;
   const X=i=>L+(i+.5)/N*pw,Y=p=>T+(1-p)*ph;
   G={L,R,T,B,pw,ph,H,W,X,Y};
@@ -352,7 +373,69 @@ function drawStatus(c){
   $('down').disabled=t<=0;$('up').disabled=t>=1;$('reset').disabled=Math.abs(t-.5)<1e-9;
 }
 
-function render(){const c=counts();drawPlot();drawCM(c);drawStats(c);drawSay(c);drawStatus(c);applyHL();if(tipI!=null)showTip(tipI)}
+/* ---------- precision vs recall (axes as in the notebook: precision across, recall up) ---------- */
+const GRID=Array.from({length:101},(_,j)=>{const s=j/100,q=stats(counts(s));return{s,p:q.prec,r:q.rec}});
+let PG=null;
+function drawPR(){
+  const svg=$('pr'),W=svg.parentElement.clientWidth,phone=W<560,H=phone?Math.round(Math.max(280,W*.85)):460;
+  const L=phone?44:50,R=16,T=30,B=44,pw=W-L-R,ph=H-T-B;
+  const X0=.3,Y0=.5; // the curve never goes below these, so the axes start there
+  const X=v=>L+(v-X0)/(1-X0)*pw,Y=v=>T+(1-(v-Y0)/(1-Y0))*ph;
+  PG={X,Y,T,L,pw,ph};
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.setAttribute('height',H);
+  let s='';
+  for(let v=.3;v<=1.001;v+=.1)s+=`<line x1="${X(v)}" x2="${X(v)}" y1="${T}" y2="${T+ph}" stroke="var(--grid)"/><text x="${X(v)}" y="${T+ph+18}" text-anchor="middle" font-size="13" fill="var(--soft)">${v.toFixed(1)}</text>`;
+  for(let v=.5;v<=1.001;v+=.1)s+=`<line x1="${L}" x2="${L+pw}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--grid)"/><text x="${L-8}" y="${Y(v)+4.5}" text-anchor="end" font-size="13" fill="var(--soft)">${v.toFixed(1)}</text>`;
+  s+=`<text x="${L+pw/2}" y="${H-8}" text-anchor="middle" font-size="13" fill="var(--soft)">precision →</text>`;
+  s+=`<text transform="translate(13 ${T+ph/2}) rotate(-90)" text-anchor="middle" font-size="13" fill="var(--soft)">recall →</text>`;
+  s+=`<text x="${X(1)}" y="${T-10}" text-anchor="end" font-size="12.5" font-weight="700" fill="var(--soft)">perfect ★</text><path d="M${X(1)-4} ${T-6}L${X(1)} ${T-1}" stroke="var(--soft)" stroke-width="1.2"/>`;
+  const pts=GRID.filter(g=>g.p!==null);
+  s+=`<polyline points="${pts.map(g=>`${X(g.p).toFixed(1)},${Y(g.r).toFixed(1)}`).join(' ')}" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>`;
+  // label every 0.1 like the notebook; skip labels that land on an earlier one
+  const used=[];
+  for(let j=0;j<=90;j+=10){
+    const g=GRID[j],x=X(g.p),y=Y(g.r);
+    s+=`<circle cx="${x}" cy="${y}" r="3.5" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.5"/>`;
+    const left=g.p>.97,top=g.r>.99; // right edge: label to the left; top edge: label above
+    const tx=x+(left?-8:top?0:4),ty=y+(left?4.5:top?-8:16),w=20;
+    const bx=left?tx-w:top?tx-w/2:tx,box=[bx,ty-11,bx+w,ty+2];
+    if(used.some(u=>box[0]<u[2]+2&&u[0]<box[2]+2&&box[1]<u[3]+1&&u[1]<box[3]+1))continue; // skip a label that would overlap an earlier one
+    used.push(box);
+    s+=`<text x="${tx}" y="${ty}" text-anchor="${left?'end':top?'middle':'start'}" font-size="12" fill="var(--soft)">${g.s.toFixed(1)}</text>`;
+  }
+  // the current split point
+  const q=stats(counts());
+  if(q.prec!==null){
+    const x=X(q.prec),y=Y(q.rec);
+    s+=`<line x1="${x}" x2="${x}" y1="${y}" y2="${T+ph}" stroke="var(--line)" stroke-width="1.2" stroke-dasharray="3 4" opacity=".7"/>`;
+    s+=`<line x1="${L}" x2="${x}" y1="${y}" y2="${y}" stroke="var(--line)" stroke-width="1.2" stroke-dasharray="3 4" opacity=".7"/>`;
+    s+=`<circle cx="${x}" cy="${y}" r="11" fill="var(--line)" opacity=".18"/><circle cx="${x}" cy="${y}" r="6.5" fill="var(--line)" stroke="var(--bg)" stroke-width="2"/>`;
+    const lab=f2(t),lw=lab.length*8+16,lx=Math.min(L+pw-lw,Math.max(L,x-lw/2)),ly=y+40>T+ph?y-34:y+16;
+    s+=`<rect x="${lx}" y="${ly}" width="${lw}" height="22" rx="11" fill="var(--line)"/><text x="${lx+lw/2}" y="${ly+15.5}" text-anchor="middle" font-size="13.5" font-weight="800" fill="var(--bg)">${lab}</text>`;
+  }
+  svg.innerHTML=s;
+  $('prNote').innerHTML=q.prec===null?`At <b>${f2(t)}</b> nothing is called malignant, so precision is undefined and the point falls off the chart.`
+    :`At <b>${f2(t)}</b>: precision <b>${q.prec.toFixed(3)}</b>, recall <b>${q.rec.toFixed(3)}</b>. Lower the split point and the dot climbs up and to the left: more cancers caught, more false alarms. Small numbers on the curve are split points. Click, tap or drag along the curve to move the split point. The axes start at 0.3 and 0.5.`;
+}
+function nearestT(cx,cy){
+  const r=$('pr').getBoundingClientRect(),x=cx-r.left,y=cy-r.top;
+  let best=null,bd=1e9;
+  for(const g of GRID){if(g.p===null)continue;const d=Math.hypot(PG.X(g.p)-x,PG.Y(g.r)-y)+Math.abs(g.s-t)*1e-3;if(d<bd){bd=d;best=g}} // ties go to the split point nearest the current one
+  return best.s;
+}
+
+let view='plot';
+try{if(localStorage.getItem('spe-view')==='pr')view='pr'}catch(e){}
+function drawView(){if(view==='plot'){drawPlot();if(tipI!=null)showTip(tipI)}else drawPR()}
+function render(){const c=counts();drawCM(c);drawStats(c);drawSay(c);drawStatus(c);drawView();applyHL()}
+function setView(v,focus){
+  view=v;hideTip();
+  for(const k of['plot','pr']){const on=k===v,tb=$('tab-'+k);tb.setAttribute('aria-selected',on);tb.tabIndex=on?0:-1;$('view-'+k).hidden=!on;document.querySelectorAll('.for-'+k).forEach(e=>e.hidden=!on)}
+  $('tabsub').textContent=v==='plot'?"every test tumor, sorted by the model's probability":'one point for every split point';
+  try{localStorage.setItem('spe-view',v)}catch(e){}
+  if(focus)$('tab-'+v).focus();
+  drawView();applyHL();
+}
 function setT(v){v=Math.min(1,Math.max(0,Math.round(v*100)/100));if(v===t)return;t=v;render()}
 
 /* ---------- tooltip ---------- */
@@ -372,7 +455,7 @@ function hideTip(){tipI=null;$('tip').classList.remove('on')}
 const svg=$('plot');
 const tFromY=cy=>{const r=svg.getBoundingClientRect();return 1-(cy-r.top-G.T)/G.ph};
 let drag=false;
-function startDrag(e){drag=true;e.currentTarget.setPointerCapture(e.pointerId);hideTip();setT(tFromY(e.clientY))}
+function startDrag(e){drag=true;try{e.currentTarget.setPointerCapture(e.pointerId)}catch(_){}hideTip();setT(tFromY(e.clientY))}
 let lastType='mouse';
 svg.addEventListener('pointerdown',e=>{lastType=e.pointerType;if(e.pointerType==='touch')return;if(e.button===0)startDrag(e)}); // touch: a tap sets it (below), so the page still scrolls
 svg.addEventListener('pointermove',e=>{
@@ -398,7 +481,21 @@ $('down').addEventListener('click',()=>setT(t-.01));
 $('up').addEventListener('click',()=>setT(t+.01));
 $('reset').addEventListener('click',()=>setT(.5));
 
-let rz;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(()=>{hideTip();drawPlot();applyHL()},100)});
+let rz;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(()=>{hideTip();drawView();applyHL()},100)});
+$('tab-plot').addEventListener('click',()=>setView('plot'));
+$('tab-pr').addEventListener('click',()=>setView('pr'));
+document.querySelector('.tabs').addEventListener('keydown',e=>{
+  if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();setView(view==='plot'?'pr':'plot',true)}
+});
+
+/* drag along the PR curve (mouse/pen); a tap sets it on touch so the page still scrolls */
+{
+  const pr=$('pr');let prDrag=false,prType='mouse';
+  pr.addEventListener('pointerdown',e=>{prType=e.pointerType;if(e.pointerType==='touch'||e.button!==0)return;prDrag=true;try{pr.setPointerCapture(e.pointerId)}catch(_){}setT(nearestT(e.clientX,e.clientY))});
+  pr.addEventListener('pointermove',e=>{if(prDrag)setT(nearestT(e.clientX,e.clientY))});
+  const end=()=>{prDrag=false};pr.addEventListener('pointerup',end);pr.addEventListener('pointercancel',end);
+  pr.addEventListener('click',e=>{if(prType==='touch')setT(nearestT(e.clientX,e.clientY))});
+}
 
 /* show the math */
 function setMath(on){
@@ -420,7 +517,7 @@ st.addEventListener('keydown',e=>{const q=e.target.closest('.eq');if(q&&(e.key==
 const cmEl=$('cm');
 cmEl.addEventListener('pointerover',e=>{if(!math)return;const c=e.target.closest('.cell');const k=c?c.dataset.c:null;if(k!==cellHov){cellHov=k;applyHL()}});
 cmEl.addEventListener('pointerleave',()=>{if(cellHov){cellHov=null;applyHL()}});
-render();
+render();setView(view);
 }
         </script>
     </body>
