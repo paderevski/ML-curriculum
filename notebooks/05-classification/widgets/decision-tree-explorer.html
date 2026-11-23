@@ -107,6 +107,15 @@ tr.gh .dots{margin-left:8px}
 .ww.y{color:var(--yes)}.ww.n{color:var(--no)}
 .empty{color:var(--soft);font-size:15px;margin:4px 0}
 .src{color:var(--soft);font-size:13px;margin-top:16px}
+.btn[aria-pressed=true]{background:var(--hi);border-color:var(--ink)}
+.btn .sig{font-weight:800;font-size:17px;line-height:1}
+.math{background:var(--bg);border:1px solid var(--edge);border-radius:10px;padding:10px 12px;margin:0 0 10px;font-size:14px;line-height:1.55;font-variant-numeric:tabular-nums}
+.math .eq{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;overflow-wrap:anywhere}
+.math .gl{color:var(--soft)}
+.gain{font-weight:700;font-size:12px;border-radius:999px;padding:0 8px;background:var(--grid);color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+.gain.top{background:var(--ink);color:var(--bg)}
+.actions .eq{display:block;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--ink);margin-top:4px;overflow-wrap:anywhere}
+.gh .h{color:var(--soft);font-weight:500;margin-left:8px;font-variant-numeric:tabular-nums}
 @keyframes pop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
 .newnode{animation:pop .4s ease-out}
 @media(prefers-reduced-motion:reduce){.newnode{animation:none}.bar i{transition:none}}
@@ -124,6 +133,7 @@ tr.gh .dots{margin-left:8px}
                     </p>
                 </div>
                 <div class="hbtns">
+                    <button class="btn" id="mathBtn" aria-pressed="false"><span class="sig" aria-hidden="true">Σ</span> Show the math</button>
                     <button class="btn" id="undo">
                         <svg viewBox="0 0 16 16"><path d="M6 3 1 7.5 6 12V9c4 0 6.5.8 8 4-.5-4.5-3-7.5-8-7.5z" /></svg>
                         Undo
@@ -249,6 +259,22 @@ function select(key){sel=key;const n=byKey[key];preview=n&&n.kind==='split'?n.f:
 function groupsFor(n,f){
   return FK[f].vals.map(v=>{const rows=n.rows.filter(i=>D[i][f]===v),y=rows.filter(i=>D[i].y).length;return{v,rows,y,no:rows.length-y}});
 }
+
+/* ---------- the math (hidden until "Show the math" is on) ---------- */
+let math=false;
+try{math=localStorage.getItem('dte-math')==='1'}catch(e){}
+const H=(y,n)=>{if(!y||!n)return 0;const t=y+n,p=y/t,q=n/t;return-(p*Math.log2(p)+q*Math.log2(q))};
+const fmt=x=>(Math.abs(x)<.005?0:x).toFixed(2);
+function hEq(y,n){ // "−(2/6)·log₂(2/6) − (4/6)·log₂(4/6)"
+  const t=y+n;
+  return[y,n].filter(c=>c).map((c,j)=>`${j?' − ':'−'}(${c}/${t})·log₂(${c}/${t})`).join('');
+}
+function gainParts(n,f){
+  const gs=groupsFor(n,f).filter(g=>g.rows.length),t=n.rows.length;
+  const rem=gs.reduce((s,g)=>s+g.rows.length/t*H(g.y,g.no),0);
+  return{gs,rem,gain:H(n.yes,n.no)-rem};
+}
+const mathLine=n=>n.kind==='split'?`H ${fmt(H(n.yes,n.no))} · gain ${fmt(gainParts(n,n.f).gain)}`:`H = ${fmt(H(n.yes,n.no))}`;
 const isPure=g=>g.rows.length&&(!g.y||!g.no);
 const dotsHTML=rows=>rows.map(i=>`<i class="d ${D[i].y?'y':'n'}" title="${D[i].id}: ${D[i].y?'waited':'left'}"></i>`).join('');
 
@@ -261,7 +287,10 @@ let zoom=null; // null = fit to the box
 function size(n,inLabel){
   const lw=inLabel?tw(inLabel,FONT.edge)+18:0;
   if(n.kind==='empty'){n.h=EH;n.w=Math.max(tw('none',FONT.small),tw(guess(n.guess),FONT.small))+18}
-  else{n.h=NH;n.w=Math.max(tw(title(n),n.kind==='open'?FONT.open:FONT.title)+22,n.rows.length*DOT+16)}
+  else{
+    n.h=math?NH+16:NH;
+    n.w=Math.max(tw(title(n),n.kind==='open'?FONT.open:FONT.title)+22,n.rows.length*DOT+16,math?tw(mathLine(n),FONT.small)+18:0);
+  }
   n.w=Math.ceil(Math.max(n.w,lw,48));
   n.kids.forEach(k=>size(k.node,k.v));
   const kw=n.kids.reduce((s,k)=>s+k.node.sw,0)+GAP*Math.max(0,n.kids.length-1);
@@ -322,6 +351,7 @@ function drawTree(scroll){
         g+=D[i].y?`<circle cx="${cx}" cy="${dy}" r="4.4" fill="var(--yes)"><title>${D[i].id}: waited</title></circle>`
                  :`<circle cx="${cx}" cy="${dy}" r="3.6" fill="var(--bg)" stroke="var(--no)" stroke-width="2"><title>${D[i].id}: left</title></circle>`;
       });
+      if(math)g+=`<text x="${n.x}" y="${y+63}" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--soft)">${esc(mathLine(n))}</text>`;
     }
     nodes+=g+'</g>';
   });
@@ -346,13 +376,22 @@ function crumbs(n){
 function hereLine(n){
   if(!n.rows.length)return`<div class="here">No restaurants reach this node.</div>`;
   const r=n.rows.length;
-  return`<div class="here"><span class="dots">${dotsHTML(n.rows)}</span><span><b>${r}</b> restaurant${r>1?'s':''}: <b>${n.yes}</b> waited, <b>${n.no}</b> left</span></div>`;
+  let h=`<div class="here"><span class="dots">${dotsHTML(n.rows)}</span><span><b>${r}</b> restaurant${r>1?'s':''}: <b>${n.yes}</b> waited, <b>${n.no}</b> left</span></div>`;
+  if(math)h+=`<div class="math"><b>Entropy here: H = ${fmt(H(n.yes,n.no))} bits</b><br>
+    <span class="eq">H = ${hEq(n.yes,n.no)} = ${fmt(H(n.yes,n.no))}</span><br>
+    <span class="gl">Entropy measures how mixed a group is: 0 when everyone agrees, 1 for a 50/50 split.</span></div>`;
+  return h;
 }
 function optHTML(n,f){
   const used=n.path.some(p=>p.f===f.k);
   const gs=groupsFor(n,f.k),nonEmpty=gs.filter(g=>g.rows.length).length;
   const same=!used&&nonEmpty<2;
-  const tag=used?'<small>asked above</small>':same?'<small>same answer for all</small>':n.f===f.k?'<small>asked here</small>':'';
+  let tag=used?'<small>asked above</small>':same?'<small>same answer for all</small>':n.f===f.k?'<small>asked here</small>':'';
+  if(math&&!used&&!same){
+    const best=Math.max(...F.filter(o=>!n.path.some(p=>p.f===o.k)).map(o=>gainParts(n,o.k).gain));
+    const gn=gainParts(n,f.k).gain,top=gn>1e-9&&best-gn<1e-9;
+    tag+=`<span class="gain${top?' top':''}" title="Information gain">gain ${fmt(gn)}${top?' · highest':''}</span>`;
+  }
   const grps=gs.map(g=>{
     const cls=!g.rows.length?'e':isPure(g)?(g.y?'py':'pn'):'';
     return`<span class="grp ${cls}"><span class="v">${esc(g.v)}</span><span class="dots">${g.rows.length?dotsHTML(g.rows):'none'}</span></span>`;
@@ -364,7 +403,13 @@ function optHTML(n,f){
 function previewText(n){
   if(!preview)return n.kind==='split'?'Pick a different question to compare it with this one.':'Click a question to preview how it splits these restaurants.';
   const gs=groupsFor(n,preview).filter(g=>g.rows.length),done=gs.filter(isPure).reduce((s,g)=>s+g.rows.length,0);
-  return`<b>${esc(FK[preview].name)}?</b> splits these ${n.rows.length} into ${gs.length} groups. <b>${done}</b> of them land in a group where everyone agrees.`;
+  let t=`<b>${esc(FK[preview].name)}?</b> splits these ${n.rows.length} into ${gs.length} groups. <b>${done}</b> of them land in a group where everyone agrees.`;
+  if(math){
+    const{rem,gain}=gainParts(n,preview),N=n.rows.length;
+    t+=`<span class="eq">after = ${gs.map(g=>`${g.rows.length}/${N}·${fmt(H(g.y,g.no))}`).join(' + ')} = ${fmt(rem)}</span>`;
+    t+=`<span class="eq">gain  = ${fmt(H(n.yes,n.no))} − ${fmt(rem)} = <b>${fmt(gain)} bits</b></span>`;
+  }
+  return t;
 }
 function drawPanel(){
   const n=byKey[sel];
@@ -403,7 +448,7 @@ function drawRows(){
   if(preview){
     for(const g of groupsFor(n,preview)){
       if(!g.rows.length)continue;
-      h+=`<tr class="gh"><td colspan="${F.length+2}">${esc(FK[preview].name)} = ${esc(g.v)}<span class="dots">${dotsHTML(g.rows)}</span>${isPure(g)?` <span style="color:var(--soft);font-weight:500">all agree</span>`:''}</td></tr>`;
+      h+=`<tr class="gh"><td colspan="${F.length+2}">${esc(FK[preview].name)} = ${esc(g.v)}<span class="dots">${dotsHTML(g.rows)}</span>${isPure(g)?` <span style="color:var(--soft);font-weight:500">all agree</span>`:''}${math?`<span class="h">H = ${fmt(H(g.y,g.no))}</span>`:''}</td></tr>`;
       h+=g.rows.map(i=>rowHTML(i,n)).join('');
     }
   }else h+=n.rows.map(i=>rowHTML(i,n)).join('');
@@ -443,6 +488,13 @@ $('panel').addEventListener('click',e=>{
 });
 $('undo').addEventListener('click',()=>{const h=hist.pop();if(!h)return;choices=h.choices;sel=h.sel;derive();const n=byKey[sel];preview=n.kind==='split'?n.f:null;render()});
 $('reset').addEventListener('click',()=>{if(!Object.keys(choices).length)return;save();choices={};sel='';preview=null;derive();render()});
+
+$('mathBtn').addEventListener('click',()=>{
+  math=!math;$('mathBtn').setAttribute('aria-pressed',math);
+  try{localStorage.setItem('dte-math',math?'1':'0')}catch(e){}
+  render(false);
+});
+$('mathBtn').setAttribute('aria-pressed',math);
 
 let rz;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(()=>drawTree(false),120)});
 document.fonts?.ready.then(()=>drawTree(false)); // re-measure text once Figtree has loaded
