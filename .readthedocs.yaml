@@ -8,7 +8,9 @@ build:
   jobs:
     install:
       - python -m pip install --upgrade pip nbconvert nbformat
-      - gem install bundler
+      # Install the Bundler version Gemfile.lock was made with (its last line),
+      # so bundle install doesn't fetch it again and restart.
+      - gem install bundler --no-document -v "$(tail -1 Gemfile.lock | tr -d ' ')"
       - bundle install
     build:
       html:
