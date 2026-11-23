@@ -14,7 +14,7 @@
    COLOUR white paper, ink; Yes = blue filled dot, No = orange ring (shape + hue)
    TYPE Figtree 800 + Figtree
    LAYOUT laptop: tree | questions, rows beneath; phone: stacked */
-:root{color-scheme:light dark;--bg:light-dark(#ffffff,#0f141a);--ink:light-dark(#15202b,#e9eef4);--soft:light-dark(#5b6876,#9aa7b5);--panel:light-dark(#f6f8fb,#161d25);--edge:light-dark(#dfe4ea,#2a3440);--grid:light-dark(#e8edf2,#1f2832);--yes:light-dark(#1d5fd8,#6ea2ff);--ysoft:light-dark(#e8f0ff,#16233a);--no:light-dark(#c9560a,#ff9a45);--nsoft:light-dark(#fff1e5,#33230f);--hi:light-dark(#fff7d6,#2b2710)}
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#0f141a);--ink:light-dark(#15202b,#e9eef4);--soft:light-dark(#5b6876,#9aa7b5);--panel:light-dark(#f6f8fb,#161d25);--edge:light-dark(#dfe4ea,#2a3440);--grid:light-dark(#e8edf2,#1f2832);--yes:light-dark(#1d5fd8,#6ea2ff);--ysoft:light-dark(#e8f0ff,#16233a);--no:light-dark(#c9560a,#ff9a45);--nsoft:light-dark(#fff1e5,#33230f);--hi:light-dark(#fff7d6,#2b2710);--path:light-dark(#7a3cd6,#b892ff);--psoft:light-dark(#f3ecff,#251a38)}
 :root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
 html,body{margin:0}
@@ -115,11 +115,28 @@ tr.gh .dots{margin-left:8px}
 .gain{font-weight:700;font-size:12px;border-radius:999px;padding:0 8px;background:var(--grid);color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
 .gain.top{background:var(--ink);color:var(--bg)}
 .actions .eq{display:block;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--ink);margin-top:4px;overflow-wrap:anywhere}
+.col{display:flex;flex-direction:column;gap:14px;min-width:0}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.testbtns{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:flex-end}
+.btn.sm{min-height:36px;font-size:14px;padding:0 12px}
+.testbtns select{min-height:36px;border:1px solid var(--edge);border-radius:10px;background:var(--bg);color:var(--ink);font:600 14px Figtree,sans-serif;padding:0 8px}
+.verdict{background:var(--bg);border:1px solid var(--edge);border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:16px;min-height:3.2em}
+.verdict.done{border-color:var(--path);box-shadow:inset 3px 0 0 var(--path)}
+.verdict .big{font-size:20px;font-weight:800}
+.verdict .sm{display:block;color:var(--soft);font-size:14px;margin-top:2px}
+.sels{display:grid;grid-template-columns:repeat(auto-fill,minmax(122px,1fr));gap:8px}
+.sel label{display:block;font-size:13px;font-weight:600;color:var(--soft);margin-bottom:2px}
+.sel select{width:100%;min-height:40px;border:1px solid var(--edge);border-radius:8px;background:var(--bg);color:var(--ink);font:15px Figtree,sans-serif;padding:0 6px}
+.sel select.unset{color:var(--soft)}
+.sel.on label{color:var(--path)}
+.sel.on select{border-color:var(--path);box-shadow:inset 0 0 0 1px var(--path)}
+.sel.stuck label{color:var(--path)}
+.sel.stuck select{border:2px dashed var(--path);background:var(--psoft)}
 .gh .h{color:var(--soft);font-weight:500;margin-left:8px;font-variant-numeric:tabular-nums}
 @keyframes pop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
 .newnode{animation:pop .4s ease-out}
 @media(prefers-reduced-motion:reduce){.newnode{animation:none}.bar i{transition:none}}
-@media(max-width:960px){.stage{grid-template-columns:minmax(0,1fr)}.treewrap{max-height:480px}}
+@media(max-width:960px){.stage{grid-template-columns:minmax(0,1fr)}.col{display:contents}#panel{order:2}.test{order:3}.treewrap{max-height:480px}}
 @media(max-width:600px){.opt{grid-template-columns:minmax(0,1fr)}.grps{justify-content:flex-start}th,td{padding:5px 5px;font-size:13px}.meter .big{font-size:26px}}
         </style>
     </head>
@@ -154,6 +171,7 @@ tr.gh .dots{margin-left:8px}
             </div>
 
             <div class="stage">
+                <div class="col">
                 <div class="card">
                     <div class="cardhead">
                         <h2>Your tree</h2>
@@ -171,6 +189,20 @@ tr.gh .dots{margin-left:8px}
                         <span><i class="d n"></i>No, we left</span>
                         <span>Click any node to work on it. Dashed boxes still need a question.</span>
                     </div>
+                </div>
+                <div class="card test">
+                    <div class="cardhead">
+                        <h2>Try a new restaurant</h2>
+                        <div class="testbtns">
+                            <label class="vh" for="loadVisit">Copy one of the 12 visits</label>
+                            <select id="loadVisit"><option value="">Copy a visit…</option></select>
+                            <button class="btn sm" id="randVisit">Random</button>
+                            <button class="btn sm" id="clearVisit">Clear</button>
+                        </div>
+                    </div>
+                    <div class="verdict" id="verdict" aria-live="polite"></div>
+                    <div class="sels" id="sels"></div>
+                </div>
                 </div>
                 <div class="card" id="panel"></div>
             </div>
@@ -316,16 +348,17 @@ function drawTree(scroll){
   const sc=zoom??fitScale(W);
   $('zoomPct').textContent=Math.round(sc*100)+'%';
   svg.setAttribute('width',W*sc);svg.setAttribute('height',H*sc);svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
-  let edges='',labels='',nodes='';
-  const newKeys=new Set();
+  let edges='',pathEdges='',labels='',nodes='';
+  const newKeys=new Set(),vw=anySet()?walkVisit():null,onPath=key=>!!vw&&vw.keys.has(key);
   walk(tree,n=>{
     const nk=n.kids.length,spread=Math.min(14,(n.w-20)/Math.max(1,nk-1));
     for(const [j,k] of n.kids.entries()){
       const c=k.node,x1=n.x+(j-(nk-1)/2)*spread,y1=n.y+n.h,x2=c.x,y2=c.y-24,my=(y1+y2)/2;
-      const faint=c.kind==='empty';
-      edges+=`<path d="M${x1} ${y1}C${x1} ${my} ${x2} ${my} ${x2} ${y2}V${c.y}" fill="none" stroke="var(--soft)" stroke-width="${faint?1.2:1.8}" ${faint?'stroke-dasharray="3 4"':''}/>`;
+      const faint=c.kind==='empty',lit=onPath(c.key),d=`M${x1} ${y1}C${x1} ${my} ${x2} ${my} ${x2} ${y2}V${c.y}`;
+      if(lit)pathEdges+=`<path d="${d}" fill="none" stroke="var(--path)" stroke-width="4" stroke-linecap="round"/>`;
+      else edges+=`<path d="${d}" fill="none" stroke="var(--soft)" stroke-width="${faint?1.2:1.8}" ${faint?'stroke-dasharray="3 4"':''}/>`;
       const lx=x2,ly=y2,lw=tw(k.v,FONT.edge)+14;
-      labels+=`<g><rect x="${lx-lw/2}" y="${ly-11}" width="${lw}" height="22" rx="11" fill="var(--panel)" stroke="var(--edge)"/><text x="${lx}" y="${ly+4.5}" text-anchor="middle" font-size="13" font-weight="600" fill="var(--ink)">${esc(k.v)}</text></g>`;
+      labels+=`<g><rect x="${lx-lw/2}" y="${ly-11}" width="${lw}" height="22" rx="11" fill="${lit?'var(--path)':'var(--panel)'}" stroke="${lit?'var(--path)':'var(--edge)'}"/><text x="${lx}" y="${ly+4.5}" text-anchor="middle" font-size="13" font-weight="${lit?800:600}" fill="${lit?'var(--bg)':'var(--ink)'}">${esc(k.v)}</text></g>`;
     }
     const x=n.x-n.w/2,y=n.y,isSel=n.key===sel;
     let stroke='var(--soft)',fill='var(--bg)',dash='',sw=1.5;
@@ -337,7 +370,8 @@ function drawTree(scroll){
     if(!seenKeys.has(n.key))newKeys.add(n.key);
     const label=n.kind==='empty'?`No examples, ${guess(n.guess)}`:`${title(n)} ${n.yes} yes, ${n.no} no`;
     let g=`<g class="node${seenKeys.size&&newKeys.has(n.key)?' newnode':''}" data-key="${esc(n.key)}" tabindex="0" role="treeitem" aria-selected="${isSel}" aria-label="${esc(label)}">`;
-    g+=`<rect class="ring" x="${x-5}" y="${y-5}" width="${n.w+10}" height="${n.h+10}" rx="14" fill="none" stroke="var(--ink)" stroke-width="3" opacity="${isSel?1:0}"/>`;
+    g+=`<rect class="ring" x="${x-7}" y="${y-7}" width="${n.w+14}" height="${n.h+14}" rx="15" fill="none" stroke="var(--ink)" stroke-width="3" opacity="${isSel?1:0}"/>`;
+    if(onPath(n.key))g+=`<rect x="${x-3}" y="${y-3}" width="${n.w+6}" height="${n.h+6}" rx="12" fill="none" stroke="var(--path)" stroke-width="3.5" ${vw.end===n&&vw.stuck?'stroke-dasharray="6 4"':''}/>`;
     g+=`<rect x="${x}" y="${y}" width="${n.w}" height="${n.h}" rx="10" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" ${dash?`stroke-dasharray="${dash}"`:''}/>`;
     if(n.kind==='empty'){
       g+=`<text x="${n.x}" y="${y+18}" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--soft)">none</text>`;
@@ -355,7 +389,7 @@ function drawTree(scroll){
     }
     nodes+=g+'</g>';
   });
-  svg.innerHTML=edges+labels+nodes;
+  svg.innerHTML=edges+pathEdges+labels+nodes;
   walk(tree,n=>seenKeys.add(n.key));
   const s=byKey[sel];
   if(s&&scroll!==false){
@@ -470,9 +504,59 @@ function drawStatus(){
   $('undo').disabled=!hist.length;
 }
 
-function render(scroll){drawTree(scroll);drawPanel();drawRows();drawStatus()}
+/* ---------- try a new restaurant ---------- */
+let visit=Object.fromEntries(F.map(f=>[f.k,'?']));
+const anySet=()=>F.some(f=>visit[f.k]!=='?');
+function walkVisit(){ // follow the visit's answers down the tree; stop at a question it hasn't answered
+  let n=tree;const keys=new Set([n.key]),asked=[];
+  while(n.kind==='split'){
+    asked.push(n.f);
+    if(visit[n.f]==='?')return{keys,end:n,stuck:n.f,asked};
+    n=n.kids.find(k=>k.v===visit[n.f]).node;keys.add(n.key);
+  }
+  return{keys,end:n,asked};
+}
+function buildSels(){
+  $('sels').innerHTML=F.map(f=>`<div class="sel" id="sel-${f.k}"><label for="v-${f.k}">${esc(f.name)}</label>
+    <select id="v-${f.k}" data-f="${f.k}"><option value="?">?</option>${f.vals.map(v=>`<option>${esc(v)}</option>`).join('')}</select></div>`).join('');
+  $('loadVisit').innerHTML+=D.map((r,i)=>`<option value="${i}">${r.id} (${r.y?'waited':'left'})</option>`).join('');
+}
+function drawTest(){
+  const vw=anySet()?walkVisit():null;
+  for(const f of F){
+    const s=$('v-'+f.k);s.value=visit[f.k];s.classList.toggle('unset',visit[f.k]==='?');
+    $('sel-'+f.k).classList.toggle('on',!!vw&&vw.asked.includes(f.k)&&!(vw.stuck===f.k));
+    $('sel-'+f.k).classList.toggle('stuck',!!vw&&vw.stuck===f.k);
+  }
+  const box=$('verdict');box.classList.toggle('done',!!vw&&!vw.stuck);
+  if(!vw){box.innerHTML=`Describe a restaurant that isn't in the data. Set any answers below and watch its path through your tree in purple.`;return}
+  if(vw.stuck){box.innerHTML=`The tree asks <b>${esc(FK[vw.stuck].name)}?</b> next. Choose an answer for ${esc(FK[vw.stuck].name)} to keep going.`;return}
+  const n=vw.end,g=n.guess;
+  const ans=g?`<span class="big ww ${g==='Y'?'y':'n'}"><i class="d ${g==='Y'?'y':'n'}"></i>${g==='Y'?'Yes, we wait':'No, we leave'}</span>`:`<span class="big">Coin flip</span>`;
+  let why;
+  if(n.kind==='pure')why=n.rows.length===1?`It lands with one restaurant from the data, ${D[n.rows[0]].id}, where we ${g==='Y'?'waited':'left'}.`
+                                          :`It lands with ${n.rows.length} restaurants from the data that all ${g==='Y'?'waited':'left'}.`;
+  else if(n.kind==='empty')why=`None of the 12 restaurants reached this branch, so the tree ${g?'uses the most common answer one level up':'flips a coin'}.`;
+  else if(n.kind==='stop')why=`It lands on a branch you stopped (${n.yes} waited, ${n.no} left), so the tree ${g?'goes with the majority':'flips a coin'}.`;
+  else why=`This branch still needs a question. Of the ${n.rows.length} restaurants here, ${n.yes} waited and ${n.no} left, so for now the tree ${g?'goes with the majority':'flips a coin'}.`;
+  const used=vw.asked.length,unused=F.length-used;
+  let h=`${ans}<span class="sm">${why} The tree used ${used} answer${used===1?'':'s'}${used?` (${vw.asked.map(k=>esc(FK[k].name)).join(', ')})`:''}. The other ${unused} didn't matter.</span>`;
+  if(F.every(f=>visit[f.k]!=='?')){
+    const i=D.findIndex(r=>F.every(f=>r[f.k]===visit[f.k]));
+    if(i>=0){const right=g===(D[i].y?'Y':'N');h+=`<span class="sm">This is exactly visit <b>${D[i].id}</b>, where we ${D[i].y?'waited':'left'}. ${g?(right?'The tree gets it right.':'<b>The tree gets it wrong.</b>'):''}</span>`}
+  }
+  box.innerHTML=h;
+}
+function setVisit(v){visit=v;$('loadVisit').value='';drawTree(false);drawTest()}
+
+function render(scroll){drawTree(scroll);drawPanel();drawRows();drawStatus();drawTest()}
 
 /* ---------- events ---------- */
+buildSels();
+$('sels').addEventListener('change',e=>{const s=e.target.closest('select');if(s)setVisit({...visit,[s.dataset.f]:s.value})});
+$('randVisit').addEventListener('click',()=>setVisit(Object.fromEntries(F.map(f=>[f.k,f.vals[Math.floor(Math.random()*f.vals.length)]]))));
+$('clearVisit').addEventListener('click',()=>setVisit(Object.fromEntries(F.map(f=>[f.k,'?']))));
+$('loadVisit').addEventListener('change',e=>{const i=e.target.value;if(i==='')return;const r=D[+i];setVisit(Object.fromEntries(F.map(f=>[f.k,r[f.k]])))});
 $('ts').addEventListener('click',e=>{const g=e.target.closest('.node');if(g)select(g.dataset.key)});
 $('ts').addEventListener('keydown',e=>{
   const g=e.target.closest('.node');if(!g)return;
