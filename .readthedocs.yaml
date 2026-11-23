@@ -10,7 +10,9 @@ build:
       - python -m pip install --upgrade pip nbconvert nbformat
       # Install the Bundler version Gemfile.lock was made with (its last line),
       # so bundle install doesn't fetch it again and restart.
-      - gem install bundler --no-document -v "$(tail -1 Gemfile.lock | tr -d ' ')"
+      # No single quotes here: RTD wraps each command in '...' for sh -c, so a
+      # quote inside ends that early. Unquoted $(...) trims the line's indent.
+      - gem install bundler --no-document -v $(tail -n 1 Gemfile.lock)
       - bundle install
     build:
       html:
