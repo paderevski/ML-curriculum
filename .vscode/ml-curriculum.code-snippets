@@ -1,4 +1,67 @@
 {
+  // ── Unit pages (layout: unit) ─────────────────────────────────────────────
+  // Type the prefix, then Tab (or Ctrl+Space to pick from the list).
+  // In the link, type ./ (or Ctrl+Space after it) for file completion.
+  "Unit card": {
+    "scope": "markdown",
+    "prefix": "card",
+    "body": [
+      "- **${1|Homework,Demo,In class,Demo + HW|}** [${2:Title}](./$3): $0"
+    ],
+    "description": "Unit page card: role, linked notebook/file, description"
+  },
+  "Unit card without link": {
+    "scope": "markdown",
+    "prefix": "cardx",
+    "body": [
+      "- **${1|Homework,Demo,In class,Demo + HW|}** ${2:Title}: $0"
+    ],
+    "description": "Unit page card with no link (e.g. a paper handout or board work)"
+  },
+  "Unit section": {
+    "scope": "markdown",
+    "prefix": "sec",
+    "body": [
+      "## ${1:Section title}",
+      "",
+      "${2:One or two sentences on what this section is about.}",
+      "",
+      "#### Key ideas",
+      "",
+      "- $3",
+      "",
+      "#### Notes (draft)",
+      "",
+      "> $4",
+      "",
+      "#### Notebooks & materials",
+      "",
+      "- **${5|Homework,Demo,In class,Demo + HW|}** [${6:Title}](./$7): $0",
+      ""
+    ],
+    "description": "Unit page section skeleton: summary, key ideas, notes, cards"
+  },
+  "Unit page": {
+    "scope": "markdown",
+    "prefix": "unitpage",
+    "body": [
+      "---",
+      "title: \"Unit ${1:00}: ${2:Title}\"",
+      "layout: unit",
+      "sidebar:",
+      "  nav: \"ml\"",
+      "---",
+      "",
+      "${3:Intro paragraph for the unit.}",
+      "",
+      "## ${4:First section}",
+      "",
+      "$0"
+    ],
+    "description": "New unit page (layout: unit) front matter and first section"
+  },
+
+  // ── Older pages: notebook pop-up links ─────────────────────────────────────
   "Notebook include by file": {
     "scope": "markdown",
     "prefix": "nb",

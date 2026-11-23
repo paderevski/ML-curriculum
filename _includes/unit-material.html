@@ -1,18 +1,24 @@
 {%- comment -%}
-  One row in a unit section's materials list.
+  One card in a unit section's materials list.
 
-  item.kind:  notebook (default) | worksheet | dataset | interactive | link | soon | item
-  item.role:  demo | hw | demo-hw | classwork        (drives the badge)
-  item.local: notebook filename in this unit's folder   (notebooks only)
-  item.path:  repo path to a notebook elsewhere         (notebooks only)
-  item.url:   link target                               (non-notebooks)
-  item.label: display title (defaults to the notebook's own title)
-  item.blurb: one-line description (markdown)
-  item.due:   optional due text, e.g. "Nov 18"
+  item.role:   role key from _data/unit_roles.yml (demo, hw, classwork, ...)
+  item.kind:   notebook (default) | page | pdf | dataset | interactive | link
+               | soon | item | worksheet
+  item.kind_label: overrides the small type label (e.g. "Handout")
+  item.local:  notebook filename in this unit's folder   (notebooks)
+  item.path:   repo path to a notebook                   (notebooks)
+  item.url:    link target                               (everything else)
+  item.pdf:    PDF version of a page -> extra "PDF" button
+  item.key_url: answer key -> extra "Key" button (local preview only;
+               _plugins/unit_pages.rb sets it only when show_keys is on)
+  item.label:  display title (defaults to the notebook's own title)
+  item.blurb:  description (markdown)
+  item.due:    optional due text, e.g. "Nov 18"
 
   Two ways to call it:
     include unit-material.html item=m                       (front-matter pages)
-    include unit-material.html local="x.ipynb" role="hw"    (markdown-body pages)
+    include unit-material.html local="x.ipynb" role="hw"    (direct parameters;
+                                                             what the plugin writes)
   `local` is looked up in the folder of the page's source file, so it works
   even when the page has a custom permalink.
 {%- endcomment -%}
@@ -24,22 +30,33 @@
 {%- if m.local -%}{%- assign entry = site.data.notebooks.by_dir[page_dir][m.local] -%}
 {%- elsif m.path -%}{%- assign entry = site.data.notebooks.by_path[m.path] -%}{%- endif -%}
 {%- endif -%}
-{%- case m.role -%}
-{%- when "demo" -%}{%- assign role_label = "Demo" -%}
-{%- when "hw" -%}{%- assign role_label = "Homework" -%}
-{%- when "demo-hw" -%}{%- assign role_label = "Demo + HW" -%}
-{%- when "classwork" -%}{%- assign role_label = "In class" -%}
-{%- else -%}{%- assign role_label = "" -%}
-{%- endcase -%}
+{%- assign role_def = site.data.unit_roles | where: "key", m.role | first -%}
+{%- assign role_label = role_def.label | default: "" -%}
+{%- if m.kind_label -%}{%- assign kind_label = m.kind_label -%}
+{%- else -%}
 {%- case kind -%}
 {%- when "worksheet" -%}{%- assign kind_label = "Worksheet" -%}
 {%- when "dataset" -%}{%- assign kind_label = "Dataset" -%}
 {%- when "interactive" -%}{%- assign kind_label = "Interactive" -%}
 {%- when "link" -%}{%- assign kind_label = "Reading" -%}
+{%- when "page" -%}{%- assign kind_label = "Page" -%}
+{%- when "pdf" -%}{%- assign kind_label = "PDF" -%}
 {%- when "soon" -%}{%- assign kind_label = "Coming soon" -%}
 {%- when "item" -%}{%- assign kind_label = "" -%}
 {%- else -%}{%- assign kind_label = "Notebook" -%}
 {%- endcase -%}
+{%- endif -%}
+{%- capture actions -%}
+{%- if entry -%}
+<a href="{{ '/' | append: entry.html_path | relative_url }}">View</a>
+<a href="{{ '/' | append: entry.ipynb_path | relative_url }}" download>Download</a>
+{%- if entry.colab_url -%}<a class="is-primary" href="{{ entry.colab_url }}">Open in Colab</a>{%- endif -%}
+{%- elsif m.url and kind != "soon" -%}
+<a href="{{ m.url | relative_url }}"{% if kind == "dataset" %} download{% endif %}>{% if kind == "dataset" %}Download{% elsif kind == "page" %}View{% else %}Open{% endif %}</a>
+{%- endif -%}
+{%- if m.pdf -%}<a href="{{ m.pdf | relative_url }}">PDF</a>{%- endif -%}
+{%- if m.key_url -%}<a class="is-key" href="{{ m.key_url | relative_url }}" title="Answer key (only shown in your local preview)">Key</a>{%- endif -%}
+{%- endcapture -%}
 <div class="unit-item unit-item--{{ m.role | default: 'none' }} unit-item--{{ kind }}">
 <span class="role-badge role-badge--{{ m.role | default: 'none' }}">{{ role_label | default: kind_label }}</span>
 <div class="unit-item__body">
@@ -53,15 +70,6 @@
 {%- if m.blurb and m.blurb != "" -%}<div class="unit-item__blurb">{{ m.blurb | markdownify }}</div>{%- endif -%}
 {%- if kind == "notebook" and entry == nil -%}<p class="unit-item__missing">Missing notebook metadata for {{ m.local | default: m.path }}</p>{%- endif -%}
 </div>
-{%- if entry -%}
-<div class="unit-item__actions">
-<a href="{{ '/' | append: entry.html_path | relative_url }}">View</a>
-<a href="{{ '/' | append: entry.ipynb_path | relative_url }}" download>Download</a>
-{%- if entry.colab_url -%}<a class="is-primary" href="{{ entry.colab_url }}">Open in Colab</a>{%- endif -%}
-</div>
-{%- elsif m.url and kind != "soon" -%}
-<div class="unit-item__actions">
-<a href="{{ m.url | relative_url }}"{% if kind == "dataset" %} download{% endif %}>{% if kind == "dataset" %}Download{% else %}Open{% endif %}</a>
-</div>
-{%- endif -%}
+{%- assign actions = actions | strip -%}
+{%- if actions != "" -%}<div class="unit-item__actions">{{ actions }}</div>{%- endif -%}
 </div>

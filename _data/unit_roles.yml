@@ -1,0 +1,62 @@
+# Card roles for unit pages.
+#
+# In a unit page, a card is a list item starting with a role in bold:
+#     - **Homework** [Title](./notebook.ipynb): description
+#
+#   key:       internal name (CSS class role-badge--<key>, pip--<key>)
+#   label:     text on the badge
+#   aliases:   what you may type in bold (case doesn't matter)
+#   color:     badge color
+#   pill:      short text for the unit-map count ("2 hw"); omit to not count
+#   counts_as: which pills this role adds to (default: its own)
+#   legend:    explanation in the badge key at the top of a unit page
+#              (shown only for roles the page actually uses)
+#
+# The order here is the order of pills in the unit map and of the badge key.
+
+- key: warmup
+  label: Warm-up
+  aliases: [warm-up, warmup, warm up]
+  color: "#0e7490"
+  pill: warm-up
+  legend: a short starter at the beginning of class
+
+- key: demo
+  label: Demo
+  aliases: [demo]
+  color: "#1a6bb0"
+  pill: demo
+  legend: we go through it together
+
+- key: classwork
+  label: In class
+  aliases: [in class, classwork]
+  color: "#2e7d32"
+  pill: in class
+  legend: you work on it during class
+
+- key: hw
+  label: Homework
+  aliases: [homework, hw]
+  color: "#b45309"
+  pill: hw
+  legend: you finish and submit it
+
+- key: demo-hw
+  label: Demo + HW
+  aliases: [demo + hw, demo+hw, demo + homework]
+  counts_as: [demo, hw]
+  # drawn as a demo-to-homework gradient (see assets/css/main.scss)
+
+- key: project
+  label: Project
+  aliases: [project]
+  color: "#be185d"
+  pill: project
+  legend: a larger, graded project
+
+- key: reference
+  label: Reference
+  aliases: [reference, ref]
+  color: "#6b7280"
+  legend: background to look things up in

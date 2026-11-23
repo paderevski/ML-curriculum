@@ -1,14 +1,18 @@
 {%- comment -%}
   Badge key + unit map for `layout: unit` pages.
-  page.unit_sections is filled by _plugins/unit_pages.rb from the page's
-  "## " section headings and its card list items. Shares CSS with the
-  front-matter version of the unit page.
+  page.unit_sections and page.unit_roles_used are filled by
+  _plugins/unit_pages.rb from the page's "## " section headings and card
+  list items. Roles (labels, pills, legend text, order) come from
+  _data/unit_roles.yml. Shares CSS with the front-matter unit page.
 {%- endcomment -%}
-<p class="unit-legend">
-<span class="role-badge role-badge--demo">Demo</span> we go through it together,
-<span class="role-badge role-badge--classwork">In class</span> you work on it during class,
-<span class="role-badge role-badge--hw">Homework</span> you finish and submit it.
-</p>
+{%- capture legend -%}
+{%- for r in site.data.unit_roles -%}
+{%- if r.legend and page.unit_roles_used contains r.key -%}
+<span class="unit-legend__item"><span class="role-badge role-badge--{{ r.key }}">{{ r.label }}</span> {{ r.legend }}</span>
+{%- endif -%}
+{%- endfor -%}
+{%- endcapture -%}
+{%- if legend != "" -%}<p class="unit-legend">{{ legend }}</p>{%- endif -%}
 <nav class="unit-map" aria-label="Sections in this unit">
 <p class="unit-map__label">Unit map</p>
 <ol class="unit-map__list">
@@ -17,9 +21,12 @@
 <a href="#{{ s.id }}"><span class="unit-map__num">{{ s.num }}</span> {{ s.title | markdownify | remove: '<p>' | remove: '</p>' | strip }}</a>
 <span class="unit-map__counts">
 {%- if s.notes -%}<span class="pip pip--notes" title="Notes">Notes</span>{%- endif -%}
-{%- if s.demo > 0 -%}<span class="pip pip--demo" title="Demos">{{ s.demo }} demo</span>{%- endif -%}
-{%- if s.classwork > 0 -%}<span class="pip pip--classwork" title="In class">{{ s.classwork }} in class</span>{%- endif -%}
-{%- if s.hw > 0 -%}<span class="pip pip--hw" title="Homework">{{ s.hw }} hw</span>{%- endif -%}
+{%- for r in site.data.unit_roles -%}
+{%- if r.pill -%}
+{%- assign n = s.counts[r.key] | default: 0 -%}
+{%- if n > 0 -%}<span class="pip pip--{{ r.key }}" title="{{ r.label }}">{{ n }} {{ r.pill }}</span>{%- endif -%}
+{%- endif -%}
+{%- endfor -%}
 </span>
 </li>
 {%- endfor -%}

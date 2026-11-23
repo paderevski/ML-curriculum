@@ -139,9 +139,10 @@ $unit-line:       #e3e5ec;
 $unit-surface:    #f7f8fb;
 $unit-accent:     #4126bc;              // = rgb(65 38 188), matches the existing notebook pill tint
 
-$role-demo:       #1a6bb0;
-$role-hw:         #b45309;
-$role-classwork:  #2e7d32;
+// Role colors come from _data/unit_roles.yml ($role-<key> for each role).
+{%- for r in site.data.unit_roles %}{% if r.color %}
+$role-{{ r.key }}: {{ r.color }};
+{%- endif %}{% endfor %}
 $role-none:       #6b7280;
 
 @mixin role-colors($c) {
@@ -202,9 +203,9 @@ $role-none:       #6b7280;
   white-space: nowrap;
 }
 .pip--notes { @include role-colors($role-none); }
-.pip--demo  { @include role-colors($role-demo); }
-.pip--hw    { @include role-colors($role-hw); }
-.pip--classwork { @include role-colors($role-classwork); }
+{%- for r in site.data.unit_roles %}{% if r.color %}
+.pip--{{ r.key }} { @include role-colors($role-{{ r.key }}); }
+{%- endif %}{% endfor %}
 
 .unit-section {
   margin: 0 0 2.5em;
@@ -320,9 +321,9 @@ $role-none:       #6b7280;
   letter-spacing: 0.02em;
   white-space: nowrap;
 }
-.role-badge--demo      { @include role-colors($role-demo); }
-.role-badge--hw        { @include role-colors($role-hw); }
-.role-badge--classwork { @include role-colors($role-classwork); }
+{%- for r in site.data.unit_roles %}{% if r.color %}
+.role-badge--{{ r.key }} { @include role-colors($role-{{ r.key }}); }
+{%- endif %}{% endfor %}
 .role-badge--none      { @include role-colors($role-none); }
 .role-badge--demo-hw {
   color: $unit-ink;
@@ -367,7 +368,22 @@ $role-none:       #6b7280;
 }
 
 // Badge key above the unit map (added by _includes/unit-map.html).
-.unit-legend { color: $unit-muted; font-size: 0.9em; margin-bottom: 0; }
+.unit-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35em 1.1em;
+  color: $unit-muted;
+  font-size: 0.9em;
+  margin-bottom: 0;
+}
+.unit-legend__item { white-space: nowrap; }
+
+// "Key" button: answer keys, local preview only.
+.unit-item__actions a.is-key {
+  border-style: dashed;
+  color: $unit-muted;
+  &:hover { color: $unit-accent; border-color: $unit-accent; }
+}
 .unit-legend + .unit-map { margin-top: 0.75em; }
 
 // Previous / next unit (added by _layouts/unit.html).
