@@ -34,8 +34,8 @@
 #     -> relative links resolved against the Markdown file's own folder
 #        (.ipynb links go to the notebook's web view).
 #
-# It also inserts the badge key + unit map before the first section and fills
-# page.unit_sections / page.unit_roles_used for _includes/unit-map.html.
+# It also inserts the unit map before the first section and fills
+# page.unit_sections for _includes/unit-map.html.
 #
 # Cards themselves are rendered by _includes/unit-material.html, so their
 # look is edited there, not here.
@@ -255,7 +255,6 @@ module UnitPages
     lines = page.content.split("\n", -1)
     out = []
     sections = []
-    roles_used = []
     current = nil
     in_fence = false
     map_inserted = false
@@ -317,7 +316,6 @@ module UnitPages
         out << card_line(site, source_dir, role["key"], text.join(" "))
         Array(role["counts_as"] || role["key"]).each do |k|
           current["counts"][k] = current["counts"].fetch(k, 0) + 1 if current
-          roles_used << k unless roles_used.include?(k)
         end
         i = j
         next
@@ -346,7 +344,6 @@ module UnitPages
     extra = {
       "unit_number" => unit_no,
       "unit_sections" => sections,
-      "unit_roles_used" => roles_used,
       "toc" => false,
       "math" => true,
       "classes" => (Array(page.data["classes"]) | ["unit-page"]),

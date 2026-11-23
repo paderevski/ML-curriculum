@@ -8,10 +8,10 @@
 // Our own theme (replaced Minimal Mistakes). To change fonts, colors, widths,
 // edit _sass/theme/_tokens.scss. If you change --font-body, also update the
 // Google Fonts link in _includes/head/custom.html.
-@import "theme/tokens";
-@import "theme/base";
-@import "theme/layout";
-@import "theme/syntax";
+@use "theme/tokens" as *;
+@use "theme/base";
+@use "theme/layout";
+@use "theme/syntax";
 
 // Everything below is specific to this site (not part of the reusable theme).
 

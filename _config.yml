@@ -14,10 +14,6 @@ description: "Local preview of the ML curriculum subset"
 url: ""
 baseurl: ""
 repository: "paderevski/ML-curriculum"
-words_per_minute: 200
-breadcrumbs: false
-enable_copy_code_button: true
-search: false
 
 # Site Author
 author:
@@ -96,7 +92,6 @@ sass:
   style: compressed
   quiet_deps: true
   silence_deprecations:
-    - import
     - global-builtin
     - if-function
     - slash-div
@@ -112,20 +107,6 @@ plugins:
   - jekyll-redirect-from
   - jekyll-relative-links
 
-# Archives
-category_archive:
-  type: liquid
-  path: /categories/
-tag_archive:
-  type: liquid
-  path: /tags/
-
-# HTML Compression
-compress_html:
-  clippings: all
-  ignore:
-    envs: development
-
 # Defaults
 defaults:
   - scope:
@@ -133,11 +114,6 @@ defaults:
       type: pages
     values:
       layout: single
-      author_profile: false
-      read_time: false
-      comments: false
-      share: false
-      related: true
   - scope:
       path: "notes"
       type: pages
@@ -151,5 +127,4 @@ defaults:
       type: pages
     values:
       toc: true
-      toc_sticky: true
       toc_label: "In this unit"
