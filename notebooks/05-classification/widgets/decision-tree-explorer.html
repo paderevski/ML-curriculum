@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Decision Tree Explorer</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;800&display=swap"
+              rel="stylesheet">
+        <style>
+/* VOICE everyday: a study tool for students working alone or in pairs
+   IDEA sorting restaurant visits into piles by asking one question at a time
+   PICTURE the tree, the question menu for the chosen node, and the rows it holds
+   COLOUR white paper, ink; Yes = blue filled dot, No = orange ring (shape + hue)
+   TYPE Figtree 800 + Figtree
+   LAYOUT laptop: tree | questions, rows beneath; phone: stacked */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#0f141a);--ink:light-dark(#15202b,#e9eef4);--soft:light-dark(#5b6876,#9aa7b5);--panel:light-dark(#f6f8fb,#161d25);--edge:light-dark(#dfe4ea,#2a3440);--grid:light-dark(#e8edf2,#1f2832);--yes:light-dark(#1d5fd8,#6ea2ff);--ysoft:light-dark(#e8f0ff,#16233a);--no:light-dark(#c9560a,#ff9a45);--nsoft:light-dark(#fff1e5,#33230f);--hi:light-dark(#fff7d6,#2b2710)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 Figtree,system-ui,sans-serif;overflow-x:clip}
+.wrap{max-width:1280px;margin:0 auto;padding:20px max(3vw,16px) 40px}
+header{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px 24px;margin-bottom:14px}
+h1{font-weight:800;font-size:clamp(30px,4vw,44px);line-height:1.05;letter-spacing:-.02em;margin:0}
+.sub{color:var(--soft);margin:6px 0 0;max-width:70ch}
+.hbtns{display:flex;gap:8px}
+button{font-family:Figtree,sans-serif}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid var(--edge);background:var(--bg);color:var(--ink);font-weight:600;font-size:15px;border-radius:10px;min-height:44px;padding:0 14px;cursor:pointer}
+.btn:hover:not(:disabled){border-color:var(--soft)}
+.btn:disabled{opacity:.45;cursor:default}
+.btn.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn svg{width:16px;height:16px;fill:currentColor}
+:focus-visible{outline:3px solid var(--yes);outline-offset:2px}
+.status{display:flex;flex-wrap:wrap;align-items:center;gap:8px 24px;background:var(--panel);border:1px solid var(--edge);border-radius:14px;padding:12px 18px;margin-bottom:14px}
+.meter{display:flex;align-items:baseline;gap:10px}
+.meter .big{font-weight:800;font-size:30px;line-height:1;font-variant-numeric:tabular-nums}
+.bar{flex:1 1 160px;max-width:260px;height:10px;border-radius:5px;background:var(--grid);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ink);transition:width .3s}
+.goal{color:var(--soft);font-size:15px;flex:1 1 300px}
+.goal b{color:var(--ink)}
+.stage{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:14px;align-items:start}
+.card{background:var(--panel);border:1px solid var(--edge);border-radius:14px;padding:12px 14px}
+.card h2{font-size:14px;font-weight:600;color:var(--soft);margin:0 0 8px;text-transform:uppercase;letter-spacing:.04em}
+.treewrap{overflow:auto;min-height:340px;max-height:640px;border-radius:10px;background:var(--bg);border:1px solid var(--edge)}
+#ts{display:block;margin:0 auto}
+#ts text{font-family:Figtree,sans-serif}
+.node{cursor:pointer}
+.node:focus{outline:none}
+.node:focus-visible .ring{stroke:var(--yes);stroke-width:3;stroke-dasharray:none;opacity:1}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px;color:var(--soft);margin:8px 2px 0}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.d{display:inline-block;width:11px;height:11px;border-radius:50%;flex:none}
+.d.y{background:var(--yes)}
+.d.n{border:2.5px solid var(--no)}
+.dots{display:inline-flex;flex-wrap:wrap;gap:3px;align-items:center;vertical-align:middle}
+.crumbs{display:flex;flex-wrap:wrap;gap:4px 6px;align-items:center;font-size:14px;margin-bottom:8px}
+.crumbs button{border:1px solid var(--edge);background:var(--bg);color:var(--ink);border-radius:999px;padding:2px 10px;font-size:14px;cursor:pointer;min-height:30px}
+.crumbs button[aria-current]{font-weight:700;border-color:var(--ink)}
+.crumbs .sep{color:var(--soft)}
+.here{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;font-size:17px;margin-bottom:10px}
+.here b{font-weight:800}
+.msg{background:var(--bg);border:1px solid var(--edge);border-radius:10px;padding:12px 14px;margin:0 0 10px;font-size:16px}
+.msg.y{border-color:var(--yes);background:var(--ysoft)}
+.msg.n{border-color:var(--no);background:var(--nsoft)}
+.ask{font-weight:700;margin:4px 0 8px}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opt{display:grid;grid-template-columns:minmax(120px,1fr) auto;gap:6px 12px;align-items:center;text-align:left;border:1px solid var(--edge);background:var(--bg);color:var(--ink);border-radius:10px;padding:8px 10px;cursor:pointer;min-height:52px}
+.opt:hover:not(:disabled){border-color:var(--soft)}
+.opt[aria-pressed=true]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink);background:var(--hi)}
+.opt:disabled{cursor:default;opacity:.55}
+.opt .nm{font-weight:700;font-size:15px;display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.opt .nm small{font-weight:500;color:var(--soft);font-size:12px;border:1px solid var(--edge);border-radius:999px;padding:0 7px}
+.opt .q{font-size:13px;color:var(--soft);line-height:1.3}
+.grps{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.grp{display:flex;flex-direction:column;align-items:center;gap:2px;border:1px solid var(--edge);border-radius:7px;padding:2px 5px 4px;min-width:40px}
+.grp .v{font-size:11px;color:var(--soft);white-space:nowrap}
+.grp .dots{gap:2px;flex-wrap:nowrap;justify-content:center}
+.grp .d{width:8px;height:8px}.grp .d.n{border-width:2px}
+.grp.py{border-color:var(--yes);background:var(--ysoft)}
+.grp.pn{border-color:var(--no);background:var(--nsoft)}
+.grp.e{border-style:dashed}
+.grp.e .dots{font-size:11px;color:var(--soft)}
+.actions{position:sticky;bottom:0;background:var(--panel);padding:10px 0 2px;margin-top:8px;border-top:1px solid var(--edge)}
+.actions p{margin:0 0 8px;font-size:15px;color:var(--soft);min-height:1.5em}
+.actions p b{color:var(--ink)}
+.actions .row{display:flex;flex-wrap:wrap;gap:8px}
+.rows{margin-top:14px}
+.rows h2 span{text-transform:none;letter-spacing:0;font-weight:500}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:15px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--edge);white-space:nowrap}
+th{font-weight:600;color:var(--soft);font-size:13px;vertical-align:bottom}
+th.hi,td.hi{background:var(--hi);font-weight:700;color:var(--ink)}
+th.asked,td.asked{color:var(--soft);opacity:.55}
+td.id{color:var(--soft)}
+tr.gh td{background:var(--bg);font-weight:700;padding-top:12px;font-size:14px}
+tr.gh .dots{margin-left:8px}
+.ww{display:inline-flex;align-items:center;gap:6px;font-weight:700}
+.ww.y{color:var(--yes)}.ww.n{color:var(--no)}
+.empty{color:var(--soft);font-size:15px;margin:4px 0}
+.src{color:var(--soft);font-size:13px;margin-top:16px}
+@keyframes pop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.newnode{animation:pop .4s ease-out}
+@media(prefers-reduced-motion:reduce){.newnode{animation:none}.bar i{transition:none}}
+@media(max-width:960px){.stage{grid-template-columns:minmax(0,1fr)}.treewrap{max-height:480px}}
+@media(max-width:600px){.opt{grid-template-columns:minmax(0,1fr)}.grps{justify-content:flex-start}th,td{padding:5px 5px;font-size:13px}.meter .big{font-size:26px}}
+        </style>
+    </head>
+    <body>
+        <div class="wrap">
+            <header>
+                <div>
+                    <h1>Decision tree explorer</h1>
+                    <p class="sub">
+                        Twelve times, we walked into a restaurant and had to decide: <b>will we wait for a table?</b> Build a tree of questions that sorts those 12 visits into groups where everyone agrees. Pick a node, pick a question, and see how it splits the restaurants.
+                    </p>
+                </div>
+                <div class="hbtns">
+                    <button class="btn" id="undo">
+                        <svg viewBox="0 0 16 16"><path d="M6 3 1 7.5 6 12V9c4 0 6.5.8 8 4-.5-4.5-3-7.5-8-7.5z" /></svg>
+                        Undo
+                    </button>
+                    <button class="btn" id="reset">Start over</button>
+                </div>
+            </header>
+
+            <div class="status" aria-live="polite">
+                <div class="meter">
+                    <span class="big" id="sorted">0</span><span>of 12 sorted</span>
+                </div>
+                <div class="bar"><i id="sortedBar" style="width:0%"></i></div>
+                <div class="meter">
+                    <span class="big" id="qcount">0</span><span id="qword">questions</span>
+                </div>
+                <div class="goal" id="goal"></div>
+            </div>
+
+            <div class="stage">
+                <div class="card">
+                    <h2>Your tree</h2>
+                    <div class="treewrap" id="treewrap">
+                        <svg id="ts" role="tree" aria-label="Your decision tree"></svg>
+                    </div>
+                    <div class="legend">
+                        <span><i class="d y"></i>Yes, we waited</span>
+                        <span><i class="d n"></i>No, we left</span>
+                        <span>Click any node to work on it. Dashed boxes still need a question.</span>
+                    </div>
+                </div>
+                <div class="card" id="panel"></div>
+            </div>
+
+            <div class="card rows">
+                <h2 id="rowsHead">Restaurants at this node</h2>
+                <div class="scroll" id="rows"></div>
+            </div>
+
+            <p class="src">
+                Data: the restaurant example from Russell &amp; Norvig, <i>Artificial Intelligence: A Modern Approach</i>.
+            </p>
+        </div>
+        <script>
+{
+const F=[
+  {k:'Alt',name:'Alternate',short:'Alt',q:'Is there another good restaurant nearby?',vals:['Yes','No']},
+  {k:'Bar',name:'Bar',short:'Bar',q:'Is there a comfy bar to wait in?',vals:['Yes','No']},
+  {k:'Fri',name:'Fri/Sat',short:'Fri/Sat',q:'Is it Friday or Saturday?',vals:['Yes','No']},
+  {k:'Hun',name:'Hungry',short:'Hungry',q:'Are we hungry right now?',vals:['Yes','No']},
+  {k:'Pat',name:'Patrons',short:'Patrons',q:'How many people are inside?',vals:['None','Some','Full']},
+  {k:'Price',name:'Price',short:'Price',q:'How expensive is it?',vals:['$','$$','$$$']},
+  {k:'Rain',name:'Raining',short:'Rain',q:'Is it raining outside?',vals:['Yes','No']},
+  {k:'Res',name:'Reservation',short:'Res.',q:'Did we make a reservation?',vals:['Yes','No']},
+  {k:'Type',name:'Type',short:'Type',q:'What kind of food?',vals:['French','Italian','Thai','Burger']},
+  {k:'Est',name:'Wait estimate',short:'Est. wait',q:'How long does the host say (minutes)?',vals:['0–10','10–30','30–60','>60']},
+];
+const FK=Object.fromEntries(F.map(f=>[f.k,f]));
+const RAW=`Yes No  No  Yes Some $$$ No  Yes French  0–10  Yes
+Yes No  No  Yes Full $   No  No  Thai    30–60 No
+No  Yes No  No  Some $   No  No  Burger  0–10  Yes
+Yes No  Yes Yes Full $   Yes No  Thai    10–30 Yes
+Yes No  Yes No  Full $$$ No  Yes French  >60   No
+No  Yes No  Yes Some $$  Yes Yes Italian 0–10  Yes
+No  Yes No  No  None $   Yes No  Burger  0–10  No
+No  No  No  Yes Some $$  Yes Yes Thai    0–10  Yes
+No  Yes Yes No  Full $   Yes No  Burger  >60   No
+Yes Yes Yes Yes Full $$$ No  Yes Italian 10–30 No
+No  No  No  No  None $   No  No  Thai    0–10  No
+Yes Yes Yes Yes Full $   No  No  Burger  30–60 Yes`;
+const D=RAW.split('\n').map((l,i)=>{const a=l.trim().split(/\s+/),r={id:'X'+(i+1),y:a[10]==='Yes'};F.forEach((f,j)=>r[f.k]=a[j]);return r});
+const ALL=D.map((_,i)=>i);
+const FEWEST=4; // brute-force minimum number of questions that sorts all 12
+
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+let choices={},sel='',preview=null,hist=[],tree=null,byKey={},seenKeys=new Set();
+
+const childKey=(key,f,v)=>key+'|'+f+'='+v;
+const majority=(y,n,fb)=>y>n?'Y':n>y?'N':fb;
+const word=g=>g==='Y'?'Yes':'No';
+const guess=g=>g?`guess ${word(g)}`:'flip a coin';
+
+function grow(rows,key,path,parentGuess){
+  const yes=rows.filter(i=>D[i].y).length,no=rows.length-yes;
+  const n={key,rows,path,yes,no,kids:[],depth:path.length};
+  byKey[key]=n;
+  const c=choices[key];
+  if(!rows.length){n.kind='empty';n.guess=parentGuess}
+  else if(!yes||!no){n.kind='pure';n.guess=yes?'Y':'N'}
+  else if(c==='#stop'){n.kind='stop';n.guess=majority(yes,no,parentGuess)}
+  else if(c){
+    n.kind='split';n.f=c;n.guess=majority(yes,no,parentGuess);
+    for(const v of FK[c].vals)n.kids.push({v,node:grow(rows.filter(i=>D[i][c]===v),childKey(key,c,v),[...path,{f:c,v}],n.guess)});
+  }
+  else{n.kind='open';n.guess=majority(yes,no,parentGuess)}
+  return n;
+}
+function derive(){byKey={};tree=grow(ALL,'',[],null);if(!byKey[sel])sel=''}
+function walk(n,fn){fn(n);n.kids.forEach(k=>walk(k.node,fn))}
+function bfs(root){const out=[],q=[root];while(q.length){const n=q.shift();out.push(n);n.kids.forEach(k=>q.push(k.node))}return out}
+
+function save(){hist.push({choices:{...choices},sel});if(hist.length>200)hist.shift()}
+function clearBelow(key){for(const k of Object.keys(choices))if(k===key||k.startsWith(key+'|'))delete choices[k]}
+function nextOpen(fromKey){
+  const all=bfs(tree).filter(n=>n.kind==='open');
+  return (all.find(n=>n.key.startsWith(fromKey+'|'))||all[0]||byKey[fromKey]||tree).key;
+}
+function commit(f){save();clearBelow(sel);choices[sel]=f;derive();const from=sel;sel=nextOpen(from);const s=byKey[sel];preview=s.kind==='split'?s.f:null;render()}
+function stopHere(){save();clearBelow(sel);choices[sel]='#stop';derive();preview=null;render()}
+function reopen(){save();clearBelow(sel);derive();preview=null;render()}
+function select(key){sel=key;const n=byKey[key];preview=n&&n.kind==='split'?n.f:null;render(true)}
+
+/* ---------- groups for a candidate question ---------- */
+function groupsFor(n,f){
+  return FK[f].vals.map(v=>{const rows=n.rows.filter(i=>D[i][f]===v),y=rows.filter(i=>D[i].y).length;return{v,rows,y,no:rows.length-y}});
+}
+const isPure=g=>g.rows.length&&(!g.y||!g.no);
+const dotsHTML=rows=>rows.map(i=>`<i class="d ${D[i].y?'y':'n'}" title="${D[i].id}: ${D[i].y?'waited':'left'}"></i>`).join('');
+
+/* ---------- tree drawing ---------- */
+const NW=140,NH=62,EW=104,EH=48,GAP=16,LEVEL=122,PAD=18;
+function size(n){
+  [n.w,n.h]=n.kind==='empty'?[EW,EH]:[NW,NH];
+  n.kids.forEach(k=>size(k.node));
+  const kw=n.kids.reduce((s,k)=>s+k.node.sw,0)+GAP*Math.max(0,n.kids.length-1);
+  n.sw=Math.max(n.w,kw);n.kw=kw;
+}
+function place(n,x0,y){
+  n.x=x0+n.sw/2;n.y=y;
+  let x=x0+(n.sw-n.kw)/2;
+  for(const k of n.kids){place(k.node,x,y+LEVEL);x+=k.node.sw+GAP}
+}
+function title(n){
+  if(n.kind==='split')return`${FK[n.f].name}?`;
+  if(n.kind==='pure')return n.guess==='Y'?'Yes, wait':'No, leave';
+  if(n.kind==='stop')return`Stop: ${guess(n.guess)}`;
+  if(n.kind==='empty')return'No examples';
+  return'Needs a question';
+}
+function drawTree(scroll){
+  size(tree);place(tree,PAD,PAD);
+  let maxY=0;walk(tree,n=>maxY=Math.max(maxY,n.y+n.h));
+  const W=tree.sw+2*PAD,H=maxY+PAD,svg=$('ts'),wrap=$('treewrap');
+  const sc=Math.min(1,Math.max(.7,(wrap.clientWidth-2)/W));
+  svg.setAttribute('width',W*sc);svg.setAttribute('height',H*sc);svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  let edges='',labels='',nodes='';
+  const newKeys=new Set();
+  walk(tree,n=>{
+    for(const k of n.kids){
+      const c=k.node,x1=n.x,y1=n.y+n.h,x2=c.x,y2=c.y-24,my=(y1+y2)/2;
+      const faint=c.kind==='empty';
+      edges+=`<path d="M${x1} ${y1}C${x1} ${my} ${x2} ${my} ${x2} ${y2}V${c.y}" fill="none" stroke="var(--soft)" stroke-width="${faint?1.2:1.8}" ${faint?'stroke-dasharray="3 4"':''}/>`;
+      const lx=x2,ly=y2,lw=k.v.length*7.4+14;
+      labels+=`<g><rect x="${lx-lw/2}" y="${ly-11}" width="${lw}" height="22" rx="11" fill="var(--panel)" stroke="var(--edge)"/><text x="${lx}" y="${ly+4.5}" text-anchor="middle" font-size="13" font-weight="600" fill="var(--ink)">${esc(k.v)}</text></g>`;
+    }
+    const x=n.x-n.w/2,y=n.y,isSel=n.key===sel;
+    let stroke='var(--soft)',fill='var(--bg)',dash='',sw=1.5;
+    if(n.kind==='open'){dash='6 4';sw=2;stroke='var(--ink)'}
+    if(n.kind==='split'){stroke='var(--edge)';fill='var(--panel)'}
+    if(n.kind==='pure'){stroke=n.guess==='Y'?'var(--yes)':'var(--no)';fill=n.guess==='Y'?'var(--ysoft)':'var(--nsoft)';sw=2}
+    if(n.kind==='stop'){stroke=n.guess==='Y'?'var(--yes)':n.guess==='N'?'var(--no)':'var(--soft)';dash='3 3';sw=2}
+    if(n.kind==='empty'){stroke='var(--edge)';dash='2 3'}
+    if(!seenKeys.has(n.key))newKeys.add(n.key);
+    const label=n.kind==='empty'?`No examples, ${guess(n.guess)}`:`${title(n)} ${n.yes} yes, ${n.no} no`;
+    let g=`<g class="node${seenKeys.size&&newKeys.has(n.key)?' newnode':''}" data-key="${esc(n.key)}" tabindex="0" role="treeitem" aria-selected="${isSel}" aria-label="${esc(label)}">`;
+    g+=`<rect class="ring" x="${x-5}" y="${y-5}" width="${n.w+10}" height="${n.h+10}" rx="14" fill="none" stroke="var(--ink)" stroke-width="3" opacity="${isSel?1:0}"/>`;
+    g+=`<rect x="${x}" y="${y}" width="${n.w}" height="${n.h}" rx="10" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" ${dash?`stroke-dasharray="${dash}"`:''}/>`;
+    if(n.kind==='empty'){
+      g+=`<text x="${n.x}" y="${y+20}" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--soft)">No examples</text>`;
+      g+=`<text x="${n.x}" y="${y+37}" text-anchor="middle" font-size="12.5" fill="var(--soft)">${guess(n.guess)}</text>`;
+    }else{
+      const tc=n.kind==='pure'?(n.guess==='Y'?'var(--yes)':'var(--no)'):n.kind==='open'?'var(--soft)':'var(--ink)';
+      g+=`<text x="${n.x}" y="${y+22}" text-anchor="middle" font-size="15" font-weight="${n.kind==='open'?600:800}" fill="${tc}" ${n.kind==='open'?'font-style="italic"':''}>${esc(title(n))}</text>`;
+      const cnt=n.rows.length,step=Math.min(10.5,(n.w-20)/Math.max(1,cnt-1)),sx=n.x-step*(cnt-1)/2,dy=y+44;
+      n.rows.forEach((i,j)=>{
+        const cx=sx+j*step;
+        g+=D[i].y?`<circle cx="${cx}" cy="${dy}" r="4.4" fill="var(--yes)"><title>${D[i].id}: waited</title></circle>`
+                 :`<circle cx="${cx}" cy="${dy}" r="3.6" fill="var(--bg)" stroke="var(--no)" stroke-width="2"><title>${D[i].id}: left</title></circle>`;
+      });
+    }
+    nodes+=g+'</g>';
+  });
+  svg.innerHTML=edges+labels+nodes;
+  walk(tree,n=>seenKeys.add(n.key));
+  const s=byKey[sel];
+  if(s&&scroll!==false){
+    const sx=s.x*sc,sy=s.y*sc,off=Math.max(0,(wrap.clientWidth-W*sc)/2),left=sx+off-wrap.scrollLeft;
+    if(left<60||left>wrap.clientWidth-60)wrap.scrollLeft=sx+off-wrap.clientWidth/2;
+    const top=sy-wrap.scrollTop;
+    if(top<20||top>wrap.clientHeight-80)wrap.scrollTop=sy-wrap.clientHeight/3;
+  }
+}
+
+/* ---------- side panel ---------- */
+function crumbs(n){
+  let h=`<nav class="crumbs" aria-label="Path to this node"><button data-key="" ${n.key===''?'aria-current="true"':''}>All 12</button>`;
+  let key='';
+  n.path.forEach(p=>{key=childKey(key,p.f,p.v);h+=`<span class="sep">›</span><button data-key="${esc(key)}" ${key===n.key?'aria-current="true"':''}>${esc(FK[p.f].name)} = ${esc(p.v)}</button>`});
+  return h+'</nav>';
+}
+function hereLine(n){
+  if(!n.rows.length)return`<div class="here">No restaurants reach this node.</div>`;
+  const r=n.rows.length;
+  return`<div class="here"><span class="dots">${dotsHTML(n.rows)}</span><span><b>${r}</b> restaurant${r>1?'s':''}: <b>${n.yes}</b> waited, <b>${n.no}</b> left</span></div>`;
+}
+function optHTML(n,f){
+  const used=n.path.some(p=>p.f===f.k);
+  const gs=groupsFor(n,f.k),nonEmpty=gs.filter(g=>g.rows.length).length;
+  const same=!used&&nonEmpty<2;
+  const tag=used?'<small>asked above</small>':same?'<small>same answer for all</small>':n.f===f.k?'<small>asked here</small>':'';
+  const grps=gs.map(g=>{
+    const cls=!g.rows.length?'e':isPure(g)?(g.y?'py':'pn'):'';
+    return`<span class="grp ${cls}"><span class="v">${esc(g.v)}</span><span class="dots">${g.rows.length?dotsHTML(g.rows):'none'}</span></span>`;
+  }).join('');
+  return`<button class="opt" data-f="${f.k}" aria-pressed="${preview===f.k}" ${used||same?'disabled':''}>
+    <span><span class="nm">${esc(f.name)}${tag}</span><span class="q">${esc(f.q)}</span></span>
+    <span class="grps">${grps}</span></button>`;
+}
+function previewText(n){
+  if(!preview)return n.kind==='split'?'Pick a different question to compare it with this one.':'Click a question to preview how it splits these restaurants.';
+  const gs=groupsFor(n,preview).filter(g=>g.rows.length),done=gs.filter(isPure).reduce((s,g)=>s+g.rows.length,0);
+  return`<b>${esc(FK[preview].name)}?</b> splits these ${n.rows.length} into ${gs.length} groups. <b>${done}</b> of them land in a group where everyone agrees.`;
+}
+function drawPanel(){
+  const n=byKey[sel];
+  let h=`<h2>This node</h2>`+crumbs(n)+hereLine(n);
+  if(n.kind==='pure'){
+    h+=`<p class="msg ${n.guess==='Y'?'y':'n'}">Everyone here agrees: <b>${n.guess==='Y'?'we waited':'we left'}</b>. This branch is finished, so there is nothing left to ask.</p>`;
+  }else if(n.kind==='empty'){
+    h+=`<p class="msg">None of the 12 restaurants answered <b>${esc(n.path.at(-1).v)}</b> here, so the tree has nothing to learn from. ${n.guess?`It guesses <b>${word(n.guess)}</b>, the most common answer one level up.`:`One level up was a tie, so it <b>flips a coin</b>.`}</p>`;
+  }else if(n.kind==='stop'){
+    const wrong=n.guess==='Y'?n.no:n.guess==='N'?n.yes:Math.min(n.yes,n.no);
+    h+=`<p class="msg ${n.guess==='Y'?'y':n.guess==='N'?'n':''}">You stopped asking here. ${n.guess?`The tree guesses <b>${word(n.guess)}</b> for every restaurant that lands here, so it gets <b>${wrong}</b>`:`It's a tie, so the tree <b>flips a coin</b> and gets about <b>${wrong}</b>`} of these ${n.rows.length} wrong.</p>`;
+    h+=`<div class="actions"><div class="row"><button class="btn primary" id="reopen">Keep asking here</button></div></div>`;
+  }else{
+    h+=`<p class="ask">${n.kind==='split'?`This node asks <b>${esc(FK[n.f].name)}?</b> Each option shows where these restaurants would go.`:'Which question should this node ask?'}</p>`;
+    h+=`<div class="opts">${F.map(f=>optHTML(n,f)).join('')}</div>`;
+    const canAsk=preview&&preview!==n.f;
+    const below=n.kind==='split'?bfs(n).filter(m=>m.kind==='split').length:0;
+    const askTxt=!preview?'Ask this question':n.kind==='split'?(preview===n.f?`Already asking ${FK[n.f].name}?`:`Ask ${FK[preview].name}? instead`):`Ask ${FK[preview].name}? here`;
+    h+=`<div class="actions"><p>${previewText(n)}${canAsk&&below?` Switching removes the ${below} question${below>1?'s':''} at and below this node.`:''}</p><div class="row">
+      <button class="btn primary" id="commit" ${canAsk?'':'disabled'}>${esc(askTxt)}</button>
+      <button class="btn" id="stop">Stop here, ${guess(n.guess)}</button></div></div>`;
+  }
+  $('panel').innerHTML=h;
+}
+
+/* ---------- rows table ---------- */
+function rowHTML(i,n){
+  const r=D[i],asked=new Set(n.path.map(p=>p.f));
+  return`<tr><td class="id">${r.id}</td>${F.map(f=>`<td class="${f.k===preview?'hi':asked.has(f.k)?'asked':''}">${esc(r[f.k])}</td>`).join('')}<td><span class="ww ${r.y?'y':'n'}"><i class="d ${r.y?'y':'n'}"></i>${r.y?'Yes':'No'}</span></td></tr>`;
+}
+function drawRows(){
+  const n=byKey[sel],asked=new Set(n.path.map(p=>p.f));
+  $('rowsHead').innerHTML=`Restaurants at this node <span>(${n.rows.length} of 12${preview?`, grouped by ${esc(FK[preview].name)}`:''})</span>`;
+  if(!n.rows.length){$('rows').innerHTML='<p class="empty">No restaurants reach this node.</p>';return}
+  let h=`<table><thead><tr><th>Visit</th>${F.map(f=>`<th class="${f.k===preview?'hi':asked.has(f.k)?'asked':''}">${esc(f.short)}</th>`).join('')}<th>Waited?</th></tr></thead><tbody>`;
+  if(preview){
+    for(const g of groupsFor(n,preview)){
+      if(!g.rows.length)continue;
+      h+=`<tr class="gh"><td colspan="${F.length+2}">${esc(FK[preview].name)} = ${esc(g.v)}<span class="dots">${dotsHTML(g.rows)}</span>${isPure(g)?` <span style="color:var(--soft);font-weight:500">all agree</span>`:''}</td></tr>`;
+      h+=g.rows.map(i=>rowHTML(i,n)).join('');
+    }
+  }else h+=n.rows.map(i=>rowHTML(i,n)).join('');
+  $('rows').innerHTML=h+'</tbody></table>';
+}
+
+/* ---------- status ---------- */
+function drawStatus(){
+  let sorted=0,qs=0,open=0,stops=0;
+  walk(tree,n=>{if(n.kind==='pure')sorted+=n.rows.length;if(n.kind==='split')qs++;if(n.kind==='open')open++;if(n.kind==='stop')stops++});
+  $('sorted').textContent=sorted;$('sortedBar').style.width=(sorted/12*100)+'%';
+  $('qcount').textContent=qs;$('qword').textContent=qs===1?'question':'questions';
+  let g;
+  if(sorted===12)g=qs===FEWEST?`<b>Every restaurant is sorted with ${qs} questions.</b> That's the fewest possible. Try a different first question and see how much bigger the tree gets.`
+                  :`<b>Every restaurant is sorted with ${qs} questions.</b> It can be done with just ${FEWEST}. Can you find that tree?`;
+  else if(!open&&stops)g=`Every branch has an answer, but ${stops===1?'a stopped branch guesses':'stopped branches guess'}, so ${12-sorted} restaurant${12-sorted>1?'s are':' is'} not sorted yet.`;
+  else g=`<b>Goal:</b> sort all 12 into groups that agree, using as few questions as you can.`;
+  $('goal').innerHTML=g;
+  $('undo').disabled=!hist.length;
+}
+
+function render(scroll){drawTree(scroll);drawPanel();drawRows();drawStatus()}
+
+/* ---------- events ---------- */
+$('ts').addEventListener('click',e=>{const g=e.target.closest('.node');if(g)select(g.dataset.key)});
+$('ts').addEventListener('keydown',e=>{
+  const g=e.target.closest('.node');if(!g)return;
+  if(e.key==='Enter'||e.key===' '){e.preventDefault();select(g.dataset.key);$('panel').querySelector('.opt:not(:disabled),button')?.focus()}
+});
+$('panel').addEventListener('click',e=>{
+  const c=e.target.closest('.crumbs button');if(c){select(c.dataset.key);return}
+  const o=e.target.closest('.opt');
+  if(o&&!o.disabled){preview=preview===o.dataset.f?null:o.dataset.f;const f=o.dataset.f;drawPanel();drawRows();$('panel').querySelector(`.opt[data-f="${f}"]`)?.focus();return}
+  if(e.target.closest('#commit'))commit(preview);
+  else if(e.target.closest('#stop'))stopHere();
+  else if(e.target.closest('#reopen'))reopen();
+});
+$('undo').addEventListener('click',()=>{const h=hist.pop();if(!h)return;choices=h.choices;sel=h.sel;derive();const n=byKey[sel];preview=n.kind==='split'?n.f:null;render()});
+$('reset').addEventListener('click',()=>{if(!Object.keys(choices).length)return;save();choices={};sel='';preview=null;derive();render()});
+
+let rz;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(()=>drawTree(false),120)});
+
+derive();render();
+}
+        </script>
+    </body>
+</html>

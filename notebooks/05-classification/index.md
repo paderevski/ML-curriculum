@@ -166,6 +166,8 @@ gained", then run the lab on census income data.
 #### Notebooks & materials
 
 - **In class** WillWait? by hand: Done on the board in groups. No notebook.
+- **In class** [Decision Tree Explorer](./widgets/decision-tree-explorer.html):
+  Build a WillWait? tree yourself, one question at a time. Can you sort all 12 restaurants with 4 questions?
 - **Homework** [Decision Tree: Income Data](./Decision_Tree_Student.ipynb):
   Fit an entropy-based tree on UCI income data, then tune its depth.
 
