@@ -13,7 +13,7 @@
 #
 #   - **Homework** [Recognizing Digits](./digits-student.ipynb): Pick the best $k$.
 #     -> a card: role badge, title, description, buttons.
-#        Roles (and their colors, unit-map pills, legend text) are listed in
+#        Roles (and their colors, unit-map pills) are listed in
 #        _data/unit_roles.yml.
 #        The link decides the card type:
 #          .ipynb            notebook   View / Download / Open in Colab

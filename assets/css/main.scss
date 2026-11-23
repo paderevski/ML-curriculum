@@ -182,9 +182,12 @@ $role-none:       #6b7280;
   margin: 0;
   padding: 0.35em 0;
   border-top: 1px solid $unit-line;
+  position: relative;
   &:first-child { border-top: 0; }
   a { font-weight: 600; text-decoration: none; color: $unit-ink; }
-  a:hover { color: $unit-accent; }
+  // Stretch the title link over the whole row, so the pills click too.
+  a::after { content: ""; position: absolute; inset: 0; }
+  &:hover a { color: $unit-accent; }
 }
 .unit-map__num,
 .unit-section__num {
@@ -368,24 +371,12 @@ $role-none:       #6b7280;
   .unit-item + h2 { margin-top: 2.5em; }
 }
 
-// Badge key above the unit map (added by _includes/unit-map.html).
-.unit-legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35em 1.1em;
-  color: $unit-muted;
-  font-size: 0.9em;
-  margin-bottom: 0;
-}
-.unit-legend__item { white-space: nowrap; }
-
 // "Key" button: answer keys, local preview only.
 .unit-item__actions a.is-key {
   border-style: dashed;
   color: $unit-muted;
   &:hover { color: $unit-accent; border-color: $unit-accent; }
 }
-.unit-legend + .unit-map { margin-top: 0.75em; }
 
 // Previous / next unit (added by _layouts/unit.html).
 .unit-nav {

@@ -1,5 +1,5 @@
 ---
-title: "Unit 01: Foundations"
+title: "Unit 1: Foundations"
 layout: unit
 sidebar:
   nav: "ml"
