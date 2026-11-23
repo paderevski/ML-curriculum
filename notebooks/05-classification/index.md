@@ -34,8 +34,9 @@ version. You earn the library.
 
 ## Python Review
 
-A two-part tune-up before the new algorithms. Neither part covers machine
-learning. They cover the list, loop, and array code that most ML bugs come from.
+An overview of the language from the ground up, to make sure you're not missing
+anything important. Also we practice a lot with loops and lists and numpy arrays
+because those are going to dominate the code from now on.
 
 #### Key ideas
 
@@ -58,25 +59,22 @@ learning. They cover the list, loop, and array code that most ML bugs come from.
 
 ## Logistic Regression
 
-Our first real classifier. We bend a linear model through a sigmoid so it
-outputs a probability, then fit it to tumor measurements where a false
-negative is the costly mistake.
+Our first real classifier. We transform a linear model using a sigmoid curve so it
+outputs a probability in $(0,1)$, then fit it to tumor measurements to classify
+samples as benign or malignant.
 
-#### Key ideas!
+#### Key ideas
 
-- The sigmoid $\sigma(z) = 1/(1+e^{-z})$ turns any score into a probability
-- Coefficients live in **log-odds**: each unit of $x_j$ multiplies the odds by $e^{\beta_j}$
-- Fit by maximum likelihood, not least squares
-- The 0.5 threshold is a choice. Moving it trades precision for recall
+- Binary classes become 0/1 numerical outputs
+- A sigmoid $\sigma(z) = 1/(1+e^{-z})$ outputs values in the range $(0,1)$ and you can round to get 0 or 1 exactly
+- You don't have to round at $y=0.5$. Moving the threshold trades precision for recall
 
 #### Notes (draft)
 
 > Linear regression predicts any real number, but a class label needs a value
 > between 0 and 1. Logistic regression keeps the linear score
 > $z = \beta_0 + \beta_1 x_1 + \dots$ and passes it through the sigmoid, so
-> $P(y=1 \mid x) = \sigma(z)$. Squared error on that output gives a bumpy loss,
-> so we fit by maximizing the likelihood of the observed labels instead
-> (equivalently, minimizing log-loss). When you read the classification report,
+> $P(y=1 \mid x) = \sigma(z)$. When you read the classification report,
 > look at recall for the malignant class first.
 
 #### Notebooks & materials
@@ -88,7 +86,7 @@ negative is the costly mistake.
   Drag the split point and watch the confusion matrix change. Can you catch every cancer, and what does it cost?
 - **Homework** [Loan Data: best-model challenge](./loan_data.csv):
   Open-ended. Build the best logistic regression you can on `loan_data.csv` and
-  defend your feature and threshold choices in markdown. Start your own notebook.
+  defend your feature and threshold choices in markdown. Start from your own notebook.
 
 ## k-Nearest Neighbors
 
@@ -98,7 +96,6 @@ the board first, then you write it yourself before using sklearn's version.
 #### Key ideas
 
 - No training step: the model *is* the training data
-- Distance metrics, and why you must scale features first
 - Small $k$ overfits, large $k$ underfits
 - The curse of dimensionality: in high dimensions every point is far from every other
 
@@ -130,7 +127,7 @@ on alternating axes, so a nearest-neighbor search can skip most of the data.
 - Split at the median, alternating $x$, $y$, $x$, ... down the tree
 - Every node owns a rectangle, and the tree and the boxes hold the same information
 - Backtracking: the closest point isn't always in the leaf you land in
-- About $\log_2 n$ levels, so search drops from $O(n)$ to roughly $O(\log n)$
+- About $\log_2 n$ levels, so search drops from $O(n)$ to roughly $O(\log n)$, once the tree is built
 
 #### Notes
 
@@ -155,19 +152,16 @@ gained", then run the lab on census income data.
 - Recursive partitioning: greedy, one feature at a time
 - **Entropy** $H = -\sum p_i \log_2 p_i$ measures how mixed a node is
 - Information gain = parent entropy minus weighted child entropy
-- Deep trees memorize. Limit depth or prune them
+- Deep trees memorize everything. Limit depth or prune them
 
 #### Notes (draft)
 
-> In class we'll split the *WillWait?* restaurant data by hand. Try splitting on
-> **Patrons** and then on **Type**, and compare how pure the children are. A
-> split that leaves every child all-yes or all-no gains the full 1 bit, and a
-> split that leaves every child 50/50 gains nothing. The tree picks the split
-> with the highest gain, then repeats on each child.
+> **[Decision Trees: choosing the best question &rarr;](../../notes/decision-trees.md)**
 
 #### Notebooks & materials
 
-- **In class** WillWait? by hand: Done on the board in groups. No notebook.
+- **In class** [WillWait? by hand (handout)](./decision-tree-handout.pdf)
+  Read a sample tree, then build your own tree that sorts all 12 restaurants.
 - **In class** [Decision Tree Explorer](./widgets/decision-tree-explorer.html):
   Build a WillWait? tree yourself, one question at a time. Can you sort all 12 restaurants with 4 questions?
 - **Homework** [Decision Tree: Income Data](./Decision_Tree_Student.ipynb):

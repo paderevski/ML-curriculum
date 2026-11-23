@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1012 524" font-family="Helvetica, Arial, sans-serif">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5b6876"/></marker></defs>
+<rect width="1012" height="524" fill="#fff"/>
+<line x1="289.0" y1="55" x2="72.0" y2="123" stroke="#5b6876" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="137.8" y="84.8" width="42" height="20" fill="#fff"/>
+<text x="158.8" y="99.8" font-size="14" font-style="italic" text-anchor="middle" fill="#3e4c59">None</text>
+<line x1="289.0" y1="55" x2="196.0" y2="123" stroke="#5b6876" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="212.2" y="84.8" width="42" height="20" fill="#fff"/>
+<text x="233.2" y="99.8" font-size="14" font-style="italic" text-anchor="middle" fill="#3e4c59">Some</text>
+<line x1="289.0" y1="55" x2="506.0" y2="123" stroke="#5b6876" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="398.2" y="84.8" width="42" height="20" fill="#fff"/>
+<text x="419.2" y="99.8" font-size="14" font-style="italic" text-anchor="middle" fill="#3e4c59">Full</text>
+<line x1="506.0" y1="165" x2="320.0" y2="233" stroke="#5b6876" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="381.4" y="194.8" width="26" height="20" fill="#fff"/>
+<text x="394.4" y="209.8" font-size="14" font-style="italic" text-anchor="middle" fill="#3e4c59">No</text>
+<line x1="506.0" y1="165" x2="692.0" y2="233" stroke="#5b6876" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="600.6" y="194.8" width="34" height="20" fill="#fff"/>
+<text x="617.6" y="209.8" font-size="14" font-style="italic" text-anchor="middle" fill="#3e4c59">Yes</text>
+<line x1="692.0" y1="275" x2="444.0" y2="343" stroke="#5b6876" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="514.2" y="304.8" width="58" height="20" fill="#fff"/>
+<text x="543.2" y="319.8" font-size="14" font-style="italic" text-anchor="middle" fill="#3e4c59">French</text>
+<line x1="692.0" y1="275" x2="568.0" y2="343" stroke="#5b6876" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="584.6" y="304.8" width="66" height="20" fill="#fff"/>
+<text x="617.6" y="319.8" font-size="14" font-style="italic" text-anchor="middle" fill="#3e4c59">Italian</text>
+<line x1="692.0" y1="275" x2="754.0" y2="343" stroke="#5b6876" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="708.2" y="304.8" width="42" height="20" fill="#fff"/>
+<text x="729.2" y="319.8" font-size="14" font-style="italic" text-anchor="middle" fill="#3e4c59">Thai</text>
+<line x1="692.0" y1="275" x2="940.0" y2="343" stroke="#5b6876" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="811.8" y="304.8" width="58" height="20" fill="#fff"/>
+<text x="840.8" y="319.8" font-size="14" font-style="italic" text-anchor="middle" fill="#3e4c59">Burger</text>
+<line x1="754.0" y1="385" x2="692.0" y2="453" stroke="#5b6876" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="703.8" y="414.8" width="26" height="20" fill="#fff"/>
+<text x="716.8" y="429.8" font-size="14" font-style="italic" text-anchor="middle" fill="#3e4c59">No</text>
+<line x1="754.0" y1="385" x2="816.0" y2="453" stroke="#5b6876" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="774.2" y="414.8" width="34" height="20" fill="#fff"/>
+<text x="791.2" y="429.8" font-size="14" font-style="italic" text-anchor="middle" fill="#3e4c59">Yes</text>
+<rect x="238.0" y="15" width="102.0" height="40" rx="7" fill="#ffffff" stroke="#5b6876" stroke-width="1.6"/>
+<text x="289.0" y="41" font-size="16" text-anchor="middle" fill="#1f2933">Patrons?</text>
+<rect x="35.0" y="125" width="74.0" height="54" rx="16" fill="#f6e3e1" stroke="#b0574c" stroke-width="1.6"/>
+<text x="72.0" y="148" font-size="16" font-weight="bold" text-anchor="middle" fill="#6b231b">No</text>
+<text x="72.0" y="168" font-size="12.5" text-anchor="middle" fill="#5b6876">X7 X11</text>
+<rect x="139.0" y="125" width="114.0" height="54" rx="16" fill="#e3f1e6" stroke="#4f8a5b" stroke-width="1.6"/>
+<text x="196.0" y="148" font-size="16" font-weight="bold" text-anchor="middle" fill="#1e4d2b">Yes</text>
+<text x="196.0" y="168" font-size="12.5" text-anchor="middle" fill="#5b6876">X1 X3 X6 X8</text>
+<rect x="459.8" y="125" width="92.5" height="40" rx="7" fill="#ffffff" stroke="#5b6876" stroke-width="1.6"/>
+<text x="506.0" y="151" font-size="16" text-anchor="middle" fill="#1f2933">Hungry?</text>
+<rect x="287.0" y="235" width="66.0" height="54" rx="16" fill="#f6e3e1" stroke="#b0574c" stroke-width="1.6"/>
+<text x="320.0" y="258" font-size="16" font-weight="bold" text-anchor="middle" fill="#6b231b">No</text>
+<text x="320.0" y="278" font-size="12.5" text-anchor="middle" fill="#5b6876">X5 X9</text>
+<rect x="655.2" y="235" width="73.5" height="40" rx="7" fill="#ffffff" stroke="#5b6876" stroke-width="1.6"/>
+<text x="692.0" y="261" font-size="16" text-anchor="middle" fill="#1f2933">Type?</text>
+<rect x="395.0" y="345" width="98.0" height="54" rx="16" fill="#f6e3e1" stroke="#b0574c" stroke-width="1.6"/>
+<text x="444.0" y="368" font-size="16" font-weight="bold" text-anchor="middle" fill="#6b231b">No</text>
+<text x="444.0" y="388" font-size="12.5" text-anchor="middle" fill="#5b6876">(no rows)</text>
+<rect x="543.0" y="345" width="50.0" height="54" rx="16" fill="#f6e3e1" stroke="#b0574c" stroke-width="1.6"/>
+<text x="568.0" y="368" font-size="16" font-weight="bold" text-anchor="middle" fill="#6b231b">No</text>
+<text x="568.0" y="388" font-size="12.5" text-anchor="middle" fill="#5b6876">X10</text>
+<rect x="703.0" y="345" width="102.0" height="40" rx="7" fill="#ffffff" stroke="#5b6876" stroke-width="1.6"/>
+<text x="754.0" y="371" font-size="16" text-anchor="middle" fill="#1f2933">Fri/Sat?</text>
+<rect x="669.5" y="455" width="45.0" height="54" rx="16" fill="#f6e3e1" stroke="#b0574c" stroke-width="1.6"/>
+<text x="692.0" y="478" font-size="16" font-weight="bold" text-anchor="middle" fill="#6b231b">No</text>
+<text x="692.0" y="498" font-size="12.5" text-anchor="middle" fill="#5b6876">X2</text>
+<rect x="788.8" y="455" width="54.5" height="54" rx="16" fill="#e3f1e6" stroke="#4f8a5b" stroke-width="1.6"/>
+<text x="816.0" y="478" font-size="16" font-weight="bold" text-anchor="middle" fill="#1e4d2b">Yes</text>
+<text x="816.0" y="498" font-size="12.5" text-anchor="middle" fill="#5b6876">X4</text>
+<rect x="912.8" y="345" width="54.5" height="54" rx="16" fill="#e3f1e6" stroke="#4f8a5b" stroke-width="1.6"/>
+<text x="940.0" y="368" font-size="16" font-weight="bold" text-anchor="middle" fill="#1e4d2b">Yes</text>
+<text x="940.0" y="388" font-size="12.5" text-anchor="middle" fill="#5b6876">X12</text>
+</svg>

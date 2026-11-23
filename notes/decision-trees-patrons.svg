@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 530 194" font-family="Helvetica, Arial, sans-serif">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5b6876"/></marker></defs>
+<rect width="530" height="194" fill="#fff"/>
+<line x1="265.0" y1="69" x2="95.0" y2="123" stroke="#5b6876" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="142.0" y="90.4" width="42" height="20" fill="#fff"/>
+<text x="163.0" y="105.4" font-size="14" font-style="italic" text-anchor="middle" fill="#3e4c59">None</text>
+<line x1="265.0" y1="69" x2="265.0" y2="123" stroke="#5b6876" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="244.0" y="90.4" width="42" height="20" fill="#fff"/>
+<text x="265.0" y="105.4" font-size="14" font-style="italic" text-anchor="middle" fill="#3e4c59">Some</text>
+<line x1="265.0" y1="69" x2="435.0" y2="123" stroke="#5b6876" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="346.0" y="90.4" width="42" height="20" fill="#fff"/>
+<text x="367.0" y="105.4" font-size="14" font-style="italic" text-anchor="middle" fill="#3e4c59">Full</text>
+<rect x="208.0" y="15" width="114.0" height="54" rx="7" fill="#ffffff" stroke="#5b6876" stroke-width="1.6"/>
+<text x="265.0" y="38" font-size="16" text-anchor="middle" fill="#1f2933">Patrons?</text>
+<text x="265.0" y="58" font-size="12.5" text-anchor="middle" fill="#5b6876">6 Yes, 6 No</text>
+<rect x="38.0" y="125" width="114.0" height="54" rx="7" fill="#f1f3f5" stroke="#8a96a3" stroke-width="1.6"/>
+<text x="95.0" y="148" font-size="16" text-anchor="middle" fill="#1f2933">Guess No</text>
+<text x="95.0" y="168" font-size="12.5" text-anchor="middle" fill="#5b6876">0 Yes, 2 No</text>
+<rect x="208.0" y="125" width="114.0" height="54" rx="7" fill="#f1f3f5" stroke="#8a96a3" stroke-width="1.6"/>
+<text x="265.0" y="148" font-size="16" text-anchor="middle" fill="#1f2933">Guess Yes</text>
+<text x="265.0" y="168" font-size="12.5" text-anchor="middle" fill="#5b6876">4 Yes, 0 No</text>
+<rect x="378.0" y="125" width="114.0" height="54" rx="7" fill="#f1f3f5" stroke="#8a96a3" stroke-width="1.6"/>
+<text x="435.0" y="148" font-size="16" text-anchor="middle" fill="#1f2933">Guess No</text>
+<text x="435.0" y="168" font-size="12.5" text-anchor="middle" fill="#5b6876">2 Yes, 4 No</text>
+</svg>
