@@ -4,12 +4,13 @@
 from __future__ import annotations
 
 import argparse
-import json
-import subprocess
 import sys
-import tempfile
 from collections.abc import Sequence
+from functools import cache
 from pathlib import Path
+
+import nbformat
+from nbconvert import HTMLExporter
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 NOTEBOOKS_DIR = REPO_ROOT / "notebooks"
@@ -17,33 +18,38 @@ WIDGET_STATE_MIMETYPE = "application/vnd.jupyter.widget-state+json"
 
 
 def iter_notebooks() -> list[Path]:
+    # Skip hidden folders (.ipynb_checkpoints) and folders starting with "_"
+    # (such as _orphans/): Jekyll doesn't publish those, so their HTML is
+    # never used.
     return sorted(
         path
         for path in NOTEBOOKS_DIR.rglob("*.ipynb")
-        if "/." not in path.relative_to(REPO_ROOT).as_posix()
+        if not any(
+            part.startswith((".", "_"))
+            for part in path.relative_to(NOTEBOOKS_DIR).parts[:-1]
+        )
     )
 
 
-def sanitized_notebook_path(notebook_path: Path) -> Path:
-    notebook = json.loads(notebook_path.read_text(encoding="utf-8"))
-    metadata = notebook.setdefault("metadata", {})
-    widgets = metadata.get("widgets")
+@cache
+def exporter() -> HTMLExporter:
+    # One exporter for every notebook: starting `jupyter nbconvert` once per
+    # notebook cost about a second each just in Python startup.
+    return HTMLExporter(template_name="lab")
 
+
+def read_notebook(notebook_path: Path) -> nbformat.NotebookNode:
+    notebook = nbformat.read(notebook_path, as_version=4)
+
+    # Some notebooks save widget metadata without a "state" key, which makes
+    # nbconvert crash. Add an empty one (in memory only).
+    widgets = notebook.metadata.get("widgets")
     if isinstance(widgets, dict):
         widget_state = widgets.get(WIDGET_STATE_MIMETYPE)
         if isinstance(widget_state, dict) and "state" not in widget_state:
             widget_state["state"] = {}
 
-    temp_file = tempfile.NamedTemporaryFile(
-        mode="w",
-        suffix=".ipynb",
-        delete=False,
-        encoding="utf-8",
-    )
-    with temp_file:
-        json.dump(notebook, temp_file)
-
-    return Path(temp_file.name)
+    return notebook
 
 
 def output_html_path(notebook_path: Path) -> Path:
@@ -61,28 +67,12 @@ def export_notebook(notebook_path: Path, *, force: bool = False) -> bool:
     if not force and not needs_export(notebook_path):
         return False
 
-    sanitized_path = sanitized_notebook_path(notebook_path)
-    print("Converting " + str(sanitized_path) + "....")
-    try:
-        subprocess.run(
-            [
-                "jupyter",
-                "nbconvert",
-                "--to",
-                "html",
-                "--template",
-                "lab",
-                str(sanitized_path),
-                "--output-dir",
-                str(notebook_path.parent),
-                "--output",
-                notebook_path.stem,
-            ],
-            check=True,
-        )
-    finally:
-        sanitized_path.unlink(missing_ok=True)
-    print("Finished")
+    print(f"Converting {notebook_path.relative_to(REPO_ROOT)}")
+    html, _ = exporter().from_notebook_node(
+        read_notebook(notebook_path),
+        resources={"metadata": {"name": notebook_path.stem}},  # page <title>
+    )
+    output_html_path(notebook_path).write_text(html, encoding="utf-8")
     return True
 
 

@@ -6,16 +6,10 @@ gem "jekyll", "~> 4.3"
 # No theme gem: the site ships its own layouts (_layouts/, _includes/theme/,
 # _sass/theme/). The parent aet-cs site still uses minimal-mistakes-jekyll.
 
-# Plugins (matching parent site)
-gem "jekyll-remote-theme"
-gem "jekyll-paginate"
+# Plugins (only the ones the site uses)
 gem "jekyll-sitemap"
-gem "jekyll-gist"
-gem "jekyll-feed"
-gem "jekyll-include-cache"
-gem "jekyll-redirect-from"
-gem "jekyll-relative-links"
-gem "jemoji"
+gem "jekyll-redirect-from"   # index.md redirects /calendar/
+gem "jekyll-relative-links"  # [text](./page.md) links in unit pages
 
 # Server and parser
 gem "webrick", "~> 1.8"
